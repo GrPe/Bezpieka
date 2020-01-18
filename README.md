@@ -37,7 +37,7 @@
 - Jest to zestaw mechanizmów, które razem zapewniają ochronę danych przez nieuprawnionym dostępem
 - Kontrola dostępu uprawnia do zażądzania
     - Jacy użytkownicy maja mieć dostęp do systemu
-    - Jakie zasoby maja być dostępne
+    - Jakie zasoby maja być dostępne`
     - Jakie operację mogą być wykonane
     - Dostarcza indywidualną odpowiedzalność // mam wrażenie że chodzi tutaj o to, że każdy użytkownik jest niezależny i może mieć indywidualny zakres uprawnień
 - Implementacje
@@ -49,7 +49,94 @@
         - _Physical Security_ - zamki, drzwi, ochrona itp.
     - _Technical Controls_ - Kontrola dostępu, Identyfikacja i uwierzytelnienie, poufność, integralność, dostępnośc i niepodważalność
 
-## 2. Zagrożenia na protokoły sieciowe warstwy 2 i 3 modelu OSI
+## 2. Zagrożenia na protokoły sieciowe warstwy 2 i 3 modelu OSI 🏮
+
+### Data link layer protocols
+
+- MAC (LAN & WAN)
+- LLC (LAN)
+- Ethernet (CSMA/CD)
+- Token Ring (Token Passing)
+- IEEE 802.11 a/b/g (CSMA/CA)
+- WAN Data Link Layer
+    - X.25
+    - Frame Relay
+    - SMDS (Switched Multi-gigabit Data Services)
+    - ISDN (Integrated Services Digital Network)
+    - HDLC (High-level Data Link Control)
+    - ATM (Asynchronous Transfer Mode)
+- SLIP (Serial Line Internet Protocol)
+    - Kapsułkuje pakiet IP w jedną Serial line (linie szeregową ???)
+    - Działa z różnymi protokołami (Token Ring, WAN)
+    - Ale może działać tylko z jednym na raz
+    - Nie sprawdza błędów transmisji danych
+    - Nie zapewnia bezpieczeństwa
+- PPP (Point-to-Point Protocol)
+    - Mechanizm kapsułkujący do transportu wielo-protokołowych pakietów
+    - Zastąpił SLIP bo może pracować z wieloma protokołami na raz i daje możliwośc uwierzytelnienia
+    - Security:
+        - PAP (Password Authentication Protocol)
+            - Plain Text
+        - CHAP (Challenge Handshake Authentication Protocol)
+            - Chroni przez playback/replay atack używając 3-way handshake
+        - EAP (Extensible Authentication Protocol)
+            - Wspiera wiele mechanizmów uwierzytelnienia
+            - MD5-Challange
+            - One-Time Password
+            - Generic Token Card
+- WEP (Wired Equivalent Privacy)
+    - Używa klucza symetrycznego o długości 40 bitów (jest opcja 104-bit, ale to nie standard) z 24 bitowym IV (Initialization Vector)
+    - Używa tego samego statycznego klucza do wszytkich połączeń
+    - Podatne na:
+        - Haker może przechwycić wystarczającą ilość pakietów z takim samym IV i odkryć klucz symetryczny
+        - Jeden statyczny, symetryczny klucz i rozmiarze 40 bitów
+    - Lepsza wersja to WPA
+        - Nie używa tego samego klucza do szyfrowania wszystkich połączeń
+    - Jeszcze lepsa wersja WPA2
+        - Używa IEEE 802.1X (np. EAP) do uwierzytelnienia
+        - Używa 4-way handshake do zarządania kluczami
+        - Używa AES-based CCMP (Counter-mode Cipher-block-chaining Message authentication code Protocol)
+- EAP (Extensible Authertication Protocol)
+- IEEE 802.1X
+- ARP
+    - Mapuje adresy IP na adresy MAC
+    - Podatne na:
+        - Man in the Middle
+            - Przechwytywanie ruchu między dwoma urządzeniami w sieci
+        - MAC Flooding Attack
+            - Atak na switche
+            - Zalewa switcha falą błędnych odpowiedzi ARP
+            - Biedny switch przechodzi w tedy w tryb "hub", który umożliwia sniffowanie pakietów atakującemu
+    - Można zapobiegać poprzez
+        - Statyczne tablice ARP (nie skaluje się)
+        - Uruchomienie sticky MAC address. Zapisuje wszystkie aktualnie posiadane adresy MAC, żeby móc je załadować po reboocie.
+
+### IP Network Layer
+
+- Logical Addressing: IP
+- Controls: ICMP, ARP, RARP
+- Routing
+    - static
+        - Najbezpieczniejszy
+        - Skalowanie to porażka
+    - dynamic
+        - Skalowalny, ale wymaga utworzenia polityk bezpieczeństwa
+        - Automatyczne się aktualizuje
+- Routing  Protocols:
+    - IGP's (Interior Gateway Protocols)
+        - RIP - Routing Information Protocol
+        - IGRP - Interior Gateway Routing Protocol
+        - EIGRP - Enhanced IGRP
+        - OSPF - Open Shortest Path First
+        - IS-IS - Intermediate System to Intermediate System
+    - EGP's (Interior Gateway Protocols)
+        - EGP - Exterior Gateway Protocol - nie jest już używany
+        - BGP - Border Gateway Protocol - standard routingu w Internecie
+- NAT - metoda na podłączenie wielu komputerów do Internetu używając jednego adresu IP
+    - Przyczyny użycia
+        - Niedobór adresów IP
+        - Bezpieczeństwo
+        - Łatwość z zarządzaniu i administacją sieci
 
 ## 3. Zagrożenia na protokoły sieciowe warstwy 4 i 7 modelu OSI
 
