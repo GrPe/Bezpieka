@@ -68,7 +68,7 @@
 - Aktywne przechwytywanie i przekazywanie pakietów
 - Kontrola dostępu i egzekwowanie polityki
 - Zazwyczaj jest to urządzenie sieciowe
-- Powstaje po połączenoi IDS-a z firewallem 
+- Powstaje po połączenoi IDS-a z firewallem
 
 ### IDS - Intrusion Detection Systems
 
@@ -112,6 +112,7 @@
 - zmiana zachowania środowiskowego - zmiana konfiguracji firewall-a, routera. System stara się wyłączyć aktywność zarejestrowaną jako szkodliwa. Może np. zerwać połączenie z agresorem, zignorować ruch na określonych portach albo całkiem wyłączyć określone interfejsy sieciowe.
 
 [Trochę więcej info co gdzie siedzi YT](https://www.youtube.com/watch?time_continue=2&v=O2Gz-v8WswQ&feature=emb_logo)
+- Można zapiąć H-IDS na krytycznych elementach sieci a na reszcie N-IDS
 
 ## 8. VPN – charakterystyka, typy, protokoły
 
