@@ -61,6 +61,58 @@
 
 ## 7. Systemy IDS i IPS: charakterystyka, metody detekcji, architektura. Honeypot
 
+### IPS - Intrusion Preventing System
+
+- Pełna kontrola pakietów
+- umożliwia blokowanie ataków w czasie rzeczywistym
+- Aktywne przechwytywanie i przekazywanie pakietów
+- Kontrola dostępu i egzekwowanie polityki
+- Zazwyczaj jest to urządzenie sieciowe
+- Powstaje po połączenoi IDS-a z firewallem 
+
+### IDS - Intrusion Detection Systems
+
+- Urządzenia/oprogramowanie do pasywnego monitoringu ruchu sieciowego w czasie rzeczywistym
+- Network-based (N-IDS)
+    - Pasywny monitoring i audyt przysyłanych pakietów
+    - Analizują ruch w całej sieci
+    - Potrafi wykrywać ataki z zewnątrz
+    - Bazują na dopasowywaniu wzorców/sygnatur
+        - Pattern/Signature Matching Method
+            - Skanowanie pakietów w poszukiwaniu konkretnych sekwencji bitów
+            - Identyfikacja znanych ataków
+            - Wymaga regularnych aktualizacji sygnatur
+        - Stateful Matching Method (śledzi pakiety w dłuższym okresie)
+            - Skanuje cały strumień danych zamiast pojedynczych pakietów
+            - Identyfikacja znanych ataków
+            - Detekcja sygnatur w wielu pakietach
+            - Wymaga regularnych aktualizacji sygnatur
+        - Dekodowanie protokołów warstw wyższych
+            - np. HTTP, FTP
+            - pozwala na wstępną detekcję ataków pochodzących z tych warstw
+    - Bazująca na anomaliach (Statistical/Anomaly-based)
+        - Zdefiniowanie jak wygląda standardowy ruch sieciowy (wymaga bardzo dobrego zrozumienia jak wygląda standartowy ruch w sieci)
+        - Możliwość wykrycia nieznanych wcześniej ataków i DoS
+    - Protocol anomaly-based
+        - szuka odchyleń o norm RFC
+        - Możliwość wykrycia nieznanych wcześniej ataków
+        - Może nie obsługiwać złożonych protokołów (SOAP, XML)
+- Host-based (H-IDS)
+    - Ograniczony do jednego hosta w sieci (np. serwera SQL, serwera aplikacji)
+    - Analiza event logów, krytycznych plików systemowych i innych lógów
+    - Sprawdzanie sygnatur plików (MD5, SHA-1) w celu wykrycia nieuprawnionych zmian
+- Network Node IDS (NNIDS)
+    - hybryda H-IDS i N-IDS
+    - ochrona pojedynczego hosta połączona z analizą ruchu sieciowego skierowanego do tego konkretnego węzła sieci
+
+### Sposoby reakcji systemu IDS
+
+- wysłanie powiadomień
+- zebranie dodatkowych informacji - po wykryciu próbu ataku system zbiera dodatkowe informację porzez aktywację dodatkowych reguł
+- zmiana zachowania środowiskowego - zmiana konfiguracji firewall-a, routera. System stara się wyłączyć aktywność zarejestrowaną jako szkodliwa. Może np. zerwać połączenie z agresorem, zignorować ruch na określonych portach albo całkiem wyłączyć określone interfejsy sieciowe.
+
+[Trochę więcej info co gdzie siedzi YT](https://www.youtube.com/watch?time_continue=2&v=O2Gz-v8WswQ&feature=emb_logo)
+
 ## 8. VPN – charakterystyka, typy, protokoły
 
 ## 9. Bezpieczeństwo sieci bezprzewodowych
