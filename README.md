@@ -144,6 +144,27 @@
 
 ## 5. Rodzaje zapór ogniowych: Static Packet-filtering firewall, Stateful inspection firewall, Proxy firewall
 
+- Static Packet-filtering firewall
+    - Działa na warstwie 3 (Network Layer)
+    - Router ACL's - listy dostępu
+    - Nie sprawdza warstw 4-7 przez co nie może chronić przed atakami na konkretne aplikacje
+    - Polityka Firewall-a
+        - Domyślnie blokuje, przepuszczas w drodze wyjątku
+
+- Stateful inspection firewall (Dynamic)
+    - Layer 3-4
+    - Sprawdza stan i kontekst ruchu sieciowego
+    - Jest szybszy niż proxy, bo sprawdza tylko protokół TCP/IP, nie sprawdza danych
+    - Nie przepisuje wszystkich pakietów
+
+- Proxy firewall (Application-level gateway firewall)
+    - Sprawdza pakiety na poziomie warstwy aplikacji
+    - Analizuje polecenia aplikacji w środku pakietu
+    - Nie zezwala na żadne bezpośrednie połączenie
+    - Kopiuje pakiety z jednej sieci do drugiej (zmienia source i destination)
+    - Niegatywnie pływa na wydajność sieci
+    - Wspiera uwierzytelnienie na poziomie użytkownika
+
 ## 6. Architektura zapór ogniowych: I, II, III Tier
 
 ## 7. Systemy IDS i IPS: charakterystyka, metody detekcji, architektura. Honeypot
