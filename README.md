@@ -292,11 +292,44 @@ VPN - wirtualna sieć prywatna. Tworzy tunel między dwoma klientami, przez któ
 - IPsec (Internet Protocol Security)
 - SSH (Secure Shell)
 
+### IPsec
 
+Jest zestawem protokołów
+
+Na warstwie Transportowej:
+
+- AH (IP Authentication Header) - zapewnia uwierzytelnienie i integralność pakietów IP
+- ESP (Encapsulating Security Payload) - zapewnia poufność danych poprzez szyfrowanie i opcjonalne uwierzytelnienie
+
+Na warstwie Aplikacji:
+
+- IKE (Internet Key Exchange) - Jego celem jest uwierzytelnienie obu stron komunikacji wobec siebie (za pomocą hasła, podpisu RSA, certyfikatu X.509). Następnie nawiązuje bezpieczny kanał nazywany ISAKMP SA (Security Assocation). Następnie uzgadnia klucze kryptograficzne oraz parametry IPsec. Ewentualnie może je renegocjować do jakiś czas.
+
+Tryby pracy:
+
+- Transport Mode:
+    - nagłówki IP nie są szyfrowane
+    - nagłówek IPsec jest wstawiany zaraz za nagłówkiem IP i szyfruje resztę pakietu
+    - Atakujący nie wie o czym się rozmawia, ale wie kto z kim rozmawia
+    - Tylko dla komunikacji host-to-host
+- Tunnel Mode:
+    - Szyfrowane jest wszystko (razem z nagłówkiem IP)
+    - Dla wszystkich typów komunikacji
+    - Całość jest enkapsulowana w pakiet ESP, na początek dokładany jest nagłowek IPn
+
+### SSH
+
+Działa pomiędzy warstwą aplikacji (HTTP, SMTP, NNTP) a warstwą transportową (TCP). Zwykle używany do zdalnego logowania z komputerem i wykonywanie poleceń. Obsługuje także tunelowanie, przekazywanie portów TCP i X11
+
+- Wspiera negocjację między klientem a serwerem w celu ustalenia algorytmu kryptograficznego
+    - Algorytmy z kluczem publicznym: RSA, Diffie-Hellman, DSA, Fortezza
+    - Symetryczne: RC2, IDEA, DES, 3DES, AES
+    - Funkcje haszujące: MD5, SHA
 
 ## 9. Bezpieczeństwo sieci bezprzewodowych
 
 ## 10. Protokół SSL/TLS – charakterystyka, handshake
+
 
 ## 11. Siła szyfrowania – zasady, elementy składowe
 
@@ -343,6 +376,7 @@ VPN - wirtualna sieć prywatna. Tworzy tunel między dwoma klientami, przez któ
 ## 31. Koncepcja kontroli dostępu oparta o schemat AAA. Radius
 
 //Lecture0_access_control -> od 38 do 44 i od 64
+//Lecture02_telecom_network -> od 79
 
 ## 32. Jakościowe oraz ilościowe metody analizy ryzyka
 
