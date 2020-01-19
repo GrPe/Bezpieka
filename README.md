@@ -167,6 +167,27 @@
 
 ## 6. Architektura zapór ogniowych: I, II, III Tier
 
+### Single tier
+
+- Sieci prywatne na firewallem
+- przydatne tylko dla generycznych ataków
+- minimalny poziom ochrony
+
+### Two tier I
+
+- Firewall z trzema lub więcej interfejsami
+
+### Two tier II
+
+- Dwa połączone firewall-e
+- DMZ (demilitarized zone) - system musi być dostępny zarówno z sieci prywatnej jak i Internetu
+
+### Three tier
+
+- Wiele podsieci pomiędzy siecią prywatną a Internetem, rozdzielone firewall-ami
+
+![Firewall's tiers](img/firewall_tiers.png)
+
 ## 7. Systemy IDS i IPS: charakterystyka, metody detekcji, architektura. Honeypot
 
 ### IPS - Intrusion Preventing System
