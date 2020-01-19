@@ -138,13 +138,75 @@
         - Bezpieczeństwo
         - Łatwość z zarządzaniu i administacją sieci
 
-## 3. Zagrożenia na protokoły sieciowe warstwy 4 i 7 modelu OSI
+## 3. Zagrożenia na protokoły sieciowe warstwy 4 i 7 modelu OSI 🏮
+
+- S-HTTP - eksperymentalny protokół stworzony do stosowania z HTTP
+- HTTPS - to HTTP przez SSL
+    - SSL działa na warstwie 4 (Transportowej)
+    - Wiadomości HTTP są opakowywane przez SSL
+- DNS (Domain Name System)
+    - Tłumaczy nazwy domen na adresy IP
+    - DNS server - dostarcza nazwy domen do zamiany na adresy IP
+    - DNS resolver - Próbuje przetłumaczyć domenę na IP. Jeśli nie jest w stanie przesyła prośbę do następnego serwera DNS
+    - __Możliwe ataki__
+        - HOSTS poisoning (static DNS) - atakujący jest wstanie umieścić fałszywe informację w pliku HOSTS (siedzi w nim adresów IP z ich nazwami domenowymi)
+        - Caching DNS server attacks - umieszczenie fałszywych informacji w cache-u DNS-a, za pośrednictwem innego DNS. Dzięki temu atakujący może zwrócić fałszywy adres IP dla strony.
+        - DNS lookup address changing - zmiana adresu IP serwera DNS użytkownika na wybrany przez atakującego
+        - DNS query spoofing - Atakujący przechwytuje zapytanie do serwera DNS i podstawia adres własnego serwera
+        - ![Spoofing](img/dnsspoof.png)
+    - __Zabezpieczenia__
+        - Instalacja HIDS i NIDS - możliwość wykrycia ataku
+        - Ustawienie wielu serwerów DNS
+        - Aktualizowanie systemu
+        - Regularne przeglądanie logów DNS i DHCP
 
 ## 4. Sieci VLAN, charakterystyka, zasady działania
 
 ## 5. Rodzaje zapór ogniowych: Static Packet-filtering firewall, Stateful inspection firewall, Proxy firewall
 
+- Static Packet-filtering firewall
+    - Działa na warstwie 3 (Network Layer)
+    - Router ACL's - listy dostępu
+    - Nie sprawdza warstw 4-7 przez co nie może chronić przed atakami na konkretne aplikacje
+    - Polityka Firewall-a
+        - Domyślnie blokuje, przepuszczas w drodze wyjątku
+
+- Stateful inspection firewall (Dynamic)
+    - Layer 3-4
+    - Sprawdza stan i kontekst ruchu sieciowego
+    - Jest szybszy niż proxy, bo sprawdza tylko protokół TCP/IP, nie sprawdza danych
+    - Nie przepisuje wszystkich pakietów
+
+- Proxy firewall (Application-level gateway firewall)
+    - Sprawdza pakiety na poziomie warstwy aplikacji
+    - Analizuje polecenia aplikacji w środku pakietu
+    - Nie zezwala na żadne bezpośrednie połączenie
+    - Kopiuje pakiety z jednej sieci do drugiej (zmienia source i destination)
+    - Niegatywnie pływa na wydajność sieci
+    - Wspiera uwierzytelnienie na poziomie użytkownika
+
 ## 6. Architektura zapór ogniowych: I, II, III Tier
+
+### Single tier
+
+- Sieci prywatne na firewallem
+- przydatne tylko dla generycznych ataków
+- minimalny poziom ochrony
+
+### Two tier I
+
+- Firewall z trzema lub więcej interfejsami
+
+### Two tier II
+
+- Dwa połączone firewall-e
+- DMZ (demilitarized zone) - system musi być dostępny zarówno z sieci prywatnej jak i Internetu
+
+### Three tier
+
+- Wiele podsieci pomiędzy siecią prywatną a Internetem, rozdzielone firewall-ami
+
+![Firewall's tiers](img/firewall_tiers.png)
 
 ## 7. Systemy IDS i IPS: charakterystyka, metody detekcji, architektura. Honeypot
 
@@ -201,11 +263,73 @@
 [Trochę więcej info co gdzie siedzi YT](https://www.youtube.com/watch?time_continue=2&v=O2Gz-v8WswQ&feature=emb_logo)
 - Można zapiąć H-IDS na krytycznych elementach sieci a na reszcie N-IDS
 
+### Honeypots
+
+- _Honeypots_ to indywidualne komputery stworzone jako pułapka na atakującego
+- _Honeynet_ to przynajmniej dwa połączone ze sobą honeypoty
+- Wyglądają i zachowują się jak normalne komputery w sieci, ale nie zawierają żadnych wartościowych danych
+- Administrator celowo konfiguruje honeypoty z dziurami bezpieczeństwa, żeby skłonić atakującego do ataku na nie
+- Ma to na celu odciągnięcie atakującego od prawdziwego systemu, do czasu aż administrator nie zidentyfikuje intruza
+
 ## 8. VPN – charakterystyka, typy, protokoły
+
+VPN - wirtualna sieć prywatna. Tworzy tunel między dwoma klientami, przez który przesyłane są pakiety. Tunel jest przezroczysty dla przesyłanych przez niego pakietów. Dane mogą być dodatkowo zaszyfrowane lub/i skompresowane.
+
+### Typy VPN
+
+- LAN-to-LAN (Sieć do sieci)
+- Host-to-LAN (Pojedyncze urządzenie to sieci)
+- Host-to-Host
+
+![vpn](img/vpn.png)
+
+### Przykłady
+
+- PPTP (Point-to-Point Tunneling Protocol)
+- L2TP (Layer 2 Tunneling Protocol)
+- MPLS (Multi-Protocol Label Switching)
+- GRE (Generic Routing Encapsulation)
+- IPsec (Internet Protocol Security)
+- SSH (Secure Shell)
+
+### IPsec
+
+Jest zestawem protokołów
+
+Na warstwie Transportowej:
+
+- AH (IP Authentication Header) - zapewnia uwierzytelnienie i integralność pakietów IP
+- ESP (Encapsulating Security Payload) - zapewnia poufność danych poprzez szyfrowanie i opcjonalne uwierzytelnienie
+
+Na warstwie Aplikacji:
+
+- IKE (Internet Key Exchange) - Jego celem jest uwierzytelnienie obu stron komunikacji wobec siebie (za pomocą hasła, podpisu RSA, certyfikatu X.509). Następnie nawiązuje bezpieczny kanał nazywany ISAKMP SA (Security Assocation). Następnie uzgadnia klucze kryptograficzne oraz parametry IPsec. Ewentualnie może je renegocjować do jakiś czas.
+
+Tryby pracy:
+
+- Transport Mode:
+    - nagłówki IP nie są szyfrowane
+    - nagłówek IPsec jest wstawiany zaraz za nagłówkiem IP i szyfruje resztę pakietu
+    - Atakujący nie wie o czym się rozmawia, ale wie kto z kim rozmawia
+    - Tylko dla komunikacji host-to-host
+- Tunnel Mode:
+    - Szyfrowane jest wszystko (razem z nagłówkiem IP)
+    - Dla wszystkich typów komunikacji
+    - Całość jest enkapsulowana w pakiet ESP, na początek dokładany jest nagłowek IPn
+
+### SSH
+
+Działa pomiędzy warstwą aplikacji (HTTP, SMTP, NNTP) a warstwą transportową (TCP). Zwykle używany do zdalnego logowania z komputerem i wykonywanie poleceń. Obsługuje także tunelowanie, przekazywanie portów TCP i X11
+
+- Wspiera negocjację między klientem a serwerem w celu ustalenia algorytmu kryptograficznego
+    - Algorytmy z kluczem publicznym: RSA, Diffie-Hellman, DSA, Fortezza
+    - Symetryczne: RC2, IDEA, DES, 3DES, AES
+    - Funkcje haszujące: MD5, SHA
 
 ## 9. Bezpieczeństwo sieci bezprzewodowych
 
 ## 10. Protokół SSL/TLS – charakterystyka, handshake
+
 
 ## 11. Siła szyfrowania – zasady, elementy składowe
 
@@ -252,6 +376,7 @@
 ## 31. Koncepcja kontroli dostępu oparta o schemat AAA. Radius
 
 //Lecture0_access_control -> od 38 do 44 i od 64
+//Lecture02_telecom_network -> od 79
 
 ## 32. Jakościowe oraz ilościowe metody analizy ryzyka
 
