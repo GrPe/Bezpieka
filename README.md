@@ -138,7 +138,27 @@
         - Bezpieczeństwo
         - Łatwość z zarządzaniu i administacją sieci
 
-## 3. Zagrożenia na protokoły sieciowe warstwy 4 i 7 modelu OSI
+## 3. Zagrożenia na protokoły sieciowe warstwy 4 i 7 modelu OSI 🏮
+
+- S-HTTP - eksperymentalny protokół stworzony do stosowania z HTTP
+- HTTPS - to HTTP przez SSL
+    - SSL działa na warstwie 4 (Transportowej)
+    - Wiadomości HTTP są opakowywane przez SSL
+- DNS (Domain Name System)
+    - Tłumaczy nazwy domen na adresy IP
+    - DNS server - dostarcza nazwy domen do zamiany na adresy IP
+    - DNS resolver - Próbuje przetłumaczyć domenę na IP. Jeśli nie jest w stanie przesyła prośbę do następnego serwera DNS
+    - __Możliwe ataki__
+        - HOSTS poisoning (static DNS) - atakujący jest wstanie umieścić fałszywe informację w pliku HOSTS (siedzi w nim adresów IP z ich nazwami domenowymi)
+        - Caching DNS server attacks - umieszczenie fałszywych informacji w cache-u DNS-a, za pośrednictwem innego DNS. Dzięki temu atakujący może zwrócić fałszywy adres IP dla strony.
+        - DNS lookup address changing - zmiana adresu IP serwera DNS użytkownika na wybrany przez atakującego
+        - DNS query spoofing - Atakujący przechwytuje zapytanie do serwera DNS i podstawia adres własnego serwera
+        - ![Spoofing](img/dnsspoof.png)
+    - __Zabezpieczenia__
+        - Instalacja HIDS i NIDS - możliwość wykrycia ataku
+        - Ustawienie wielu serwerów DNS
+        - Aktualizowanie systemu
+        - Regularne przeglądanie logów DNS i DHCP
 
 ## 4. Sieci VLAN, charakterystyka, zasady działania
 
@@ -243,7 +263,36 @@
 [Trochę więcej info co gdzie siedzi YT](https://www.youtube.com/watch?time_continue=2&v=O2Gz-v8WswQ&feature=emb_logo)
 - Można zapiąć H-IDS na krytycznych elementach sieci a na reszcie N-IDS
 
+### Honeypots
+
+- _Honeypots_ to indywidualne komputery stworzone jako pułapka na atakującego
+- _Honeynet_ to przynajmniej dwa połączone ze sobą honeypoty
+- Wyglądają i zachowują się jak normalne komputery w sieci, ale nie zawierają żadnych wartościowych danych
+- Administrator celowo konfiguruje honeypoty z dziurami bezpieczeństwa, żeby skłonić atakującego do ataku na nie
+- Ma to na celu odciągnięcie atakującego od prawdziwego systemu, do czasu aż administrator nie zidentyfikuje intruza
+
 ## 8. VPN – charakterystyka, typy, protokoły
+
+VPN - wirtualna sieć prywatna. Tworzy tunel między dwoma klientami, przez który przesyłane są pakiety. Tunel jest przezroczysty dla przesyłanych przez niego pakietów. Dane mogą być dodatkowo zaszyfrowane lub/i skompresowane.
+
+### Typy VPN
+
+- LAN-to-LAN (Sieć do sieci)
+- Host-to-LAN (Pojedyncze urządzenie to sieci)
+- Host-to-Host
+
+![vpn](img/vpn.png)
+
+### Przykłady
+
+- PPTP (Point-to-Point Tunneling Protocol)
+- L2TP (Layer 2 Tunneling Protocol)
+- MPLS (Multi-Protocol Label Switching)
+- GRE (Generic Routing Encapsulation)
+- IPsec (Internet Protocol Security)
+- SSH (Secure Shell)
+
+
 
 ## 9. Bezpieczeństwo sieci bezprzewodowych
 
