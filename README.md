@@ -326,10 +326,39 @@ Działa pomiędzy warstwą aplikacji (HTTP, SMTP, NNTP) a warstwą transportową
     - Symetryczne: RC2, IDEA, DES, 3DES, AES
     - Funkcje haszujące: MD5, SHA
 
+SSH zapobiega:
+
+- przechwycenia danych przez atakującego
+- manipulacji danych
+- IP & DNS spoofing
+
 ## 9. Bezpieczeństwo sieci bezprzewodowych
 
 ## 10. Protokół SSL/TLS – charakterystyka, handshake
 
+### SSL - Secure Sockets Layer & TLS - Trasport Layer Security
+
+Protokół stworzony w celu zapewnienia prywatności i bezpieczeństwa danych w komunikacji internetowej. Podstawowym zastosowaniem jest szyfrowanie połączenia między aplikacją a serwerem. Może być także użyty do szyfrowania innych form komunikacji (email, VoIP).
+
+TLS 1.0 jest takim SSL 3.1
+
+TLS zapewnia integralność, uwierzytelnienie oraz szyfrowanie (poufność)
+
+- Działa pomiędzy warstwą aplikacji (HTTP, SMTP, NNTP) a warstwą Transportową (TCP)
+- Wspiera negocjację client-serwer i algorytmy kryptograficzne (RSA, Diffie-Hellman, DSA, RC2, AES, SHA)
+- Działa w dwóch trybach - Application embedded (HTTPS) i SSL Tunel albo SSL VPN (OpenVPN)
+
+#### SSL/TLS Handshake
+
+Handshake zachodzi zawsze, kiedy użytkownik wchodzi na stronę internetową przez HTTPS. Zachodzi także dla każdej innej formy komunikacji wykorzystującej HTTPS (API, DNS)
+
+- TLS wykorzystuje szyfrowanie asymetryczne (klucz prywatny i publiczny) w celu przesłania shared_key. Po wymianie klucza reszta komunikacji bazuje na kryptografi symetrycznej. Symetryczna bo jest sporo szybsza niż asynchroniczna
+
+[link YT](https://www.youtube.com/watch?v=cuR05y_2Gxc)
+[link](https://www.ssl.com/article/ssl-tls-handshake-overview/)
+
+![img](img/tls1.png)
+![img](img/tls2.png)
 
 ## 11. Siła szyfrowania – zasady, elementy składowe
 
