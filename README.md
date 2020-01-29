@@ -354,8 +354,8 @@ Handshake zachodzi zawsze, kiedy użytkownik wchodzi na stronę internetową prz
 
 - TLS wykorzystuje szyfrowanie asymetryczne (klucz prywatny i publiczny) w celu przesłania shared_key. Po wymianie klucza reszta komunikacji bazuje na kryptografi symetrycznej. Symetryczna bo jest sporo szybsza niż asynchroniczna
 
-[link YT](https://www.youtube.com/watch?v=cuR05y_2Gxc)
-[link](https://www.ssl.com/article/ssl-tls-handshake-overview/)
+- [link YT](https://www.youtube.com/watch?v=cuR05y_2Gxc)
+- [link](https://www.ssl.com/article/ssl-tls-handshake-overview/)
 
 ![img](img/tls1.png)
 ![img](img/tls2.png)
