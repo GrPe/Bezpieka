@@ -362,6 +362,42 @@ Handshake zachodzi zawsze, kiedy użytkownik wchodzi na stronę internetową prz
 
 ## 11. Siła szyfrowania – zasady, elementy składowe
 
+### Zasady
+
+#### Confidentiality
+
+- poufność danych
+- osoba nieautoryzowana nie ma do nich dostępu
+- Zapewnione przez szyfrowanie 
+
+#### Integrity
+
+- integralność
+- pewność, że wiadomość/dane nie zostały zmodyfikowane
+- Zapewnione przez hashowanie, uwierzytelnienie użytkownika
+
+#### Authentication (Uwierzytelnienie) nie jest cześcią Triady bezpieczeństwa!!!
+
+### Kryptografia
+
+- Kryptografia - nauka o przeształcaniu danych, w nieodczytalny, bez znajomości odpowiedniego klucza, szyfr
+- Kryptologia - nauka o kryptografii i kryptoanalizie
+- Cryptosystem - hardware albo soft implementujący kryptografię
+- Algorytm - prezycyjna zasada (albo ich zestaw), mówiący jak rozwiązać dany problem / zadanie
+- Szyfr - operacja kryptograficzna operująca na znakach lub bitach
+- Plaintext - tekst jawny
+- Ciphertext - zakodowany tekst
+- Encrypt/Encode - czynność szyfrowania za pomocą klucza
+- Decrypt/Decode - czynność deszyfrowania za pomocą klucza
+- Kryptoanaliza - praktyka niszczenia/łamania systemów kryptograficznych
+- Work Factor - koszt/czas niezbędny do złamania systemu
+- Klucz - tajna sekwencja znaków używana do szyfrowania/deszyfrowania danych
+- Key clustering - przypadek w którym różne klucze generują ten sam tekst zaszyfrowany z tego samego tekstu jawnego
+- Keyspace - zakres wszystkich możliwych wartości (znaków) używanych do tworzenia klucza
+- Initialization Vector (IV) - blok bitów używany jako wartość inicjalizująca algorytm kryptograficzny (zwiększa bezpieczeństwo poprzez dodanie dodatkowej zmiennej)
+- Algorytm kryptograficzny - zestaw matematycznych funkcji przyjmujący tekst jawny i klucz i zwracający tekst zaszyfrowany
+- Operacja kryptograficzna - szyfrowanie/deszyfrowanie
+
 ## 12. Szyfry klasyczne: Podstawieniowe, Permutacyjne, Polialfabetyczne
 
 ## 13. Funkcje haszujące: cechy podstawowe, zastosowanie
