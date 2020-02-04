@@ -351,24 +351,58 @@ Działa pomiędzy warstwą aplikacji (HTTP, SMTP, NNTP) a warstwą transportową
 
 ## 20. Algorytm RSA: charakterystyka, zasada działania
 
+### Algorytm Rivesta-Shamira-Adlemana (RSA)
+Algorytm, który z powodzeniem można używać do szyfrowania oraz podpisów cyfrowych. Bezpieczeństwo szyfrowania opiera się na trudności faktoryzacji dużych liczb złożonych. 
+
+#### Kroki algorytmu:
+
+##### 1. Wybieramy dwie liczby pierwsze – p i q
+
+##### 2. Obliczamy n = p*q
+
+##### 3. Wybieramy liczbę e taką, że nwd (φ(n), e) = 1 i 1 < e < φ(n) φ(n) = (p − 1)(q − 1) – funkcja Eulera
+
+##### 4.  Obliczamy odwrotność wybranej liczby e – czyli d d ∗ e ≡ 1 mod φ(n) ; k ∗ φ(n) + 1 = d ∗ e gdzie: k – l.całkowita
+
+- Klucz publiczny: __n__ i __e__ 
+- Klucz prywatny: __n__ i __d__ 
+- Szyfrowanie: C = M^e (mod n) M – wiadomość; M < n
+- Odszyfrowanie: M = C^d (mod n)
+
+
+- Kryptoanaliza algorytmu RSA:
+	- Metoda brutalna - wypróbować wszystkie klucze publiczne
+	- Rozłożyć n na dwa czynniki pierwsze, czyli liczbę n na iloczyn dwóch liczb. To umożliwia obliczenie φ(n)=(p-1)(q-1) a to umożliwia obliczenie d z e*d = k *φ(n) + 1 (tekst jawny jest szyfrowany blokami, z których każdy ma wartość binarną mniejszą od pewnej liczby n)
+	- Określić φ(n) bezpośrednio
+	- Określić d bezpośrednio
+
 ## 21. Wymiana klucza Diffiego-Hellmana (DH): charakterystyka, protokół
+
+
 
 ## 22. Koncepcja krzywych eliptycznych (ECC)
 
 Krzywa eliptyczna w metematyce jest zbiorem punktów spełniających wzór:
+
 ![Wzór krzywej eliptycznej](img/elliptic_eq.png)
+
 To jest twierdzenie, a nie definicja i wymaga pewnych dopowiedzeń. Wartości x, y, a i b pochodzą z jakiegoś pola, które to pole jest ważną częścią definicji krzywej eliptycznej. Jeśli tym polem są liczby rzeczywiste, wówczas wszystkie krzywe eliptyczne mają powyższą postać i znane są jako postać Weierstrassa. W przypadku pól o charakterystyce R2 lub R3 forma Weierstrassa nie jest wystarczająco ogólna. Dlatego a i b muszą dodatkowy warunek:
+
 ![Warunek stałych a,b](img/elliptic_ab.png)
+
 Punkt O, tzw. punkt nieskończoności jest punktem bazowym grupy krzywych eliptycznych - np. Bitcoin uzywa secp256k1 (y^2 = x^3 + 7) jako punkt bazowy. Punkt O określa rodzaj krzywej eliptycznej.
+
 ![Krzywe eliptyczne](img/elliptic_graph.png)
 
 ECC - kryptografia krzywych eliptycznych - używa systemu algebraicznego zdefiniowanej w punktach krzywej eliptycznej w celu zapewnienia krytografii asymetrycznej, czyli key agreement, digital signatures, pseudo-random generators itp. Może również pośrednio służyć do szyfrowania. 
-	- ECC opiera się na matematycznym problemie czynników, które są parami współrzędnych opadającymi na krzywej eliptycznej.
-	- Zalety ECC:
-		- Najwyższa siła wśród obecnych pub-key kryptosystemach
-		- Szybkość szyfrowania i podpisu
-		- Małe podpisy i certyfikaty (idealne do inteligentnych kart)
-![Więcej info o tym ... i jak to działa](https://www.youtube.com/watch?v=NF1pwjL9-DE&feature=emb_logo)
+	
+- ECC opiera się na matematycznym problemie czynników, które są parami współrzędnych opadającymi na krzywej eliptycznej.
+- Zalety ECC:
+	- Najwyższa siła wśród obecnych pub-key kryptosystemach
+	- Szybkość szyfrowania i podpisu
+	- Małe podpisy i certyfikaty (idealne do inteligentnych kart)
+
+![Więcej info o tym ... i jak to działa](https://www.youtube.com/watch?v=NF1pwjL9-DE)
 
 ## 23. Porównanie kryptografii symetrycznej z asymetryczną
 
@@ -376,15 +410,32 @@ ECC - kryptografia krzywych eliptycznych - używa systemu algebraicznego zdefini
 
 ## 24. Infrastruktura klucza publicznego PKI: charakterystyka, architektura, zasada działania, certyfikat klucza publicznego
 
+//Lecture4_Cryptography-Part2_good -> od 8 do 15
+
 ## 25. HTTPS i PKI: charakterystyka, protokół
+
+//Lecture4_Cryptography-Part2_good -> od 20 do 21 ?
 
 ## 26. SSO i PKI: charakterystyka, protokół
 
+//Lecture4_Cryptography-Part2_good -> 28
+
 ## 27. Bezpieczna poczta – standard S/MIME: charakterystyka, zasada działania, protokół
+
+//Lecture4_Cryptography-Part2_good -> od 32 do 33 (nic)
 
 ## 28. System PGP: charakterystyka, zasada działania
 
+//Lecture4_Cryptography-Part2_good -> od 34 do 35
+
 ## 29. Typy ataków kryptoanalitycznych
+
+- Atak z szyfrogramem (ang. ciphertext-only attack) – zakłada, że kryptoanalityk dysponuje pewną liczbą zaszyfrowanych wiadomości, które zostały zaszyfrowane tym samym algorytmem. Celem ataku jest odszyfrowanie jak największej liczby zdobytych zaszyfrowanych wiadomości lub zdobycie klucza deszyfrującego.
+- Atak ze znanym tekstem jawnym (ang. known-plaintext attack) - zakłada, że kryptoanalityk dysponuje zarówno zaszyfrowanymi wiadomościami jak i ich tekstami jawnymi, dzięki którym ma możliwość uzyskania klucza szyfrującego. Istnieje wiele sposobów zdobycia zaszyfrowanej wiadomości danego tekstu jawnego: może zostać przechwycony. W przypadku algorytmów z kluczem publicznym uzyskanie zaszyfrowanej wiadomości z tekstu jawnego nie jest żadnym problemem.
+- Atak z wybranym szyfrogramem (ang. chosen ciphertext attack, CCA) - zakłada, że kryptoanalityk ma możliwość wybrania różnych zaszyfrowanych wiadomości oraz zdobycia tekstów jawnych tych wiadomości. Metoda ta zazwyczaj jest stosowana do łamania szyfrów opartych na kluczu publicznym.
+- Atak z wybranym tekstem jawnym (ang. chosen-plaintext attack) - zakłada, że atakujący ma możliwość wybrania tekstu jawnego do zaszyfrowania i zdobycia odpowiadającego mu szyfrogramu. Celem tego ataku jest zdobycie jakichkolwiek informacji na temat zaszyfrowanej wiadomości lub klucza szyfrującego.
+- Adapcyjny atak z wybranym szyfrogramem (ang. Adaptive-chosen-ciphertext attack) - atakujący może dynamicznie wybrać próbkę tekstu zaszyfrowanego, w zależności od wcześniejszych wyników ataku. Jest to wariacja CCA z dodaną dynamiką.
+- Adapcyjny atak z wybranym tekstem jawnym (ang. Adaptive-chosen-plaintext attack) - atakujący wybiera dynamicznie próbkę tekstu jawnego oraz zmienia swoją decyzję na podstawie wyników poprzednich operacji.
 
 ## 30. Ataki związane z kontrolą dostępu – Computing threats, Physical threats, Personnel/Social engineering threats
 
