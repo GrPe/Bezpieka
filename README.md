@@ -371,7 +371,37 @@ Działa pomiędzy warstwą aplikacji (HTTP, SMTP, NNTP) a warstwą transportową
 
 ## 30. Ataki związane z kontrolą dostępu – Computing threats, Physical threats, Personnel/Social engineering threats
 
-// Lecture0_access_control -> od 23 do 38
+### Computing threats (Zagrożenia komputerowe)
+
+- Blokada usług (ang. Denial of Service - DoS)
+	- Ping-of-death
+		-
+		-
+	- Smurfing
+	- SYN flood
+	- Distributed DoS (DDoS - rozproszony DoS)
+
+- Nieupoważnione oprogramowanie 
+	- Złośliwy kod
+	- Złośliwy mobliny kod 
+
+- Luki oprogramowania
+	- Przepełnienie bufora (ang. Buffer overflows)
+	- Ukryty kanał (ang. Covert channel)
+
+### Physical threats (Zagrożenia fizyczne)
+
+- Nieupoważniony fizyczny dostęp
+	- Dumpster diving (Nurkowanie w śmietnikach)
+	- Shoulder surfing (Zaglądanie przez ramię)
+	- Podsłuchiwanie
+- Oddziaływanie elektroniczne
+
+### Zagrożenia związane z personelem / inżynierią społeczną
+- Niezadowolony / niedbały pracownik
+	- Ukierunkowane wyszukiwanie danych / "browsing"
+	- Szpiegowanie
+	- Podszywanie się (Impersonation)
 
 ## 31. Koncepcja kontroli dostępu oparta o schemat AAA. Radius
 
