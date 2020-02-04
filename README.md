@@ -374,28 +374,75 @@ Działa pomiędzy warstwą aplikacji (HTTP, SMTP, NNTP) a warstwą transportową
 ### Computing threats (Zagrożenia komputerowe)
 
 - Blokada usług (ang. Denial of Service - DoS)
+
 	- Ping-of-death
-		-
-		-
+		- Atak: inicjator wysyła ICMP Echo Request (lub ping) o bardzo dużej długości pakietu (np. 65 535 bajtów) do maszyny docelowej. Warstwy fizyczne oraz łącza danych podzielą pakiet na małe ramki. Urządzenie docelowe podejmie próbę ponownego złożenia ramek danych, aby zwrócić odpowiedź ICMP. Proces ponownego złożenia duży pakiet może spowodować przepełnienie bufora .
+		- Środki zapobiegawcze: 
+			- Zastosuj poprawki dla przepełnień bufora.
+			- Skonfiguruj zaporę typu host-based, aby blokować ICMP Echo Request (ping).
+			
 	- Smurfing
+		- Atak: Atakujący wysyła dużą ilość pakietów z zfałszowanym IP źródłowym do adresu rozgłoszeniowego. Pośrednicy dostają ping i zwracają ICMP Echo Reply do sfałszowanego adresu (który jest adresem ofiary)
+		- Środki zapobiegawcze: 
+			- Wyłącz transmisje kierowane przez IP na routerach (przy użyciu ACL - Access Control List)
+			- Skonfiguruj firewall lub system operacyjny serwera, aby blokować ICMP Echo Request (ping)
+			
 	- SYN flood
+		- Atak: Polega na wysłaniu dużej ilości pakietów z flagą SYN (synchronized) oraz sfałszowanym adresem IP do serwera. Pakiety TCP z ustawioną flagą SYN służą do informowania zdalnego komputera o chęci nawiązania z nim połączenia, więc serwer zachowuje tą półotwartą sesję. Jeśli serwer odbiera fałszywe pakiety szybciej niż prawidłowe pakiety wtedy może wystąpić DoS, serwer może wyczerpać pamięć lub wywołać awarię z powodu przepełnienia bufora. 
+		- Środki zapobiegawcze:
+			- W wypadku ataku z zewnątrz: zastosuj "Bogon" (nieformalna nazwa pakietu o takim adresie źródłowym, który nie powinien istnieć w danej sieci) oraz pozwól prywatnym adresom na przejście przez ACL na zewnętrzym interfejsie routera brzegowego. (Ang. wersja powyższego: For attacks originated from outside: Apply “Bogon” and private IP inbound ACL (reserved private address) to edge (perimeter) router’s external interface.)
+			- W wypadku ataku z wewnątrz: zezwól pakietom pochodzącym ze znanego wewnętrznego adresu IP na przejściu przez ACL na wewnętrznym interfejsie routera brzegowego. (Ang. For attacks originated from inside: Permit packets originated from known interior IP address to outbound ACL on edge router’s internal interface.)
+	
 	- Distributed DoS (DDoS - rozproszony DoS)
+	Wymaga od atakującego wielu zainfekowanych hostów, którzy przeciążą docelowy serwer pakietami.
+		- Atak: Atakujący instaluje złośliwe oprogramowanie u swojego celu. Zainfekowana ofiara staje się "zombie", który zaraża kolejne ofiary. Zarażone jednostki wykonują ataki rozproszone w zaprogramowanym czasie lub na polecenie inicjujące przez ukryty kanał. Zombie mogą inicjować standardową sesje TCP lub SYN flooding, Smurfing, Ping-of-death.
+		- Środki zapobiegawcze:
+			- Wzmacnianie serwera oraz instalacja H-IDS (Host-based intrusion detection system) by zapobiec powstawania zombie
+			- Instalacja N-IPS (Network-based Intrusion Prevention System) na sieci brzegowej (obwodowej)
+			- Aktywne monitorowanie H-IDS, N-IDS, N-IPS oraza Syslogs w poszukiwaniu anomalii
+		- ![Przykład DDoS](img/ddos.png)
 
 - Nieupoważnione oprogramowanie 
 	- Złośliwy kod
+		- Viruses: program dołączajany do wykonywanego kodu. Jest wykonywany kiedy dane oprogramowanie zostanie włączone lub  kiedy otwarty zostanie zainfekowany plik.
+		- Worms: programy mnożące sie poprzez kopiowanie samych siebie przez komputery w sieci.
+		- Trojan horse: program ukrywający się w środku innego programu i wykonuje ukryte funkcje.
+		- Logic bomb: rodzaj konia trojańskiego, który wypuszcza złośliwy kod w momencie wystąpienia określonych zdarzeń. 
+		
 	- Złośliwy mobliny kod 
+		- Instant Messaging Attacks 
+		- Internet Browser Attacks 
+		- Malicious Java Applets 
+		- Malicious Active X Controls
+		- Email Attacks
+		- ![App sandbox](img/app_sandbox.png)
 
 - Luki oprogramowania
-	- Przepełnienie bufora (ang. Buffer overflows)
+	- Przepełnienie bufora (ang. Buffer overflows): 
+		- Jeden z najstarszych i najczęstszych problemów oprogramowań
+		- Przepełnienie występuje w momencie, gdy proces chce przechować w buforze (tymczasowe miejsce przechowywania danych) więcej niż zostało przydzielone.
+		- Luka ta jest powodowana przez brak sprawdzania parametrów lub egzekwowania dokładności i spójności przez aplikację lub system operacjny. 
+		- Przeciwdziałanie:
+			- Praktykowanie dobrego procesu SDLC (Software development life cycle) np. sprawdzanie kodu (code inspection)
+			- Apply patches for OS and applications.
+			- Jeżeli to możliwe, zaimplementuj hardware states i elementu sterujące pamięcią. Zarządzanie bufforem dla OS.
 	- Ukryty kanał (ang. Covert channel)
+	Jest to niekontrolowany (lub nieautoryzowany) przepływ informacji przez ukryte ścieżki komunikacji.
+		- Timing channel: atakujący jest w stanie obserwować czasy różnych procesów aplikacji i jakie są różnice między nimi (np. http request, ssh request) i na tej podstawie jest w stanie rozwiązać informacje
+		- Storage channel: ICMP error może zawierać dodatkowe informacje o tożsamości OS celu.
+		- Przeciwdziałanie:
+			- Zidentyfikowanie ukrytego kanału
+			- Zmknij ukryty kanał poprzez instalację poprawki lub filtrowanie pakietów.
 
 ### Physical threats (Zagrożenia fizyczne)
 
 - Nieupoważniony fizyczny dostęp
-	- Dumpster diving (Nurkowanie w śmietnikach)
+	- Dumpster diving (Grzebanie w śmietnikach - dosłownie to jest to)
 	- Shoulder surfing (Zaglądanie przez ramię)
 	- Podsłuchiwanie
-- Oddziaływanie elektroniczne
+- Oddziaływanie elektroniczne 
+	- Atak NSA TEMPEST pozwala zdalnie wyświetlić ekran komputera lub telefonu za pomocą fal radiowych
+	- ![NSA TEMPEST](img/tempest.png)
 
 ### Zagrożenia związane z personelem / inżynierią społeczną
 - Niezadowolony / niedbały pracownik
