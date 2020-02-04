@@ -352,6 +352,7 @@ Działa pomiędzy warstwą aplikacji (HTTP, SMTP, NNTP) a warstwą transportową
 ## 20. Algorytm RSA: charakterystyka, zasada działania
 
 ### Algorytm Rivesta-Shamira-Adlemana (RSA)
+
 Algorytm, który z powodzeniem można używać do szyfrowania oraz podpisów cyfrowych. Bezpieczeństwo szyfrowania opiera się na trudności faktoryzacji dużych liczb złożonych. 
 
 #### Kroki algorytmu:
@@ -369,15 +370,25 @@ Algorytm, który z powodzeniem można używać do szyfrowania oraz podpisów cyf
 - Szyfrowanie: C = M^e (mod n) M – wiadomość; M < n
 - Odszyfrowanie: M = C^d (mod n)
 
-
 - Kryptoanaliza algorytmu RSA:
-	- Metoda brutalna - wypróbować wszystkie klucze publiczne
+	- Metoda brutalna: wypróbować wszystkie klucze publiczne
 	- Rozłożyć n na dwa czynniki pierwsze, czyli liczbę n na iloczyn dwóch liczb. To umożliwia obliczenie φ(n)=(p-1)(q-1) a to umożliwia obliczenie d z e*d = k *φ(n) + 1 (tekst jawny jest szyfrowany blokami, z których każdy ma wartość binarną mniejszą od pewnej liczby n)
 	- Określić φ(n) bezpośrednio
 	- Określić d bezpośrednio
 
 ## 21. Wymiana klucza Diffiego-Hellmana (DH): charakterystyka, protokół
 
+- Pierwszy  algorytm szyfrowania z kluczem jawnym, powszechnie nazywany wymianą klucza Diffiego-Hellmana
+- Celem algorytmu jest umożliwienie użytkownikom A i B, bezpiecznej wymiany kluczy
+- Efektywność algorytmu DH zależy od stopnia trudności obliczania logarytmu dyskretnego
+	- y = g^x mod p
+		- Przy danych g,x,p obliczenie y jest sprawą prostą. W najgorszym wypadku trzeba będzie wykonać x mnożeń g i dokonać operacji mod p.
+		- Jednak, przy danych y,g,p bardzo trudno obliczyć x (obliczyć logarytm dyskretny)
+		- Trudność jest podobnego rzędu co w przypadku rozkładania na czynniki pierwsze potrzebnego w algorytmie RSA
+		
+![Wymiana D-H](img/wymiana_dh.png)
+
+- Bezpieczeństwo wymiany kluczy D-H wynika z tego, że o ile stosunkowo łatwo potęguje się modulo, o tyle obliczyć logarytm dyskretny jest bardzo trudno.
 
 
 ## 22. Koncepcja krzywych eliptycznych (ECC)
@@ -390,11 +401,11 @@ To jest twierdzenie, a nie definicja i wymaga pewnych dopowiedzeń. Wartości x,
 
 ![Warunek stałych a,b](img/elliptic_ab.png)
 
-Punkt O, tzw. punkt nieskończoności jest punktem bazowym grupy krzywych eliptycznych - np. Bitcoin uzywa secp256k1 (y^2 = x^3 + 7) jako punkt bazowy. Punkt O określa rodzaj krzywej eliptycznej.
+Punkt O, tzw. punkt nieskończoności jest punktem bazowym grupy krzywych eliptycznych: np. Bitcoin uzywa secp256k1 (y^2 = x^3 + 7) jako punkt bazowy. Punkt O określa rodzaj krzywej eliptycznej.
 
 ![Krzywe eliptyczne](img/elliptic_graph.png)
 
-ECC - kryptografia krzywych eliptycznych - używa systemu algebraicznego zdefiniowanej w punktach krzywej eliptycznej w celu zapewnienia krytografii asymetrycznej, czyli key agreement, digital signatures, pseudo-random generators itp. Może również pośrednio służyć do szyfrowania. 
+ECC - kryptografia krzywych eliptycznych: używa systemu algebraicznego zdefiniowanej w punktach krzywej eliptycznej w celu zapewnienia krytografii asymetrycznej, czyli key agreement, digital signatures, pseudo-random generators itp. Może również pośrednio służyć do szyfrowania. 
 	
 - ECC opiera się na matematycznym problemie czynników, które są parami współrzędnych opadającymi na krzywej eliptycznej.
 - Zalety ECC:
@@ -402,7 +413,7 @@ ECC - kryptografia krzywych eliptycznych - używa systemu algebraicznego zdefini
 	- Szybkość szyfrowania i podpisu
 	- Małe podpisy i certyfikaty (idealne do inteligentnych kart)
 
-![Więcej info o tym ... i jak to działa](https://www.youtube.com/watch?v=NF1pwjL9-DE)
+[Więcej info o tym ... i jak to działa](https://www.youtube.com/watch?v=NF1pwjL9-DE)
 
 ## 23. Porównanie kryptografii symetrycznej z asymetryczną
 
@@ -430,12 +441,12 @@ ECC - kryptografia krzywych eliptycznych - używa systemu algebraicznego zdefini
 
 ## 29. Typy ataków kryptoanalitycznych
 
-- Atak z szyfrogramem (ang. ciphertext-only attack) – zakłada, że kryptoanalityk dysponuje pewną liczbą zaszyfrowanych wiadomości, które zostały zaszyfrowane tym samym algorytmem. Celem ataku jest odszyfrowanie jak największej liczby zdobytych zaszyfrowanych wiadomości lub zdobycie klucza deszyfrującego.
-- Atak ze znanym tekstem jawnym (ang. known-plaintext attack) - zakłada, że kryptoanalityk dysponuje zarówno zaszyfrowanymi wiadomościami jak i ich tekstami jawnymi, dzięki którym ma możliwość uzyskania klucza szyfrującego. Istnieje wiele sposobów zdobycia zaszyfrowanej wiadomości danego tekstu jawnego: może zostać przechwycony. W przypadku algorytmów z kluczem publicznym uzyskanie zaszyfrowanej wiadomości z tekstu jawnego nie jest żadnym problemem.
-- Atak z wybranym szyfrogramem (ang. chosen ciphertext attack, CCA) - zakłada, że kryptoanalityk ma możliwość wybrania różnych zaszyfrowanych wiadomości oraz zdobycia tekstów jawnych tych wiadomości. Metoda ta zazwyczaj jest stosowana do łamania szyfrów opartych na kluczu publicznym.
-- Atak z wybranym tekstem jawnym (ang. chosen-plaintext attack) - zakłada, że atakujący ma możliwość wybrania tekstu jawnego do zaszyfrowania i zdobycia odpowiadającego mu szyfrogramu. Celem tego ataku jest zdobycie jakichkolwiek informacji na temat zaszyfrowanej wiadomości lub klucza szyfrującego.
-- Adapcyjny atak z wybranym szyfrogramem (ang. Adaptive-chosen-ciphertext attack) - atakujący może dynamicznie wybrać próbkę tekstu zaszyfrowanego, w zależności od wcześniejszych wyników ataku. Jest to wariacja CCA z dodaną dynamiką.
-- Adapcyjny atak z wybranym tekstem jawnym (ang. Adaptive-chosen-plaintext attack) - atakujący wybiera dynamicznie próbkę tekstu jawnego oraz zmienia swoją decyzję na podstawie wyników poprzednich operacji.
+- Atak z szyfrogramem (ang. ciphertext-only attack): zakłada, że kryptoanalityk dysponuje pewną liczbą zaszyfrowanych wiadomości, które zostały zaszyfrowane tym samym algorytmem. Celem ataku jest odszyfrowanie jak największej liczby zdobytych zaszyfrowanych wiadomości lub zdobycie klucza deszyfrującego.
+- Atak ze znanym tekstem jawnym (ang. known-plaintext attack): zakłada, że kryptoanalityk dysponuje zarówno zaszyfrowanymi wiadomościami jak i ich tekstami jawnymi, dzięki którym ma możliwość uzyskania klucza szyfrującego. Istnieje wiele sposobów zdobycia zaszyfrowanej wiadomości danego tekstu jawnego: może zostać przechwycony. W przypadku algorytmów z kluczem publicznym uzyskanie zaszyfrowanej wiadomości z tekstu jawnego nie jest żadnym problemem.
+- Atak z wybranym szyfrogramem (ang. chosen ciphertext attack, CCA): zakłada, że kryptoanalityk ma możliwość wybrania różnych zaszyfrowanych wiadomości oraz zdobycia tekstów jawnych tych wiadomości. Metoda ta zazwyczaj jest stosowana do łamania szyfrów opartych na kluczu publicznym.
+- Atak z wybranym tekstem jawnym (ang. chosen-plaintext attack): zakłada, że atakujący ma możliwość wybrania tekstu jawnego do zaszyfrowania i zdobycia odpowiadającego mu szyfrogramu. Celem tego ataku jest zdobycie jakichkolwiek informacji na temat zaszyfrowanej wiadomości lub klucza szyfrującego.
+- Adapcyjny atak z wybranym szyfrogramem (ang. Adaptive-chosen-ciphertext attack): atakujący może dynamicznie wybrać próbkę tekstu zaszyfrowanego, w zależności od wcześniejszych wyników ataku. Jest to wariacja CCA z dodaną dynamiką.
+- Adapcyjny atak z wybranym tekstem jawnym (ang. Adaptive-chosen-plaintext attack): atakujący wybiera dynamicznie próbkę tekstu jawnego oraz zmienia swoją decyzję na podstawie wyników poprzednich operacji.
 
 ## 30. Ataki związane z kontrolą dostępu – Computing threats, Physical threats, Personnel/Social engineering threats
 
@@ -535,48 +546,119 @@ ECC - kryptografia krzywych eliptycznych - używa systemu algebraicznego zdefini
 
 ### Knows
 
-- Password - hasło do uwierzytelnienia użytkownika w systemie
+- Password: hasło do uwierzytelnienia użytkownika w systemie
 	- Zarządzanie hasłami:
 		- Kontrola dostępu
 			- Ograniczony dostęp do pliku z hasłami
 			- Szyfrowanie password files (SHA, MD5)
 		- Struktura hasła
 			- Długość hasła - długie 
-			- Złożoność - kombinacja małych i dużych liter, liczb i znaków specjalnych
+			- Złożoność: kombinacja małych i dużych liter, liczb i znaków specjalnych
 			- Nie używać typowych wyrażeń (tęczowe tablice)
 		- Utrzymanie haseł
 			- Zmiana haseł po max. 90 dniach
 			- Hasło nie może zostać ponownie użyte do 10 rotacji (po 10 zmianach można wrócić do jakiegoś hasła)
 			- Jedna zmiana na 24h, czyli nie zmieniać na raz wszędzie
-- Pass phrase - fraza, sekwencja znaków, bądź słów (hasło może być tylko jednym). Pass phrase może być również używane do generowania szyfru.
+- Pass phrase: fraza, sekwencja znaków, bądź słów (hasło może być tylko jednym). Pass phrase może być również używane do generowania szyfru.
 - PIN - personal identification number
 
 ### Has
 
-- One-time Password (OTP) - Coś wygenerowane z urządzenia RNG (random number generator), które generuje OTP
+- One-time Password (OTP): Coś wygenerowane z urządzenia RNG (random number generator), które generuje OTP
 - Synchronous Token (with time):
-	- Token bazujący na liczniku - akcja zwiększa liczbę 
-	- Token bazujący na zegarze - automatyczne zwiększanie liczby (np. token RSA)
+	- Token bazujący na liczniku: akcja zwiększa liczbę 
+	- Token bazujący na zegarze: automatyczne zwiększanie liczby (np. token RSA)
 - Asynchronous Token (without time):
 	- Urządzenie reagujące na zdarzenie (np. hasło)
-	- Smart card - z pamięcia i procesorem, które akceptują, przechowują i transmitują certyfikat/klucz, który generuje token (np. FIPS 201 PIV).
+	- Smart card: z pamięcia i procesorem, które akceptują, przechowują i transmitują certyfikat/klucz, który generuje token (np. FIPS 201 PIV).
 
 ### Is
 
 - Biometria: odciski palców, geometria dłoni/twarzy, wzór siatkówki oka, wzór głosu itp.
 - Wyzwania:
-	- Współczynnik błędów podziału (CER) - fałszywa akceptacja / fałszywe odrzucenie
-	- Szybkość przetwarzania - złożony proces przetwarzania danych biometrycznych
-	- Akceptacja użytkowników - atak na prywatność 
+	- Współczynnik błędów podziału (CER): fałszywa akceptacja / fałszywe odrzucenie
+	- Szybkość przetwarzania: złożony proces przetwarzania danych biometrycznych
+	- Akceptacja użytkowników: atak na prywatność 
 
 ## 34. Modele kontroli dostępu: DAC, MAC, HRU, ACL, RBAC  
 
-//Lecture0_access_control -> od 51
+- DAC (Discretionary access control): kontrola dostępu oparta na tożsamości, twórca jest właścicielem i może przyznawać prawa innym. W odróżnieniu od MAC, użytkownik posiadający określone prawa dostępu do obiektów może nadawać je innym użytkownikom. 
+
+![DAC](img/dac.png)
+
+- MAC (Mandatory Access Control): cztery poziomy dostępu: Top Secret (TS), Secret (S), Classified (C), Unclassified (U). System operacyjny na podstawie atrybutów bezpieczeństwa i polityki udziela bądź odmawia podmiotowi dostępu do obiektu. Podmiot może odczytać dowolny obiekt znajdujący się na tym samym poziomie lub poniżej. Zarówno atrybuty bezpieczeństwa jak i polityka są ustalane wyłącznie przez administratora systemu. W odróżnieniu od DAC, użytkownik nie ma wpływu na działanie mechanizmów kontroli dostępu.
+
+![MAC](img/mac.png)
+
+- HRU (Capability Tables, Harison-Ruzzo-Ullman): tablica określająca uprawnienia, gdzie wiersz to uprawnienia podmiotu (użytkownik, proces, program), a kolumna to obiekt
+
+![HRU](img/hru.png)
+
+- ACL (Access Control List): najpopularniejsza implementacja DAC, definicja uprawnień podmiotu do obiektu(ów).
+
+![ACL](img/acl.png)
+
+- RBAC (Role-based Access Control): kontrola dostępu bazująca na funkcjach w pracy. Każda rola ma swoje uprawnienia i są dziedziczone do każdego użytkownika. Określenie roli jest uznaniowe i jest w zgodności z polityką bezpieczeństwa dostępu.
+
+![RBAC](img/rbac.png)
 
 ## 35. Ataki SQL Injection
+Wykorzystuje lukę w zabezpieczeniach aplikacji wykorzystujący błędy w implementacji (wklejanie danych przekazanych przez użytkownika bezpośrednio do zapytania SQL czy tworzenia z niej sklejki zapytania SQL). Nieodpowiednie filtrowanie znaków ucieczki z danych wejściowych, pozwala m.in. na modyfikację zapytania niezgodnie z intencją programisty, albo nawet przekazanie dodatkowych zapytań niszczących dane. 
+
+- SQL injection 
+	- np. ' UNION SELECT username, password FROM users -- a
+	
+- Blind SQL injection - jest to atak sql injection, różniący się tym, iż strona bezpośrednio nie wyświetla komunikatów błędów
+	- np. SELECT * FROM uzytkownicy WHERE uzytkownik='x' OR 1=1;
+	
+- Ochrona przed SQL injection:
+	- Wykorzystanie mechanizmu Prepared Statements (with Parameterized Queries)
+	- Wykorzystanie mechanizmu Stored Procedures
+	- Czyszczenie (escaping) danych przed przekazaniem do zapytania
+	- Whitelisting
+
+- NoSQL injection: SQL injection dla nierelacyjne baz danych.  
+	- Wstrzyknięcia występują, gdy zapytania przyjmują wyrażenia w Javascript.
+	- $where: Use the $where operator to pass either a string containing a JavaScript expression or a full JavaScript function to the query system. 
+
+- Ochrona przed NoSQL injection
+	- Weryfikacja typu danych ( {‘password’: ‘PASS’} vs {‘password’: {‘&ne’: ‘’}} )
+	- Ograniczenie danych wejściowych od użytkownika do prostych typów (Integer, Napis)
+	- Weryfikacja dostępnych wartości danych (np. whitelist, o ile możliwe)
 
 ## 36. Ataki XSS
 
+XSS (Cross-site scripting) - sposób ataku na serwis WWW polegający na osadzeniu w treści atakowanej strony kodu (zazwyczaj JavaScript), który wyświetlony innym użytkownikom może doprowadzić do wykonania przez nich niepożądanych akcji. Istnieją trzy rodzaje XSS:
+
+- Reflected: dane przekazane w żądaniu HTTP są zwrócone w odpowiedzi HTTP.
+- Stored: dane przekazane w żądaniu HTTP są zapisane na serwerze (np. w bazie danych) i są zwracane we wszystkich odpowiedziach HTTP. 
+- DOM-based: dane przekazane w żądaniu HTTP nie są obsługiwane przez serwer i nie są zwracane w odpowiedzi HTTP, jednakże oryginalny kod JS korzysta z nich po stronie klienta.
+
+- Zabezpieczenia przed XSS:
+	- Same Origin Policy: wbudowany w przeglądarki, blokuje dostęp z poziomu skryptu JS do danych innej strony.
+	- Cookie flags
+		- httpOnly: dostęp do ciasteczka jest zablokowany z poziomu JS
+		- secure: ciasteczko ustawione w protokole https nie będzie wysyłane w protokole http.
+	- X-XSS-Protection
+		- Przeglądarka blokuje wczytanie strony, gdy wykryje atak XSS Reflected.
+		- 0  : wyłączona blokada
+		- 1  : po wykryciu ataku dane są wycinane z odpowiedzi serwera (domyślna opcja w przeglądarkach)
+		- 1; mode=block  : po wykryciu ataku przeglądarka blokuje wczytywanie strony
+		- 1; report=<reporting-URI> (Chromium)  : po wykryciu ataku dane są wycinane z odpowiedzi serwera, a raport z sytuacji jest wysyłany na podany adres.
+	- HTML Encoding 
+	- Content Security Policy
+		- Określa zaufane źródła zasobów (whitelisting)
+		- Zasoby:
+			- skrypty
+			- style
+			- media
+			- ramki
+			- obrazki
+			- czcionki
+			- itd.
+	- OWASP XSS Prevention Cheat Sheet
+
+	
 ## 37. Obsługa danych z niezaufanego źródła – aplikacje WEB
 
 ## 38. Obsługa Złożonych danych - aplikacje WEB
