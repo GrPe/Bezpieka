@@ -355,7 +355,24 @@ Działa pomiędzy warstwą aplikacji (HTTP, SMTP, NNTP) a warstwą transportową
 
 ## 22. Koncepcja krzywych eliptycznych (ECC)
 
+Krzywa eliptyczna w metematyce jest zbiorem punktów spełniających wzór:
+![Wzór krzywej eliptycznej](img/elliptic_eq.png)
+To jest twierdzenie, a nie definicja i wymaga pewnych dopowiedzeń. Wartości x, y, a i b pochodzą z jakiegoś pola, które to pole jest ważną częścią definicji krzywej eliptycznej. Jeśli tym polem są liczby rzeczywiste, wówczas wszystkie krzywe eliptyczne mają powyższą postać i znane są jako postać Weierstrassa. W przypadku pól o charakterystyce R2 lub R3 forma Weierstrassa nie jest wystarczająco ogólna. Dlatego a i b muszą dodatkowy warunek:
+![Warunek stałych a,b](img/elliptic_ab.png)
+Punkt O, tzw. punkt nieskończoności jest punktem bazowym grupy krzywych eliptycznych - np. Bitcoin uzywa secp256k1 (y^2 = x^3 + 7) jako punkt bazowy. Punkt O określa rodzaj krzywej eliptycznej.
+![Krzywe eliptyczne](img/elliptic_graph.png)
+
+ECC - kryptografia krzywych eliptycznych - używa systemu algebraicznego zdefiniowanej w punktach krzywej eliptycznej w celu zapewnienia krytografii asymetrycznej, czyli key agreement, digital signatures, pseudo-random generators itp. Może również pośrednio służyć do szyfrowania. 
+	- ECC opiera się na matematycznym problemie czynników, które są parami współrzędnych opadającymi na krzywej eliptycznej.
+	- Zalety ECC:
+		- Najwyższa siła wśród obecnych pub-key kryptosystemach
+		- Szybkość szyfrowania i podpisu
+		- Małe podpisy i certyfikaty (idealne do inteligentnych kart)
+![Więcej info o tym ... i jak to działa](https://www.youtube.com/watch?v=NF1pwjL9-DE&feature=emb_logo)
+
 ## 23. Porównanie kryptografii symetrycznej z asymetryczną
+
+![Porównanie kryptografii](img/async_sync_comparision.png)
 
 ## 24. Infrastruktura klucza publicznego PKI: charakterystyka, architektura, zasada działania, certyfikat klucza publicznego
 
@@ -400,7 +417,7 @@ Działa pomiędzy warstwą aplikacji (HTTP, SMTP, NNTP) a warstwą transportową
 			- Wzmacnianie serwera oraz instalacja H-IDS (Host-based intrusion detection system) by zapobiec powstawania zombie
 			- Instalacja N-IPS (Network-based Intrusion Prevention System) na sieci brzegowej (obwodowej)
 			- Aktywne monitorowanie H-IDS, N-IDS, N-IPS oraza Syslogs w poszukiwaniu anomalii
-		- ![Przykład DDoS](img/ddos.png)
+	 ![Przykład DDoS](img/ddos.png)
 
 - Nieupoważnione oprogramowanie 
 	- Złośliwy kod
@@ -415,7 +432,7 @@ Działa pomiędzy warstwą aplikacji (HTTP, SMTP, NNTP) a warstwą transportową
 		- Malicious Java Applets 
 		- Malicious Active X Controls
 		- Email Attacks
-		- ![App sandbox](img/app_sandbox.png)
+	 ![App sandbox](img/app_sandbox.png)
 
 - Luki oprogramowania
 	- Przepełnienie bufora (ang. Buffer overflows): 
@@ -442,7 +459,7 @@ Działa pomiędzy warstwą aplikacji (HTTP, SMTP, NNTP) a warstwą transportową
 	- Podsłuchiwanie
 - Oddziaływanie elektroniczne 
 	- Atak NSA TEMPEST pozwala zdalnie wyświetlić ekran komputera lub telefonu za pomocą fal radiowych
-	- ![NSA TEMPEST](img/tempest.png)
+ ![NSA TEMPEST](img/tempest.png)
 
 ### Zagrożenia związane z personelem / inżynierią społeczną
 - Niezadowolony / niedbały pracownik
@@ -457,9 +474,49 @@ Działa pomiędzy warstwą aplikacji (HTTP, SMTP, NNTP) a warstwą transportową
 
 ## 32. Jakościowe oraz ilościowe metody analizy ryzyka
 
-## 33. Rodzaje kontroli dostępów: Known, Has, Is
+## 33. Rodzaje kontroli dostępów: Knows, Has, Is
 
-//Lecture0_access_control -> od 48 do 51
+### Typy uwierzytelniania:
+
+- Something that subject __KNOWS__: password, pass phrase or PIN
+- Something that subject __HAS__: token, smart card, keys
+- Something that subject __IS__: biometric: odciski palców, głos, układ twarzy, wzór siatkówki oka itp.
+
+### Knows
+
+- Password - hasło do uwierzytelnienia użytkownika w systemie
+	- Zarządzanie hasłami:
+		- Kontrola dostępu
+			- Ograniczony dostęp do pliku z hasłami
+			- Szyfrowanie password files (SHA, MD5)
+		- Struktura hasła
+			- Długość hasła - długie 
+			- Złożoność - kombinacja małych i dużych liter, liczb i znaków specjalnych
+			- Nie używać typowych wyrażeń (tęczowe tablice)
+		- Utrzymanie haseł
+			- Zmiana haseł po max. 90 dniach
+			- Hasło nie może zostać ponownie użyte do 10 rotacji (po 10 zmianach można wrócić do jakiegoś hasła)
+			- Jedna zmiana na 24h, czyli nie zmieniać na raz wszędzie
+- Pass phrase - fraza, sekwencja znaków, bądź słów (hasło może być tylko jednym). Pass phrase może być również używane do generowania szyfru.
+- PIN - personal identification number
+
+### Has
+
+- One-time Password (OTP) - Coś wygenerowane z urządzenia RNG (random number generator), które generuje OTP
+- Synchronous Token (with time):
+	- Token bazujący na liczniku - akcja zwiększa liczbę 
+	- Token bazujący na zegarze - automatyczne zwiększanie liczby (np. token RSA)
+- Asynchronous Token (without time):
+	- Urządzenie reagujące na zdarzenie (np. hasło)
+	- Smart card - z pamięcia i procesorem, które akceptują, przechowują i transmitują certyfikat/klucz, który generuje token (np. FIPS 201 PIV).
+
+### Is
+
+- Biometria: odciski palców, geometria dłoni/twarzy, wzór siatkówki oka, wzór głosu itp.
+- Wyzwania:
+	- Współczynnik błędów podziału (CER) - fałszywa akceptacja / fałszywe odrzucenie
+	- Szybkość przetwarzania - złożony proces przetwarzania danych biometrycznych
+	- Akceptacja użytkowników - atak na prywatność 
 
 ## 34. Modele kontroli dostępu: DAC, MAC, HRU, ACL, RBAC  
 
