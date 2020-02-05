@@ -365,12 +365,15 @@ Algorytm, który z powodzeniem można używać do szyfrowania oraz podpisów cyf
 
 ##### 4.  Obliczamy odwrotność wybranej liczby e – czyli d d ∗ e ≡ 1 mod φ(n) ; k ∗ φ(n) + 1 = d ∗ e gdzie: k – l.całkowita
 
+
+
 - Klucz publiczny: __n__ i __e__ 
 - Klucz prywatny: __n__ i __d__ 
 - Szyfrowanie: C = M^e (mod n) M – wiadomość; M < n
 - Odszyfrowanie: M = C^d (mod n)
 
 - Kryptoanaliza algorytmu RSA:
+
 	- Metoda brutalna: wypróbować wszystkie klucze publiczne
 	- Rozłożyć n na dwa czynniki pierwsze, czyli liczbę n na iloczyn dwóch liczb. To umożliwia obliczenie φ(n)=(p-1)(q-1) a to umożliwia obliczenie d z e*d = k *φ(n) + 1 (tekst jawny jest szyfrowany blokami, z których każdy ma wartość binarną mniejszą od pewnej liczby n)
 	- Określić φ(n) bezpośrednio
@@ -521,7 +524,7 @@ ECC - kryptografia krzywych eliptycznych: używa systemu algebraicznego zdefinio
 	- Podsłuchiwanie
 - Oddziaływanie elektroniczne 
 	- Atak NSA TEMPEST pozwala zdalnie wyświetlić ekran komputera lub telefonu za pomocą fal radiowych
- ![NSA TEMPEST](img/tempest.png)
+![NSA TEMPEST](img/tempest.png)
 
 ### Zagrożenia związane z personelem / inżynierią społeczną
 - Niezadowolony / niedbały pracownik
@@ -535,6 +538,53 @@ ECC - kryptografia krzywych eliptycznych: używa systemu algebraicznego zdefinio
 //Lecture02_telecom_network -> od 79
 
 ## 32. Jakościowe oraz ilościowe metody analizy ryzyka
+
+- Metoda ilościowa: Metoda ilościowa polega przede wszystkim na ocenie prawdopodobieństwa oraz skutków wystąpienia ryzyka nadając im konkretne parametry. Skutki mogą zostać opisane poprzez ocenę wyników zdarzeń i wyrażone w różnych kategoriach (pieniężne, operacyjne, techniczne).
+	
+	- ALE = SLE x ARO
+	- SLE = AV x EF
+		- Annualized Lost Expectance (ALE): Oczekiwana roczna utrata
+		- Single Loss Expectance (SLE): Oczekiwana pojedyncza utrata, strata pienieżna za każde wystąpienie danego zdarzenia
+		- Annualized Rate of Occurrence (ARO): Częstotliwość, z jaką przewiduje się, że zagrożenie wystąpi w ujęciu rocznym
+		- Asset Value (AV): Wartość pieniężna zasobu
+		- Exposure Factor (EF): Procent strat spowodowanych konkretnym zdarzeniem
+	
+	- Plusy:
+		- Ocena i wyniki są zasadniczo oparte na niezależnie obiektywnych procesach i pomiarach. W ten sposób wspierana jest analiza statystyczna.
+		- Wartość informacji wyrażona jest w kategoriach pieniężnych z uzasadnieniem, jest lepiej rozumiana. Dlatego podstawa oczekiwanej straty jest lepiej zrozumiana.
+		- Zapewniona jest wiarygodną podstawa do oceny kosztów i korzyści środków ograniczających ryzyko. W ten sposób wspierane jest podejmowanie decyzji dotyczących budżetu bezpieczeństwa informacji.
+	
+	- Minusy:
+		- Obliczenia są złożone. Jeśli nie zostaną one zrozumiane lub skutecznie wyjaśnione, kierownictwo może nie ufać wynikom.
+		- Należy zebrać znaczną ilość informacji o celu i środowisku IT
+		- Nie istnieje jeszcze standardowa, niezależnie opracowana i utrzymywana baza wiedzy na temat populacji zagrożeń i ich częstotliwości.
+
+
+- Metoda jakościowa: Metoda jakościowa polega na indywidualnej ocenie ryzyka na podstawie doświadczenia i dobrych praktyk. Metoda ta wykorzystuje subiektywne miary i oceny takie jak wartości opisowe poziomów (niski, średni, wysoki).
+	
+	- Określenie prawdopodobieństwa
+		- Możliwości i motywacji "threat agent" (osoba/grupa, która może/mogą przejawiać zagrożenie - zasadnicze znaczenie ma ustalenie, kto chciałby wykorzystać aktywa firmy i jak mogą wykorzystać je przeciwko firmie)
+		- Charakter podatności na zagrożenia
+		- Istnienie i efektywność obecnych kontroli
+		
+	- Analiza wpływu (poufność, integralność i dostępność)
+		- System mission (np. procesy wykonywane przez system)
+		- Krytyczność danych i systemu (np. wartość/znaczenie systemu dla firmy)
+		- Czułość systemu i danych
+	
+![Metoda jakościowa](img/quality.png)
+	
+	- Plusy:
+		- Obliczenia są proste, łatwe do zrozumienia i wykonania.
+		- Nie jest konieczne określenie ilościowych danych dotyczących częstotliwości i wpływu zagrożenia.
+		- Nie jest konieczne oszacowanie kosztu zalecanych środków ograniczających ryzyko i obliczenie kosztów / korzyści.
+		- Przedstawiono ogólne wskazanie istotnych obszarów ryzyka, które należy uwzględnić.
+	
+	- Minusy:
+		- Ocena ryzyka i wyniki są zasadniczo subiektywne zarówno pod względem procesu, jak i wskaźników. Unika się stosowania niezależnie obiektywnych wskaźników.
+		- Nie podejmuje się wysiłków w celu opracowania obiektywnej podstawy pieniężnej dla wartości ukierunkowanych aktywów informacyjnych.
+		- Brak jest podstaw do analizy kosztów i korzyści środków ograniczających ryzyko. Tylko subiektywne wskazanie problemu.
+		- Nie można obiektywnie śledzić wyników zarządzania ryzykiem, gdy wszystkie środki są subiektywne.
 
 ## 33. Rodzaje kontroli dostępów: Knows, Has, Is
 
