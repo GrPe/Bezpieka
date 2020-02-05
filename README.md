@@ -534,8 +534,31 @@ ECC - kryptografia krzywych eliptycznych: używa systemu algebraicznego zdefinio
 
 ## 31. Koncepcja kontroli dostępu oparta o schemat AAA. Radius
 
-//Lecture0_access_control -> od 38 do 44 i od 64
-//Lecture02_telecom_network -> od 79
+### Authentication, Authorization & Accountability (AAA)
+
+![AAA](img/aaa_kernel.png)
+
+- Identification (identyfikacja): jest to proces w którym podmiot deklaruje swoją tożsamość i inicjowane są jego odpowiedzalności. Podmiot musi dostarczyć tożsamość by system mógł rozpocząć proces "authentication, authorization and accountability" (AAA).
+
+- __Authentication__ (uwierzytelnianie): proces sprawdzania i testowania czy podana tożsamość jest autentyczna i prawidłowa. 
+
+- __Authorization__ (upoważnienie): po uwierzytelnianiu, dostęp musi być zautoryzowany. Proces ten zapewnia, że żądane działanie lub dostęp jest możliwy ze względu na uprawnienia dostarczonej tożsamości.
+
+- Auditing (monitorowanie): jest programowalnym środkiem, za pomocą którego podmiot jest śledzony i rejestrowany. Służy to do ewentualnego pociągniecia do odpowiedzialności za swoje działania podczas uwierzytelnienia lub nieautoryzowanego/nienormalnego działania w systemie.
+
+- __Accountability__ (odpowiedzalność): polega na zdolności do udowodnienia tożsamość podmiotu i śledzenie jego działań. Każdy podmiot pracujący z informacjami posiada jakieś specyficzne odpowiedzialności.
+
+![Bob file](img/bob_file.png)
+
+### RADIUS (Remote Access Dial-In User Service) - usługa zdalnego uwierzytelniania użytkowników
+
+- Use UDP/IP-based frame protocols: SLIP (Serial Line Internet Protocol) and PPP (Point-to-Point Protocol).
+- In a client/server configuration.
+- Serwer RADIUS przechowuje centralnie UserID, password i ACL (Authorization parameter)
+- RADIUS wspiera uwierzytelnianie proxy, więc schemat lub informacje na temat uwierzytelniania użytkownika są skalowalne.
+- Używa CHAP (Challenge Handshake Authentication Protocol) by uwierzytelniać użytkowników 
+- Klient/serwer używa wspólnego hasła przechowywanego w pliku konfiguracyjnym do szyfrowania i deszyfrowania protokołu CHAP, nie pakietów danych.
+- Uses a single UDP packet design for speed and performance
 
 ## 32. Jakościowe oraz ilościowe metody analizy ryzyka
 
@@ -572,8 +595,6 @@ ECC - kryptografia krzywych eliptycznych: używa systemu algebraicznego zdefinio
 		- Krytyczność danych i systemu (np. wartość/znaczenie systemu dla firmy)
 		- Czułość systemu i danych
 	
-![Metoda jakościowa](img/quality.png)
-	
 	- Plusy:
 		- Obliczenia są proste, łatwe do zrozumienia i wykonania.
 		- Nie jest konieczne określenie ilościowych danych dotyczących częstotliwości i wpływu zagrożenia.
@@ -585,6 +606,8 @@ ECC - kryptografia krzywych eliptycznych: używa systemu algebraicznego zdefinio
 		- Nie podejmuje się wysiłków w celu opracowania obiektywnej podstawy pieniężnej dla wartości ukierunkowanych aktywów informacyjnych.
 		- Brak jest podstaw do analizy kosztów i korzyści środków ograniczających ryzyko. Tylko subiektywne wskazanie problemu.
 		- Nie można obiektywnie śledzić wyników zarządzania ryzykiem, gdy wszystkie środki są subiektywne.
+
+![Metoda jakościowa](img/quality.png)
 
 ## 33. Rodzaje kontroli dostępów: Knows, Has, Is
 
