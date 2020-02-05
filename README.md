@@ -368,7 +368,7 @@ Handshake zachodzi zawsze, kiedy użytkownik wchodzi na stronę internetową prz
 
 - poufność danych
 - osoba nieautoryzowana nie ma do nich dostępu
-- Zapewnione przez szyfrowanie 
+- Zapewnione przez szyfrowanie
 
 #### Integrity
 
@@ -398,7 +398,42 @@ Handshake zachodzi zawsze, kiedy użytkownik wchodzi na stronę internetową prz
 - Algorytm kryptograficzny - zestaw matematycznych funkcji przyjmujący tekst jawny i klucz i zwracający tekst zaszyfrowany
 - Operacja kryptograficzna - szyfrowanie/deszyfrowanie
 
+### Siła szyfrowania
+
+Źródła:
+- Algorytm
+- Tajność klucza
+- Długość klucza
+- Wektor inicjalizujący
+- Sposób ich połączenia
+
 ## 12. Szyfry klasyczne: Podstawieniowe, Permutacyjne, Polialfabetyczne
+
+### Podstawieniowe
+
+- Polegają na zamianie jednej cześci informacji na drugą
+- Najczęściej polegają na przesunięciu liter w alfabecie (Szyfr Cezara, ROT13)
+
+### Permutacyjne (Przestawieniowe)
+
+- Zamiena kolejność znaków
+- Klucz określa na jakie pozycje znaki zostaną przeniesione (klucz nie jest standardem)
+- W przeciwieństwie do szyfrów podstawieniowych, mamy tutaj mapowanie np (1, 2, 3, 4, 5) => (3, 4, 5, 2, 1) 'WORLD' -> 'RLDOW'
+- Inną opcją jest wsadzenie wiadomości w macierz:
+    - np "I LOVE CISSP CBK REVIEW CLASS 2012"
+    - ![perm](img/perm.png)
+
+### Polialfabetyczne
+
+- Wariant szyfru podstawieniowego
+- Klucz jest powtarzany na całej długości tekstu jawnego
+
+- Plaintext: COMPUTING GIVES INSIGHT
+- Keyword: LUCKYLUCK YLUCK YLUCKYL
+- Ciphertext: NIOZSECPQ ETPGC GYMKQFE
+
+- W sumie to chodzi o to, że do do każdej litery z tekstu jawnego dodajemy litery z klucza:
+- np: C(2) + L(11) = N(13) - pozucje w alfabecie
 
 ## 13. Funkcje haszujące: cechy podstawowe, zastosowanie
 
