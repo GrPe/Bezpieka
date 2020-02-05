@@ -424,7 +424,66 @@ ECC - kryptografia krzywych eliptycznych: używa systemu algebraicznego zdefinio
 
 ## 24. Infrastruktura klucza publicznego PKI: charakterystyka, architektura, zasada działania, certyfikat klucza publicznego
 
-//Lecture4_Cryptography-Part2_good -> od 8 do 15
+- PKI jest to oparty na certyfikatach oraz kryptografii asymetrycznej hybrydowy kryptosystem.
+- PKI wykorzystuje "3rd party trust model"(- jednostka, która ułatwia interakcje między dwiema stronami, które obie ufają stronie trzeciej. Strona trzecia dokonuje przeglądu całej krytycznej komunikacji między stronami w oparciu o łatwość tworzenia fałszywych treści)
+- Certification Authorities (CA) zapewniają weryfikację certyfikatu „podmiotu końcowego” (EE) (tożsamość, klucz publiczny i powiązane poświadczenia).
+
+- ![PKI](img/pki.png)
+
+- Usługi PKI (4 podstawowe):
+	- Uwierzytelnianie: zapewnia, że osoba jest tym, za kogo się podaje
+	- Integralność: otrzymane dane nie zostały zmienione celowo lub nieumyślnie
+	- Poufność: nikt nie może przeczytać określonego fragmentu dane z wyjątkiem zamierzonego odbiorcy.
+	- Niezaprzeczalność: wysłana wiadomość nie może być kwestionowana
+	
+- PKI składa się z:
+	- Directory Service: Kim jesteś? Kto cie zna?
+	
+	- Certificate Management Service: Gdzie jest twoje poświadczenie? Kto je wydał? Czy jest prawidłowe?
+		- Certificate Authority (CA)
+			- Generuje cyfrowe certyfikaty bazujące na X.509
+			- Zarządza cyklem życia certyfikatów
+			- Jest częścią cross certification z innym CA
+		- Registration Authority (RA)
+			- Współdziałanie z usługą katalogową w celu rejestracji podmiotów
+			- Przeprowadza weryfikację certyfikatów oraz ścieżki certyfikatu
+		- Certyfikat cyfrowy X.509 składa się:
+			- Wersja
+			- Numer seryjny 
+			- ID algorytmu 
+			- Issuer (emitent)
+			- Ważność:
+				- Not before
+				- Not after
+			- Subject
+			- Subject Public Key Info
+				- Public Key Algorithm
+				- Subject Public Key
+			- Issuer Unique Identifier (Optional)
+			- Subject Unique Identifier (Optional)
+			- Certificate Signature Algorithm
+			- Certificate Signature 
+		
+	- Key Management Service: Please make me key? Is it your pk? Your public key? My public key?
+		- Key establishment function (ustalanie klucza): po wygenerowaniu klucza prywatnego (lub klucza tajnego w operacji szyfrowania klucza symetrycznego) za pomocą RNG, klucz publiczny jest generowany z klucza prywatnego za pomocą algorytmu asymetrycznego (generowanie klucza).
+		- Key exchange function (wymiana klucza): składa się z zestawu protokołów uzgadniania kluczy i reguł jego dystrybucji, realizujących wymianę kluczy.
+		- Key backup & recovery function: ... z wyłączeniem: ephemeral keys (klucz tymczasowy), “seeds” for RNG (nasiono RNG - "pattern" tworzenia klucza), and shared secret keys (klucze współdzielone).
+		- Key revocation function (odwołanie): gdy klucz został naruszony bądź został zmieniony
+			- status of key-pair is revoked
+			- certificate status shall be listed in the certificate revocation list (CRL) (unieważnienie certyfikatu, poprzez wpisanie go na liste cofniętych)
+		- Key destruction function: zerowanie klucza, czyli niszczenie go
+		- Key escrow function: używa 3rd party agent (CA) do przechowywania zaszyfrowanej pary kluczy
+			- Fair Cryptosystem, defined by FIPS 185 Escrowed Encryption Standard: SKIPJACK Algorithm and a Law Enforcement Access Field (LEAF) creation method. (?)
+	- Cryptography Service: Asymetryczna, symetryczna, mieszana
+	
+- X.500-based LDAP directory service:
+	- X.500 jest zbiorem sieciowych standardów pokrywających usługi katalogowe.
+	- Ujednolicone źródło informacji organizacyjnych, które definiuje: organizację, jednostkę organizacyjną, systemy informatyczne i użytkowników ... itd.
+	- Przechowuje i rozpowszechnia certyfikaty (wraz z kluczami i poświadczeniami) oraz listę odwołania certyfikatów (CRL).
+	- Centralny węzeł informacji do systemów IT typu enterprise.
+	
+- ![X.500](img/x500.png)
+
 
 ## 25. HTTPS i PKI: charakterystyka, protokół
 
