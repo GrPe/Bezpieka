@@ -428,7 +428,9 @@ ECC - kryptografia krzywych eliptycznych: używa systemu algebraicznego zdefinio
 - PKI wykorzystuje "3rd party trust model"(- jednostka, która ułatwia interakcje między dwiema stronami, które obie ufają stronie trzeciej. Strona trzecia dokonuje przeglądu całej krytycznej komunikacji między stronami w oparciu o łatwość tworzenia fałszywych treści)
 - Certification Authorities (CA) zapewniają weryfikację certyfikatu „podmiotu końcowego” (EE) (tożsamość, klucz publiczny i powiązane poświadczenia).
 
-- ![PKI](img/pki.png)
+
+![PKI](img/pki.png)
+
 
 - Usługi PKI (4 podstawowe):
 	- Uwierzytelnianie: zapewnia, że osoba jest tym, za kogo się podaje
@@ -482,24 +484,56 @@ ECC - kryptografia krzywych eliptycznych: używa systemu algebraicznego zdefinio
 	- Przechowuje i rozpowszechnia certyfikaty (wraz z kluczami i poświadczeniami) oraz listę odwołania certyfikatów (CRL).
 	- Centralny węzeł informacji do systemów IT typu enterprise.
 	
-- ![X.500](img/x500.png)
+![X.500](img/x500.png)
 
 
 ## 25. HTTPS i PKI: charakterystyka, protokół
 
-//Lecture4_Cryptography-Part2_good -> od 20 do 21 ?
+- Certyfikat X.509 z kluczem publicznym to klucz do wdrożenia HTTPS
+	- SSL/TLS for Transport-Level security
+	- Asymmetric key algorithm for key management operations
+	- Symmetric key algorithm for cryptographic operations
+	- Funkcja skrótu i podpis cyfrowy dla integralności i niezaprzeczalności
+	- Principal CS to „zaufana strona trzecia”, która umożliwia zaufane relacje
+	- PKI to wspierająca infrastruktura IT 
+	
+![HTTPS i PKI](img/https_pki.png)
 
 ## 26. SSO i PKI: charakterystyka, protokół
 
-//Lecture4_Cryptography-Part2_good -> 28
+- Security Assertion jest kluczem do implementacji SSO
+	- SSL / TLS dla bezpieczeństwa warstwy 4-7
+	- SAML potwierdza poświadczenie uwierzytelnienia użytkownika i X.509 z jednego systemu do drugiego.
+	- Principal CS to „zaufana strona trzecia”, która umożliwia zaufane relacje
+	- PKI to wspierająca infrastruktura IT
+
+![SSO i PKI](img/sso_pki.png)
 
 ## 27. Bezpieczna poczta – standard S/MIME: charakterystyka, zasada działania, protokół
 
-//Lecture4_Cryptography-Part2_good -> od 32 do 33 (nic)
+//Lecture4_Cryptography-Part2_good -> od 32 do 33 (dosłownie nic...)
 
 ## 28. System PGP: charakterystyka, zasada działania
 
-//Lecture4_Cryptography-Part2_good -> od 34 do 35
+- Podobnie jak PKI, PGP jest także hybrydowym kryptosystemem, ale w przeciwieństwie do PKI, PGP wykorzystuje model „sieci zaufania”.
+	- Nie ma zaufanego CA do zweryfikowania tożsamości i powiązanych poświadczeń.
+	- Każda „jednostka końcowa” zbiera certyfikaty od innych zaufanych podmiotów.
+	
+![PGP](img/pgp.png)	
+
+- PGP akceptuje certyfikat X.509 oraz PGP, który składa się:
+	- PGP version number
+	- Algorithm ID 
+	- Issuer
+	- Validity 
+		- Not Before 
+		- Not After 
+	- Subject
+	- Subject Public Key Info
+		- Public Key Algorithm
+		- Subject Public Key
+	- Certificate Signature Algorithm
+	- Certificate Signature
 
 ## 29. Typy ataków kryptoanalitycznych
 
@@ -773,10 +807,10 @@ XSS (Cross-site scripting) - sposób ataku na serwis WWW polegający na osadzeni
 		- secure: ciasteczko ustawione w protokole https nie będzie wysyłane w protokole http.
 	- X-XSS-Protection
 		- Przeglądarka blokuje wczytanie strony, gdy wykryje atak XSS Reflected.
-		- 0  : wyłączona blokada
-		- 1  : po wykryciu ataku dane są wycinane z odpowiedzi serwera (domyślna opcja w przeglądarkach)
-		- 1; mode=block  : po wykryciu ataku przeglądarka blokuje wczytywanie strony
-		- 1; report=<reporting-URI> (Chromium)  : po wykryciu ataku dane są wycinane z odpowiedzi serwera, a raport z sytuacji jest wysyłany na podany adres.
+		- "0" : wyłączona blokada
+		- "1" : po wykryciu ataku dane są wycinane z odpowiedzi serwera (domyślna opcja w przeglądarkach)
+		- "1; mode=block" : po wykryciu ataku przeglądarka blokuje wczytywanie strony
+		- "1; report=<reporting-URI> (Chromium)" : po wykryciu ataku dane są wycinane z odpowiedzi serwera, a raport z sytuacji jest wysyłany na podany adres.
 	- HTML Encoding 
 	- Content Security Policy
 		- Określa zaufane źródła zasobów (whitelisting)
@@ -794,3 +828,4 @@ XSS (Cross-site scripting) - sposób ataku na serwis WWW polegający na osadzeni
 ## 37. Obsługa danych z niezaufanego źródła – aplikacje WEB
 
 ## 38. Obsługa Złożonych danych - aplikacje WEB
+
