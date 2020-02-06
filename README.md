@@ -364,7 +364,7 @@ Kryptografia asymetryczna (inaczej kryptografia klucza publicznego) obejmuje dwa
 	- Jest to połączenie one-way ("trapdoor function")
 	- Prywatny klucz nie może zostać wydedukowany (w teorii) na podstawie klucza publicznego
 
-![Asymetryczne szyfrowanie i deszyfrowanie wiadomości](img/asymetric_msg.png.png)
+![Asymetryczne szyfrowanie i deszyfrowanie wiadomości](img/asymetric_msg.png)
 
 - Algorytm faktoryzacji: wymnożenie dwu dużych liczb pierwszych jest łatwe (można to zrobić w czasie wielomianowym od długości ich zapisu), natomiast szybkie znalezienie rozkładu na czynniki pierwsze ich iloczynu (bez znajomości wyjściowych liczb lub innych dodatkowych informacji) wydaje się być problemem ekstremalnie trudnym.
 	- Bazuje na rozkładzie na czynniki (faktoryzacji) liczb półpierwszych
