@@ -465,11 +465,28 @@ Handshake zachodzi zawsze, kiedy użytkownik wchodzi na stronę internetową prz
 
 ## 15. Kryptografia symetryczna: charakterystyka, przetwarzanie blokowe oraz strumieniowe, mieszanie oraz rozpraszanie, problem wymiany kluczy
 
+- Charakterystyka
+	- Wymaga posiadania tego samego klucza przez dwie strony
+		- Wymaga to opracowania bezpiecznego sposobu wymiany/dostarczenia klucza
+	- Wysyłający szyfruje wiadomość, odbierający odszyfrowuje wiadomość
+	- Każda para użytkowników powinna posiadać unikalny klucz
+		- Problem z zarządzaniem nimi (jest ich dużo)
+	- Zapewnia tylko poufność danych
+		- po połączeniu z MAC (kod uwierzytelniający wiadomości) zapewnia także integralność i uwierzytelnienie
+
+- Popularne algorytmy szyfrujące
+	- DES, 3DES, AES, RC6, Twofish, Blowfish
+
 - Przetwarzanie blokowe
 	- pracuje na stałym bloku tekstu jawnego
 	- Algorytm bierze blok tekstu i tworzy blok tekstu zaszyfrowanego (zazwyczaj 8 bajtów / 64bit)
 	- Zazwyczaj implementacja softwarowa
 	- Generalnie przetwarzanie blokowe jest wolniejsze od szyfrowania strumieniowego
+	- Korzysta z Mieszania (Confusion) oraz Rozpraszania (Diffusion)
+		- Mieszanie
+			- chodzi o stworzenie skomplikowanej relacji :> pomiędzy kluczem a tekstem, żeby zaszyfrowany tekst nie był podatny na analizę statystyczną
+		- Rozpraszanie
+			- Zmiana jednego bitu w tekście jawnym prowadzi do zmiany dużej ich liczby w tekście zaszyfrowanym
 	- Przykłady: DES, Triple DES, AES, IDEA
 
 - Przetwarzanie strumieniowe
@@ -478,6 +495,8 @@ Handshake zachodzi zawsze, kiedy użytkownik wchodzi na stronę internetową prz
 	- Statystycznie nieprzewidywalny
 	- Strumień nie powinien być powiązany liniowo z kluczem
 	- Przykłady: RC4, SEAL, VEST
+	- Jedną z odmian jest OTP (One-time pad) - klucz jest randomowy i używany tylko raz
+	- Zazwyczaj wykorzystywana jest operacja XOR (1 i 0 => 1 // 0 i 0 => 0 // 1 i 1 => 0)
 
 - Steganografia
 	- Metoda ukrywania danych w innym medium
@@ -487,6 +506,32 @@ Handshake zachodzi zawsze, kiedy użytkownik wchodzi na stronę internetową prz
 	- Może służyć do wstawiania ukrytych, cyfrowych znaków wodnych
 
 ## 16. Tryby pracy algorytmów symetrycznych: ECB, CBC, CFB,OFB, CTR
+
+###  Block Mode
+
+- ECB (Electronic Code Boook)
+	 - 64-bitowe bloki danych przetwarzane kolejno, jeden na raz (indywidualnie)
+	 - Zaczyna na początku tekstu i jedzie po kolei
+	 - Jest prosty i szybki
+	 - Łatwo go złamać, jeśli znamy tekst jawny
+- CBC (Cipher Block Chaining)
+	- 64-bitowe bloki tekstu są ładowane sekwencyjnie
+	- Robi XOR-a pierszego bloku z IV (wektorem inicjalizującym)
+	- Szyfruje blok za pomocą klucza
+	- Dla każdego następnego bloku robi XOR-a z zaszyfrowanym blokiem poprzednim
+		- ![xor](img/xor.png)
+
+### Stream Mode
+
+- Wrzucam obrazki bo więcej z nich wynika niż moich opisów xd
+- CFB (Cipher Feed Back)
+- ![cfb](img/cfb.png)
+- OFB (Output Feed Back)
+- ![ofb](img/ofb.png)
+- CTR (Counter)
+- ![ctr](img/counter.png)
+
+- FIPS 81 wyróżnia tylko pierwsze 4. Nie uznaje Counter
 
 ## 17. Algorytm DES: charakterystyka, opis rundy, s-bloki, tryby działania (TDES/3DES)
 
