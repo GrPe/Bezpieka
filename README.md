@@ -437,9 +437,54 @@ Handshake zachodzi zawsze, kiedy użytkownik wchodzi na stronę internetową prz
 
 ## 13. Funkcje haszujące: cechy podstawowe, zastosowanie
 
+- Przyjmuje tekstu na wejściu i zwraca ciąg znaków o stałej długości
+- Maksynalny rozmiar danych wejściowych i wyjściowych zależy od designu algorytmu
+	- Pre-image resistance - Dobra funkcja hashująca jest jednokierunkowa. Nie powinna dać się odwrócić
+	- Collision resistance - Odporność na kolizje - Twa dwóch różnych inputów funkcja nie powinna wygenerować takiego samego hasha
+- Są używane do zapewnienia Itegralności, Uwierzytelnienia oraz non-repudiation (niepodważalności)
+	- Message digest - wiadomość lub plik używany jako wejście dla funkcji hashującej
+	- Message authentication - Uwierzytelnienie wiadomości - jeśli klucz jest używany w wiadomości jako input dla funkcji hashującej
+	- Digital signature - jeśli prywatny klucz jest używany jako input, a output może być zweryfikowany przez klucz publiczny
+- Mogą być używane jako ekstraktory (randomness extractor) w generator liczb pseudo-losowych - przetwarza output z generatora liczb (takiego biednego), dzięki czemu zwiększa losowość całego generatora
+
 ## 14. Rodzaje funkcji haszujących: bez klucza (MD), z kluczem (MAC, HMAC) – charakterystyka, protokoły wykorzystujące funkcje haszujące
 
+- Non-key digest (integrity - integralność) - nie używa klucza
+	- Message integrity Code (MIC) - integralność wiadomości
+	- Modification Detection Code (MDC) - detekcja modyfikacji
+- Keyed digest (autentykacja) - z użyciem klucza
+	- Message Authentication Code (MAC): Secret key + message -> kod uwierzytelnienia wiadomości
+	- Keyed-hash MAC or Hashed MAC (HMAC): MAC + MDC
+- Digital Signature (non-repudiation - niepodważalność) -> podpisy cyfrowe
+	- Wykorzystuje kryptografię hybrydową - korzysta z funkcji hashujących bez klucza oraz kryptografii asymetrycznej
+
+- Przykłady dla 'digest': MD5, RIPE-MD, HAVAL, FIPS, 186-2, SHA1, SHA224, SHA256, SHA512
+- Przykłady dla podpisów cyfrowych: EIGamal, FIPS, 180-2, DSA, EC-DSA
+
+// Opis HMAC
+
 ## 15. Kryptografia symetryczna: charakterystyka, przetwarzanie blokowe oraz strumieniowe, mieszanie oraz rozpraszanie, problem wymiany kluczy
+
+- Przetwarzanie blokowe
+	- pracuje na stałym bloku tekstu jawnego
+	- Algorytm bierze blok tekstu i tworzy blok tekstu zaszyfrowanego (zazwyczaj 8 bajtów / 64bit)
+	- Zazwyczaj implementacja softwarowa
+	- Generalnie przetwarzanie blokowe jest wolniejsze od szyfrowania strumieniowego
+	- Przykłady: DES, Triple DES, AES, IDEA
+
+- Przetwarzanie strumieniowe
+	- Operuje na strumieniu tekstu
+	- Zazwyczaj implementacja sprzętowa
+	- Statystycznie nieprzewidywalny
+	- Strumień nie powinien być powiązany liniowo z kluczem
+	- Przykłady: RC4, SEAL, VEST
+
+- Steganografia
+	- Metoda ukrywania danych w innym medium
+	- Microdot - II Wojna Światowa
+	- W plikach MP3, grafikach, filmach można umieścić bloki danych
+	- Plik może być używany bez wiedzy użytkownika o tym co w nim naprawde jest
+	- Może służyć do wstawiania ukrytych, cyfrowych znaków wodnych
 
 ## 16. Tryby pracy algorytmów symetrycznych: ECB, CBC, CFB,OFB, CTR
 
