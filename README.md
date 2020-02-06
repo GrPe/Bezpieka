@@ -349,12 +349,35 @@ Działa pomiędzy warstwą aplikacji (HTTP, SMTP, NNTP) a warstwą transportową
 
 ## 19. Kryptografia asymetryczna: charakterystyka, problem faktoryzacji iloczynu liczb, problem logarytmu dyskretnego
 
+Kryptografia asymetryczna (inaczej kryptografia klucza publicznego) obejmuje dwa matematycznie powiązane ze sobą klucze - publiczny i prywatny (mimo, że nie są tym samym: klucz publiczny różni sie od klucza prywatnego).
+
+- Kryptografia asymetryczna jest bardziej skomplikowana matematycznie od symetrycznej
+	- Algorytm faktoryzacji
+	- Algorytm logarytmu dyskretnego
+		- Discrete Logarithm with Finite Field
+		- Elliptic Curve Discrete Logarithm with Finite Field 
+	- Procesy kryptografii asymetrycznej są wolniejsze od kryptografii symetrycznej (100 razy wolniejszy w oprogramowaniu, 1000-10000 razy wolniejszy na samym sprzęcie)
+	- Wielkość klucza musi być relatywnie duża
+
+- Klucz publiczny powstaje z klucza prywatnego
+	- Tylko właściciel posiada klucz prywatny
+	- Jest to połączenie one-way ("trapdoor function")
+	- Prywatny klucz nie może zostać wydedukowany (w teorii) na podstawie klucza publicznego
+
+![Asymetryczne szyfrowanie i deszyfrowanie wiadomości](img/asymetric_msg.png.png)
+
+- Algorytm faktoryzacji: wymnożenie dwu dużych liczb pierwszych jest łatwe (można to zrobić w czasie wielomianowym od długości ich zapisu), natomiast szybkie znalezienie rozkładu na czynniki pierwsze ich iloczynu (bez znajomości wyjściowych liczb lub innych dodatkowych informacji) wydaje się być problemem ekstremalnie trudnym.
+	- Bazuje na rozkładzie na czynniki (faktoryzacji) liczb półpierwszych
+
+- Dyskretny logarytm: elementu b przy podstawie a w danej grupie skończonej – liczba całkowita c, dla której zachodzi równość: a^c = b
+	- Bazuje na uogólnionym problemie logarytmu dyskretnego, gdzie obliczenie potęgowania (a, a^2, a^4 ...) na polu skończonym jest łatwe, lecz obliczenie logarytmu dyskretnego jest trudne (jedyną prostą metodą rozwiązywania problemu logarytmu dyskretnego jest przeszukanie wszystkich możliwych c, ze wzoru wyżej).
+	- Ataki z użyciem brute force są nieskuteczne przeciwko dyskretnym logarytmom. Ale podatne na ataki chosen-ciphertext.
+
 ## 20. Algorytm RSA: charakterystyka, zasada działania
 
 ### Algorytm Rivesta-Shamira-Adlemana (RSA)
 
 Algorytm, który z powodzeniem można używać do szyfrowania oraz podpisów cyfrowych. Bezpieczeństwo szyfrowania opiera się na trudności faktoryzacji dużych liczb złożonych. 
-
 #### Kroki algorytmu:
 
 ##### 1. Wybieramy dwie liczby pierwsze – p i q
@@ -384,7 +407,7 @@ Algorytm, który z powodzeniem można używać do szyfrowania oraz podpisów cyf
 - Pierwszy  algorytm szyfrowania z kluczem jawnym, powszechnie nazywany wymianą klucza Diffiego-Hellmana
 - Celem algorytmu jest umożliwienie użytkownikom A i B, bezpiecznej wymiany kluczy
 - Efektywność algorytmu DH zależy od stopnia trudności obliczania logarytmu dyskretnego
-	- y = g^x mod p
+	- y = g^x mod p (trapdoor function: łatwo w jedną strone, trudno w drugą)
 		- Przy danych g,x,p obliczenie y jest sprawą prostą. W najgorszym wypadku trzeba będzie wykonać x mnożeń g i dokonać operacji mod p.
 		- Jednak, przy danych y,g,p bardzo trudno obliczyć x (obliczyć logarytm dyskretny)
 		- Trudność jest podobnego rzędu co w przypadku rozkładania na czynniki pierwsze potrzebnego w algorytmie RSA
@@ -511,7 +534,13 @@ ECC - kryptografia krzywych eliptycznych: używa systemu algebraicznego zdefinio
 
 ## 27. Bezpieczna poczta – standard S/MIME: charakterystyka, zasada działania, protokół
 
+
+
+
 //Lecture4_Cryptography-Part2_good -> od 32 do 33 (dosłownie nic...)
+
+
+
 
 ## 28. System PGP: charakterystyka, zasada działania
 
