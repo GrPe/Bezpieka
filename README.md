@@ -326,14 +326,114 @@ Działa pomiędzy warstwą aplikacji (HTTP, SMTP, NNTP) a warstwą transportową
     - Symetryczne: RC2, IDEA, DES, 3DES, AES
     - Funkcje haszujące: MD5, SHA
 
+SSH zapobiega:
+
+- przechwycenia danych przez atakującego
+- manipulacji danych
+- IP & DNS spoofing
+
 ## 9. Bezpieczeństwo sieci bezprzewodowych
 
 ## 10. Protokół SSL/TLS – charakterystyka, handshake
 
+### SSL - Secure Sockets Layer & TLS - Trasport Layer Security
+
+Protokół stworzony w celu zapewnienia prywatności i bezpieczeństwa danych w komunikacji internetowej. Podstawowym zastosowaniem jest szyfrowanie połączenia między aplikacją a serwerem. Może być także użyty do szyfrowania innych form komunikacji (email, VoIP).
+
+TLS 1.0 jest takim SSL 3.1
+
+TLS zapewnia integralność, uwierzytelnienie oraz szyfrowanie (poufność)
+
+- Działa pomiędzy warstwą aplikacji (HTTP, SMTP, NNTP) a warstwą Transportową (TCP)
+- Wspiera negocjację client-serwer i algorytmy kryptograficzne (RSA, Diffie-Hellman, DSA, RC2, AES, SHA)
+- Działa w dwóch trybach - Application embedded (HTTPS) i SSL Tunel albo SSL VPN (OpenVPN)
+
+#### SSL/TLS Handshake
+
+Handshake zachodzi zawsze, kiedy użytkownik wchodzi na stronę internetową przez HTTPS. Zachodzi także dla każdej innej formy komunikacji wykorzystującej HTTPS (API, DNS)
+
+- TLS wykorzystuje szyfrowanie asymetryczne (klucz prywatny i publiczny) w celu przesłania shared_key. Po wymianie klucza reszta komunikacji bazuje na kryptografi symetrycznej. Symetryczna bo jest sporo szybsza niż asynchroniczna
+
+- [link YT](https://www.youtube.com/watch?v=cuR05y_2Gxc)
+- [link](https://www.ssl.com/article/ssl-tls-handshake-overview/)
+
+![img](img/tls1.png)
+![img](img/tls2.png)
 
 ## 11. Siła szyfrowania – zasady, elementy składowe
 
+### Zasady
+
+#### Confidentiality
+
+- poufność danych
+- osoba nieautoryzowana nie ma do nich dostępu
+- Zapewnione przez szyfrowanie
+
+#### Integrity
+
+- integralność
+- pewność, że wiadomość/dane nie zostały zmodyfikowane
+- Zapewnione przez hashowanie, uwierzytelnienie użytkownika
+
+#### Authentication (Uwierzytelnienie) nie jest cześcią Triady bezpieczeństwa!!!
+
+### Kryptografia
+
+- Kryptografia - nauka o przeształcaniu danych, w nieodczytalny, bez znajomości odpowiedniego klucza, szyfr
+- Kryptologia - nauka o kryptografii i kryptoanalizie
+- Cryptosystem - hardware albo soft implementujący kryptografię
+- Algorytm - prezycyjna zasada (albo ich zestaw), mówiący jak rozwiązać dany problem / zadanie
+- Szyfr - operacja kryptograficzna operująca na znakach lub bitach
+- Plaintext - tekst jawny
+- Ciphertext - zakodowany tekst
+- Encrypt/Encode - czynność szyfrowania za pomocą klucza
+- Decrypt/Decode - czynność deszyfrowania za pomocą klucza
+- Kryptoanaliza - praktyka niszczenia/łamania systemów kryptograficznych
+- Work Factor - koszt/czas niezbędny do złamania systemu
+- Klucz - tajna sekwencja znaków używana do szyfrowania/deszyfrowania danych
+- Key clustering - przypadek w którym różne klucze generują ten sam tekst zaszyfrowany z tego samego tekstu jawnego
+- Keyspace - zakres wszystkich możliwych wartości (znaków) używanych do tworzenia klucza
+- Initialization Vector (IV) - blok bitów używany jako wartość inicjalizująca algorytm kryptograficzny (zwiększa bezpieczeństwo poprzez dodanie dodatkowej zmiennej)
+- Algorytm kryptograficzny - zestaw matematycznych funkcji przyjmujący tekst jawny i klucz i zwracający tekst zaszyfrowany
+- Operacja kryptograficzna - szyfrowanie/deszyfrowanie
+
+### Siła szyfrowania
+
+Źródła:
+- Algorytm
+- Tajność klucza
+- Długość klucza
+- Wektor inicjalizujący
+- Sposób ich połączenia
+
 ## 12. Szyfry klasyczne: Podstawieniowe, Permutacyjne, Polialfabetyczne
+
+### Podstawieniowe
+
+- Polegają na zamianie jednej cześci informacji na drugą
+- Najczęściej polegają na przesunięciu liter w alfabecie (Szyfr Cezara, ROT13)
+
+### Permutacyjne (Przestawieniowe)
+
+- Zamiena kolejność znaków
+- Klucz określa na jakie pozycje znaki zostaną przeniesione (klucz nie jest standardem)
+- W przeciwieństwie do szyfrów podstawieniowych, mamy tutaj mapowanie np (1, 2, 3, 4, 5) => (3, 4, 5, 2, 1) 'WORLD' -> 'RLDOW'
+- Inną opcją jest wsadzenie wiadomości w macierz:
+    - np "I LOVE CISSP CBK REVIEW CLASS 2012"
+    - ![perm](img/perm.png)
+
+### Polialfabetyczne
+
+- Wariant szyfru podstawieniowego
+- Klucz jest powtarzany na całej długości tekstu jawnego
+
+- Plaintext: COMPUTING GIVES INSIGHT
+- Keyword: LUCKYLUCK YLUCK YLUCKYL
+- Ciphertext: NIOZSECPQ ETPGC GYMKQFE
+
+- W sumie to chodzi o to, że do do każdej litery z tekstu jawnego dodajemy litery z klucza:
+- np: C(2) + L(11) = N(13) - pozucje w alfabecie
 
 ## 13. Funkcje haszujące: cechy podstawowe, zastosowanie
 
