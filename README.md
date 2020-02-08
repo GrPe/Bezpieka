@@ -532,10 +532,66 @@ Handshake zachodzi zawsze, kiedy użytkownik wchodzi na stronę internetową prz
 - ![ctr](img/counter.png)
 
 - FIPS 81 wyróżnia tylko pierwsze 4. Nie uznaje Counter
+- FIPS - Federal Information Processing Standard
 
 ## 17. Algorytm DES: charakterystyka, opis rundy, s-bloki, tryby działania (TDES/3DES)
 
+### DES - Data Encryption Standard
+
+- Symetryczny szyfr blokowy zaprojektowany przez IBM
+- Był FIPS 46-1 od 1977 roku
+- Blok ma rozmiar 64-bit (56-bit secret key + 8-bit parity)
+- Używa 56-bitowego klucza oraz 16 rund traspozycji i substytucji do zaszyfrowania każdej grupy 8 (64bit) znaków czystego tekstu
+
+### Opis działania
+
+- [Tutaj fajne wytłumaczenie jak to mniej więcej działa - 9 minut](https://www.youtube.com/watch?v=3BZRBfhpIb0)
+
+- Rundy
+	- Ekspansja (rozszerzenie)
+	- Mieszanie klucza
+	- Substytucja
+	- Permutacja
+	- ![des](img/des.png)
+- 56-bit klucz jest dzielony na dwa 28-bitowe subklucze
+	- dla każdej kolejnej rundy, obie połowy są rotowane w lewo o 1 lub 2 bity
+- 64-bit tekstu jawnego dzielona jest na dwa 32-bitowe części
+- IP - Permutacja inicjalizująca/wstępna
+	- permutacja 64-bit bloku wejściowego na 64-bitową matrycę IP
+- Opis rundy (Trochę bardziej po ludzku)
+	- bity klucza są przesuwane, a następnie wybierane jest 48 z 56 bitów
+	- prawa cześć danych rozszerzana jest do 48-bitów za pomocą [permutacji rozszerzonej](https://pl.wikipedia.org/wiki/Dane_tabelaryczne_algorytmu_DES#Permutacja_rozszerzona)
+	- Leci XOR prawej części z kluczem
+	- Całość dzielona jest na osiem 8-bitowych cześci i wpada do S-bloków (zostaje 32 z 48 bitów)
+	- Permutacja na tym co zostało
+	- Kolejny XOR z lewą cześcią tekstu jawnego (tą nie macaną jeszcze)
+	- To co uzyskamy staje się nową prawą połową
+	- Stara prawa połowa zostaje nową lewą połową
+- Po 16 cyklach/rundach (dlaczego 16?, bo tak) sklejamy lewą i prawą połowę.
+- Dokonywana jest permutacja końcowa
+
+### INFO
+- Permutacja rozszerzona - zamienia mniejszą ilość bitów na większą
+- Permutacja z kompresją (skrócenie) - pomija niektóre bity
+
+### S-bloki
+
+- Takie czarne skrzynki z wejściem, wyjściem i niewiadomą zawartością :>
+- Podstawia określony bit (lub bity) w miejsce innych
+- np: wejście: 011011 => (pierwszy i ostatni bit) 01 określa wiersz, pozostałe (1101) określają kolumne
+- ![sblock](img/sblock.png)
+
+### Triple DES / 3DES
+- Zamiast 16 rund ma 48 (16 * 3 = 48)
+- Wspiera 4 tryby pracy
+	- DES-EEE (3 różne klucze dla szyfrowania) (encrypt-encrypt-encrypt)
+	- DES-EDE (operacje: szyfrowanie-deszyfrowanie-szyfrowanie z 3 róznymi kluczami) (encrypt-decrypt-encrypt)
+	- DES-EEE2 (2 klucze. 1 i 3 operacja używa tego samego)
+	- DES-EDE2 (2 klucze. 1 i 3 operacja używa tego samego)
+
 ## 18. Algorytm AES: charakterystyka, opis rundy
+
+
 
 ## 19. Kryptografia asymetryczna: charakterystyka, problem faktoryzacji iloczynu liczb, problem logarytmu dyskretnego
 
