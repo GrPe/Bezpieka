@@ -640,11 +640,9 @@ Kryptografia asymetryczna (inaczej kryptografia klucza publicznego) obejmuje dwa
 
 ## 20. Algorytm RSA: charakterystyka, zasada działania
 
-
-
 ### Algorytm Rivesta-Shamira-Adlemana (RSA)
 
-Algorytm, który z powodzeniem można używać do szyfrowania oraz podpisów cyfrowych. Bezpieczeństwo szyfrowania opiera się na trudności faktoryzacji dużych liczb złożonych. 
+Algorytm, który z powodzeniem można używać do szyfrowania oraz podpisów cyfrowych. Bezpieczeństwo szyfrowania opiera się na trudności faktoryzacji dużych liczb złożonych.
 #### Kroki algorytmu:
 
 ##### 1. Wybieramy dwie liczby pierwsze – p i q
@@ -657,8 +655,8 @@ Algorytm, który z powodzeniem można używać do szyfrowania oraz podpisów cyf
 
 
 
-- Klucz publiczny: __n__ i __e__ 
-- Klucz prywatny: __n__ i __d__ 
+- Klucz publiczny: __n__ i __e__
+- Klucz prywatny: __n__ i __d__
 - Szyfrowanie: C = M^e (mod n) M – wiadomość; M < n
 - Odszyfrowanie: M = C^d (mod n)
 
