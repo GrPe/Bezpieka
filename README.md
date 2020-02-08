@@ -591,7 +591,23 @@ Handshake zachodzi zawsze, kiedy użytkownik wchodzi na stronę internetową prz
 
 ## 18. Algorytm AES: charakterystyka, opis rundy
 
+- [Filmik - 16 minut](https://www.youtube.com/watch?v=liKXtikP9F0)
 
+- Symetryczny szyfr blokowy
+- Przetwarza bloki tekstu o wielkości 128-bitów
+- Wspiera klucze o wielkości 128, 192 i 256 bitów
+- Różna liczba rund (10 dla 128bit, 12 dla 192bit i 14 dla 256bit)
+- Każda runda składa się z 4 kroków:
+	- SubByte (Confusion - Mieszanie - brak zaleźności między kluczem a tekstem jawnym)
+	- ShiftRow (Diffusion - Rozpraszanie - efekt lawiny ????)
+	- MixColumn (Rozpraszanie)
+	- AddRoundKey (Mieszanie)
+- Proces szyfrowania
+	- Rozszerzenie klucza (KeyExpansion)
+	- Runda inicjalizująca
+		- AddRoundKey
+	- Rundy (4 kroki)
+	- Runda finałowa (3 kroki - Nie ma MixColumn)
 
 ## 19. Kryptografia asymetryczna: charakterystyka, problem faktoryzacji iloczynu liczb, problem logarytmu dyskretnego
 
@@ -620,6 +636,8 @@ Kryptografia asymetryczna (inaczej kryptografia klucza publicznego) obejmuje dwa
 	- Ataki z użyciem brute force są nieskuteczne przeciwko dyskretnym logarytmom. Ale podatne na ataki chosen-ciphertext.
 
 ## 20. Algorytm RSA: charakterystyka, zasada działania
+
+
 
 ### Algorytm Rivesta-Shamira-Adlemana (RSA)
 
