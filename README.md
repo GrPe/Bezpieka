@@ -609,6 +609,9 @@ Handshake zachodzi zawsze, kiedy użytkownik wchodzi na stronę internetową prz
 	- Rundy (4 kroki)
 	- Runda finałowa (3 kroki - Nie ma MixColumn)
 
+- Runda
+	- ![aes](img/aes.png)
+
 ## 19. Kryptografia asymetryczna: charakterystyka, problem faktoryzacji iloczynu liczb, problem logarytmu dyskretnego
 
 Kryptografia asymetryczna (inaczej kryptografia klucza publicznego) obejmuje dwa matematycznie powiązane ze sobą klucze - publiczny i prywatny (mimo, że nie są tym samym: klucz publiczny różni sie od klucza prywatnego).
