@@ -1176,7 +1176,70 @@ XSS (Cross-site scripting) - sposób ataku na serwis WWW polegający na osadzeni
 ## 37. Obsługa danych z niezaufanego źródła – aplikacje WEB
 ## 38. Obsługa Złożonych danych - aplikacje WEB
 
-// XML (serializacja)
-// JSON
-// Pliki od użytkowników - JPEG, EXE, ELF, scripts, tichy :>
-// 
+### XSS i SQL Injection (35 i 36)
+
+### PHP
+
+- Serializacja i deserializacja zazwyczaj wykonywana jest za pomocą domyślnych funkcji `serialize` i `unserialize`.
+- `unserialize` nie uruchamina konstruktora. Więc nie ma żadnej weryfikacji tego, jakie dane znajdą się w obiekcie.
+- jeśli mamy np. klasę która odczytuje plik, coś z robi z danymi a potem w destruktorze (odpala się prawie zawsze) usuwa plik, to da się wstawić do zserializowanej klasy plik, który chcemy żeby został usunięty. (jakaś konfiguracja serwera ;>)
+
+### XML
+
+- Billion Laughs Attack
+	- Wykorzystuje możliwość definiowania encji w dokumencie i faktu że encja może zawierać inne encje.
+	- Prowadzi to do sytuacji, gdzie parser rozwija zagnieźdzone encje aż do samego końca, przez co zapycha się cała pamięć serwera (taki DoS)
+	- dla 10 stopni zagnieżdzenia - ok. 30GB (zakładając 30 bajtów na encję) => 3 * 10^10
+	- Niektóre parsery sprawdzają liczbę zagnieźdzeń i przerywają gdy jest ich za dużo
+
+- Quadratic Blowup
+
+```xml
+<?xml version ="1.0">
+<!DOCTYPE lolz[
+	<!ENTITY x "X[... 40 tys znaków]">
+]>
+<lolz>&x;&x;&x;&x; ... [40 tysiecy razy] ... &x;</lolz>
+
+```
+	- Takie brzydkie coś obchodzi limit zagnieźdzeń (bo jest jedno). Waży około 160kB a po sparsowaniu - 1.6GB :>
+	- Można połączyć z Billion Laughs Attack
+
+- XXE (XML External Entity)
+	- Encje XML mogą być zaczytywane z pliku. (Można tworzyc uniwersalne encje, które mogą być współdzielone w wielu innych dokumentach)
+	- A co jeśli zamiast pliku XML walniemy tam `/etc/passwd` - mamy zawartość pliku (Path Traversal)
+
+- XML ma swoje rozwinięcia/inne implementacje np. XSLT (Extensible Stylesheet Language Transformations)
+	- Wiele silników XSLT ma własne rozszerzenia pozwalające np. na wykonanie dowolnego kodu po stronie serwera (np. xalan-j)
+
+### Code Injection & Command Injection
+
+- Code Injection występuje gdy poprzez manipulację parametrami wejściowymi przekazywanymi do aplikacji możliwe jest doprowadzenie do nieautoryzowanego wykonania kodu po stronie serwera. (wstrzykiwany jest kod PHP, Python, JavaScript)
+- Command Injection - tutaj wstrzykiwana jest komenda wybranego systemu operacyjnego (Windows, Linux)
+
+- Jedną z form ochrony jest wyłączenie możliwości uruchomienia konkretnych funkcji `exec`, `shell_exec`. Utrudnia to atak, ale nie daje 1000% bezpieczeństwa.
+- Weryfikacja parametrów wejściowych pod kątem:
+	- dopuszczalnych znaków, jakie mogą wystąpić w danej zmiennej
+	- dopuszczalnej długości danych
+	- dopuszczalnego formatu danych
+	- dopuszczalnego typu danych
+
+- Tzw. funkcja `eval` (nazwa może się róźnić w zaleźności od języka) przyjmuje na wejściu parametry, które są interpretowane i wykonywane jako zwykły kod.
+
+
+### Local file Inclusion & Remote File Inclusion
+
+- Funkcja `include` w PHP pozwala na dołączenie do aktualnego skryptu kodu, na który wskazuje parametr funkcji.
+- Jeśli strona pozwala na dodawanie własnych plików to możemy wstawić złośliwy skrypt, a następnie go wykonać `xxx?page=pliczek.php`
+- Zamiast skryptu PHP można umieślić złośliwy kod w pliku JPEG :>
+
+- Możliwe formy zabezpieczenia:
+	- Filtrowanie plików po rozszerzeniach (whitelist)
+	- Magic number (każdy typ pliku powinień mieć swój unikalny)
+
+### Content Security Policy
+- Określa zaufane źródła zasobów (whitelisting)
+- Zasoby to np: skrypty, style, media, ramki, obrazki, czcionki, itd.
+- np. takie coś: `Content-Security-Policy: default-scr: https://example.com` 
+	- pozwoli na uruchomienie skryptów pochodzących tylko z tej strony.
+	- nie uruchomią się żadne skrypty zdefiniowane bezpośrednio w HTML: `<script>alert('^ ^')</script>`
