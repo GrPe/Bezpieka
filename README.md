@@ -162,6 +162,8 @@
 
 ## 4. Sieci VLAN, charakterystyka, zasady działania
 
+
+
 ## 5. Rodzaje zapór ogniowych: Static Packet-filtering firewall, Stateful inspection firewall, Proxy firewall
 
 - Static Packet-filtering firewall
@@ -333,6 +335,45 @@ SSH zapobiega:
 - IP & DNS spoofing
 
 ## 9. Bezpieczeństwo sieci bezprzewodowych
+
+### Standardy
+
+- WEP (Wired Equivalent Privacy)
+- Używa klucza symetrycznego o długości 40 bitów (jest opcja 104-bit, ale to nie standard) z 24 bitowym IV (Initialization Vector)
+- Używa tego samego statycznego klucza do wszytkich połączeń
+- Pod spodem używa strumieniowego szyfru RC4 (64 lub 128 bit)
+	- Wielkość klucza 40 lub 104bity bierze się stąd, że trzeba odliczyć 24 bity na IV 
+- Podatne na:
+	- Haker może przechwycić wystarczającą ilość pakietów z takim samym IV i odkryć klucz symetryczny (w dużych sieciach/korpo wystarczy 5000 pakietów - info by securak.pl)
+	- W 2007 zaprezentowano atak, który na podstawie 20k pakietów jest wstanie odzystać klucz 40 bitowy
+	- W celu przyśpieszenia zbierania pakietów atakujący może wstrzykiwać własne (np ARP które mają stału długość 68bit i lecą broadcastem po sieci, więc łatwo je wykryć i jest ich dużo)
+- WPA
+	- Następca WEP
+	- Nie używa tego samego klucza do szyfrowania wszystkich połączeń. Zamiast tego negocjuje unikalny klucz dla każdego klienta
+	- Wykorzystuje szyfrowanie TKIP/RC4 (korzysta z 128-bitowego klucza)
+	- Może pracować w dwóch trybach
+		- Personal - WPA-PSK (Pre-Shared Key)
+		- Enterprise - EAP, 802.1X, Radius (bardziej złożone rozwiazanie, zazwyczaj każdy użytkownik ma indywidualne dane logowania)
+	- Podatne na:
+		- ataki siłowe off-line - w przypadku użycia WPA-PSK
+		- Ataki siłowe on-line na protokół PSK
+		- Podatności kryptograficzne w TKIP
+- WPA2
+	- Używa IEEE 802.1X (np. EAP) do uwierzytelnienia
+	- Używa 4-way handshake do zarządania kluczami
+	- Używa AES-based CCMP (Counter-mode Cipher-block-chaining Message authentication code Protocol) zamiast TKIP
+	- Jest wersja Personal i [Enterprise](https://sekurak.pl/bezpieczenstwo-sieci-wi-fi-czesc-7-wpawpa2-enterprise-802-1x-i-eap/)
+
+- WPS (Wi-Fi Protected Setup)
+	- Nie jest to nowa metoda zabezpieczania transmisji, a protokół pozwalający na łatwą konfigurację urządzeń w sieciach chroniowych WPA/WPA2
+	- Pozwala na automatyczne uzyskania hasła
+	- Wersja z konfiguracją w paśmie wykorzystuje standard 802.11, EAP, i algorytm Diffiego-Hellmana. Użytkownik musi podać klucz dostępowy do sieci (hasło, token NFC, USB)
+		- Tutaj są dwie opcję uwierzytelnienia użytkownika
+			- PIN (8 cyfr) z czego ostatnia jest to suma kontrolna, a sprawdzanie pinu działa tak, że najpierw weryfikowana jest poprawność pierwszych 4 cyfr. I jak sa poprawne to kolejnych 4. Redukuje to liczbę kombinacji do 11k. (do złamania średnio w 4h)
+			- PBC (Push-Button-Connect) - wciśnięcie magicznego guzina urządzeniu (trzeba pilnować fizycznego dostępu do routera)
+	- Wersja z konfiguracja poza pasmem korzysta w UPnP w wykorzystaniem pamięci USB
+		- Problem z pilnowaniem pendriva
+		- Są na to ataki i ogólne zalecenia żeby to na routerze wyłączyć
 
 ## 10. Protokół SSL/TLS – charakterystyka, handshake
 
@@ -1120,6 +1161,9 @@ XSS (Cross-site scripting) - sposób ataku na serwis WWW polegający na osadzeni
 
 	
 ## 37. Obsługa danych z niezaufanego źródła – aplikacje WEB
-
 ## 38. Obsługa Złożonych danych - aplikacje WEB
 
+// XML (serializacja)
+// JSON
+// Pliki od użytkowników - JPEG, EXE, ELF, scripts, tichy :>
+// 
