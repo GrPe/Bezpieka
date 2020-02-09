@@ -162,7 +162,20 @@
 
 ## 4. Sieci VLAN, charakterystyka, zasady działania
 
+- VLAN - Wirtualna Sieć Lokalna
+- Dzieli jedną fizyczną sieć na kilka logicznych
+- Komunikacja między dwoma sieciami jest możliwa tylko przez router
+- Sieci wirtualne zachowują się tak jakby zostały stworzone przez osobne switche (a nie jeden)
 
+### Rodzaje VLAN
+- Statyczne
+	- Porty na switchu sa konfigurowane statycznie przez admina
+- Dynamiczne
+	- Switch odpytuje specjalny serwer, który ustala do jakiej sieci VLAN przypisać dany port
+
+- Istnieje możliwość przesyłania ramek między różnymi sieciami VLAN na poziome swicha. W tym celu można stworzyć oddzielne łącze zwykle określane jako __VLAN trunk__
+
+### Głównym celem tworzenia sieci VLAN jest separacja ruchu sieciowego
 
 ## 5. Rodzaje zapór ogniowych: Static Packet-filtering firewall, Stateful inspection firewall, Proxy firewall
 
