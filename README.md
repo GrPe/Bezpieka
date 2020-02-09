@@ -515,7 +515,13 @@ Handshake zachodzi zawsze, kiedy użytkownik wchodzi na stronę internetową prz
 - Przykłady dla 'digest': MD5, RIPE-MD, HAVAL, FIPS, 186-2, SHA1, SHA224, SHA256, SHA512
 - Przykłady dla podpisów cyfrowych: EIGamal, FIPS, 180-2, DSA, EC-DSA
 
-// Opis HMAC
+- HMAC jest nowoczesną wersją MAC. Jego zadaniem jest weryfikacja integralności oraz autentyczności wiadomości
+- Wykorzystuje klucz tajny znajdujący się w rękach nadawcy i odbiorcy
+- Podstawą HMAC może byc dowolna funcja hashująca
+- Jak to działa:
+	- Na końcu blokui jawnego dołączamu tajny klucz i obliczamy hasha dla całości
+	- Do wynikowanego hasha znowu dodajemy klucz i liczymy hasha
+	- Wynik jest kodem HMAC dla całego bloku
 
 ## 15. Kryptografia symetryczna: charakterystyka, przetwarzanie blokowe oraz strumieniowe, mieszanie oraz rozpraszanie, problem wymiany kluczy
 
