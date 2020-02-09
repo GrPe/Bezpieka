@@ -162,6 +162,21 @@
 
 ## 4. Sieci VLAN, charakterystyka, zasady działania
 
+- VLAN - Wirtualna Sieć Lokalna
+- Dzieli jedną fizyczną sieć na kilka logicznych
+- Komunikacja między dwoma sieciami jest możliwa tylko przez router
+- Sieci wirtualne zachowują się tak jakby zostały stworzone przez osobne switche (a nie jeden)
+
+### Rodzaje VLAN
+- Statyczne
+	- Porty na switchu sa konfigurowane statycznie przez admina
+- Dynamiczne
+	- Switch odpytuje specjalny serwer, który ustala do jakiej sieci VLAN przypisać dany port
+
+- Istnieje możliwość przesyłania ramek między różnymi sieciami VLAN na poziome swicha. W tym celu można stworzyć oddzielne łącze zwykle określane jako __VLAN trunk__
+
+### Głównym celem tworzenia sieci VLAN jest separacja ruchu sieciowego
+
 ## 5. Rodzaje zapór ogniowych: Static Packet-filtering firewall, Stateful inspection firewall, Proxy firewall
 
 - Static Packet-filtering firewall
@@ -334,6 +349,45 @@ SSH zapobiega:
 
 ## 9. Bezpieczeństwo sieci bezprzewodowych
 
+### Standardy
+
+- WEP (Wired Equivalent Privacy)
+- Używa klucza symetrycznego o długości 40 bitów (jest opcja 104-bit, ale to nie standard) z 24 bitowym IV (Initialization Vector)
+- Używa tego samego statycznego klucza do wszytkich połączeń
+- Pod spodem używa strumieniowego szyfru RC4 (64 lub 128 bit)
+	- Wielkość klucza 40 lub 104bity bierze się stąd, że trzeba odliczyć 24 bity na IV 
+- Podatne na:
+	- Haker może przechwycić wystarczającą ilość pakietów z takim samym IV i odkryć klucz symetryczny (w dużych sieciach/korpo wystarczy 5000 pakietów - info by securak.pl)
+	- W 2007 zaprezentowano atak, który na podstawie 20k pakietów jest wstanie odzystać klucz 40 bitowy
+	- W celu przyśpieszenia zbierania pakietów atakujący może wstrzykiwać własne (np ARP które mają stału długość 68bit i lecą broadcastem po sieci, więc łatwo je wykryć i jest ich dużo)
+- WPA
+	- Następca WEP
+	- Nie używa tego samego klucza do szyfrowania wszystkich połączeń. Zamiast tego negocjuje unikalny klucz dla każdego klienta
+	- Wykorzystuje szyfrowanie TKIP/RC4 (korzysta z 128-bitowego klucza)
+	- Może pracować w dwóch trybach
+		- Personal - WPA-PSK (Pre-Shared Key)
+		- Enterprise - EAP, 802.1X, Radius (bardziej złożone rozwiazanie, zazwyczaj każdy użytkownik ma indywidualne dane logowania)
+	- Podatne na:
+		- ataki siłowe off-line - w przypadku użycia WPA-PSK
+		- Ataki siłowe on-line na protokół PSK
+		- Podatności kryptograficzne w TKIP
+- WPA2
+	- Używa IEEE 802.1X (np. EAP) do uwierzytelnienia
+	- Używa 4-way handshake do zarządania kluczami
+	- Używa AES-based CCMP (Counter-mode Cipher-block-chaining Message authentication code Protocol) zamiast TKIP
+	- Jest wersja Personal i [Enterprise](https://sekurak.pl/bezpieczenstwo-sieci-wi-fi-czesc-7-wpawpa2-enterprise-802-1x-i-eap/)
+
+- WPS (Wi-Fi Protected Setup)
+	- Nie jest to nowa metoda zabezpieczania transmisji, a protokół pozwalający na łatwą konfigurację urządzeń w sieciach chroniowych WPA/WPA2
+	- Pozwala na automatyczne uzyskania hasła
+	- Wersja z konfiguracją w paśmie wykorzystuje standard 802.11, EAP, i algorytm Diffiego-Hellmana. Użytkownik musi podać klucz dostępowy do sieci (hasło, token NFC, USB)
+		- Tutaj są dwie opcję uwierzytelnienia użytkownika
+			- PIN (8 cyfr) z czego ostatnia jest to suma kontrolna, a sprawdzanie pinu działa tak, że najpierw weryfikowana jest poprawność pierwszych 4 cyfr. I jak sa poprawne to kolejnych 4. Redukuje to liczbę kombinacji do 11k. (do złamania średnio w 4h)
+			- PBC (Push-Button-Connect) - wciśnięcie magicznego guzina urządzeniu (trzeba pilnować fizycznego dostępu do routera)
+	- Wersja z konfiguracja poza pasmem korzysta w UPnP w wykorzystaniem pamięci USB
+		- Problem z pilnowaniem pendriva
+		- Są na to ataki i ogólne zalecenia żeby to na routerze wyłączyć
+
 ## 10. Protokół SSL/TLS – charakterystyka, handshake
 
 ### SSL - Secure Sockets Layer & TLS - Trasport Layer Security
@@ -437,15 +491,180 @@ Handshake zachodzi zawsze, kiedy użytkownik wchodzi na stronę internetową prz
 
 ## 13. Funkcje haszujące: cechy podstawowe, zastosowanie
 
+- Przyjmuje tekstu na wejściu i zwraca ciąg znaków o stałej długości
+- Maksynalny rozmiar danych wejściowych i wyjściowych zależy od designu algorytmu
+	- Pre-image resistance - Dobra funkcja hashująca jest jednokierunkowa. Nie powinna dać się odwrócić
+	- Collision resistance - Odporność na kolizje - Twa dwóch różnych inputów funkcja nie powinna wygenerować takiego samego hasha
+- Są używane do zapewnienia Itegralności, Uwierzytelnienia oraz non-repudiation (niepodważalności)
+	- Message digest - wiadomość lub plik używany jako wejście dla funkcji hashującej
+	- Message authentication - Uwierzytelnienie wiadomości - jeśli klucz jest używany w wiadomości jako input dla funkcji hashującej
+	- Digital signature - jeśli prywatny klucz jest używany jako input, a output może być zweryfikowany przez klucz publiczny
+- Mogą być używane jako ekstraktory (randomness extractor) w generator liczb pseudo-losowych - przetwarza output z generatora liczb (takiego biednego), dzięki czemu zwiększa losowość całego generatora
+
 ## 14. Rodzaje funkcji haszujących: bez klucza (MD), z kluczem (MAC, HMAC) – charakterystyka, protokoły wykorzystujące funkcje haszujące
+
+- Non-key digest (integrity - integralność) - nie używa klucza
+	- Message integrity Code (MIC) - integralność wiadomości
+	- Modification Detection Code (MDC) - detekcja modyfikacji
+- Keyed digest (autentykacja) - z użyciem klucza
+	- Message Authentication Code (MAC): Secret key + message -> kod uwierzytelnienia wiadomości
+	- Keyed-hash MAC or Hashed MAC (HMAC): MAC + MDC
+- Digital Signature (non-repudiation - niepodważalność) -> podpisy cyfrowe
+	- Wykorzystuje kryptografię hybrydową - korzysta z funkcji hashujących bez klucza oraz kryptografii asymetrycznej
+
+- Przykłady dla 'digest': MD5, RIPE-MD, HAVAL, FIPS, 186-2, SHA1, SHA224, SHA256, SHA512
+- Przykłady dla podpisów cyfrowych: EIGamal, FIPS, 180-2, DSA, EC-DSA
+
+// Opis HMAC
 
 ## 15. Kryptografia symetryczna: charakterystyka, przetwarzanie blokowe oraz strumieniowe, mieszanie oraz rozpraszanie, problem wymiany kluczy
 
+- Charakterystyka
+	- Wymaga posiadania tego samego klucza przez dwie strony
+		- Wymaga to opracowania bezpiecznego sposobu wymiany/dostarczenia klucza
+	- Wysyłający szyfruje wiadomość, odbierający odszyfrowuje wiadomość
+	- Każda para użytkowników powinna posiadać unikalny klucz
+		- Problem z zarządzaniem nimi (jest ich dużo)
+	- Zapewnia tylko poufność danych
+		- po połączeniu z MAC (kod uwierzytelniający wiadomości) zapewnia także integralność i uwierzytelnienie
+
+- Popularne algorytmy szyfrujące
+	- DES, 3DES, AES, RC6, Twofish, Blowfish
+
+- Przetwarzanie blokowe
+	- pracuje na stałym bloku tekstu jawnego
+	- Algorytm bierze blok tekstu i tworzy blok tekstu zaszyfrowanego (zazwyczaj 8 bajtów / 64bit)
+	- Zazwyczaj implementacja softwarowa
+	- Generalnie przetwarzanie blokowe jest wolniejsze od szyfrowania strumieniowego
+	- Korzysta z Mieszania (Confusion) oraz Rozpraszania (Diffusion)
+		- Mieszanie
+			- chodzi o stworzenie skomplikowanej relacji :> pomiędzy kluczem a tekstem, żeby zaszyfrowany tekst nie był podatny na analizę statystyczną
+		- Rozpraszanie
+			- Zmiana jednego bitu w tekście jawnym prowadzi do zmiany dużej ich liczby w tekście zaszyfrowanym
+	- Przykłady: DES, Triple DES, AES, IDEA
+
+- Przetwarzanie strumieniowe
+	- Operuje na strumieniu tekstu
+	- Zazwyczaj implementacja sprzętowa
+	- Statystycznie nieprzewidywalny
+	- Strumień nie powinien być powiązany liniowo z kluczem
+	- Przykłady: RC4, SEAL, VEST
+	- Jedną z odmian jest OTP (One-time pad) - klucz jest randomowy i używany tylko raz
+	- Zazwyczaj wykorzystywana jest operacja XOR (1 i 0 => 1 // 0 i 0 => 0 // 1 i 1 => 0)
+
+- Steganografia
+	- Metoda ukrywania danych w innym medium
+	- Microdot - II Wojna Światowa
+	- W plikach MP3, grafikach, filmach można umieścić bloki danych
+	- Plik może być używany bez wiedzy użytkownika o tym co w nim naprawde jest
+	- Może służyć do wstawiania ukrytych, cyfrowych znaków wodnych
+
 ## 16. Tryby pracy algorytmów symetrycznych: ECB, CBC, CFB,OFB, CTR
+
+###  Block Mode
+
+- ECB (Electronic Code Boook)
+	 - 64-bitowe bloki danych przetwarzane kolejno, jeden na raz (indywidualnie)
+	 - Zaczyna na początku tekstu i jedzie po kolei
+	 - Jest prosty i szybki
+	 - Łatwo go złamać, jeśli znamy tekst jawny
+- CBC (Cipher Block Chaining)
+	- 64-bitowe bloki tekstu są ładowane sekwencyjnie
+	- Robi XOR-a pierszego bloku z IV (wektorem inicjalizującym)
+	- Szyfruje blok za pomocą klucza
+	- Dla każdego następnego bloku robi XOR-a z zaszyfrowanym blokiem poprzednim
+		- ![xor](img/xor.png)
+
+### Stream Mode
+
+- Wrzucam obrazki bo więcej z nich wynika niż moich opisów xd
+- CFB (Cipher Feed Back)
+- ![cfb](img/cfb.png)
+- OFB (Output Feed Back)
+- ![ofb](img/ofb.png)
+- CTR (Counter)
+- ![ctr](img/counter.png)
+
+- FIPS 81 wyróżnia tylko pierwsze 4. Nie uznaje Counter
+- FIPS - Federal Information Processing Standard
 
 ## 17. Algorytm DES: charakterystyka, opis rundy, s-bloki, tryby działania (TDES/3DES)
 
+### DES - Data Encryption Standard
+
+- Symetryczny szyfr blokowy zaprojektowany przez IBM
+- Był FIPS 46-1 od 1977 roku
+- Blok ma rozmiar 64-bit (56-bit secret key + 8-bit parity)
+- Używa 56-bitowego klucza oraz 16 rund traspozycji i substytucji do zaszyfrowania każdej grupy 8 (64bit) znaków czystego tekstu
+
+### Opis działania
+
+- [Tutaj fajne wytłumaczenie jak to mniej więcej działa - 9 minut](https://www.youtube.com/watch?v=3BZRBfhpIb0)
+
+- Rundy
+	- Ekspansja (rozszerzenie)
+	- Mieszanie klucza
+	- Substytucja
+	- Permutacja
+	- ![des](img/des.png)
+- 56-bit klucz jest dzielony na dwa 28-bitowe subklucze
+	- dla każdej kolejnej rundy, obie połowy są rotowane w lewo o 1 lub 2 bity
+- 64-bit tekstu jawnego dzielona jest na dwa 32-bitowe części
+- IP - Permutacja inicjalizująca/wstępna
+	- permutacja 64-bit bloku wejściowego na 64-bitową matrycę IP
+- Opis rundy (Trochę bardziej po ludzku)
+	- bity klucza są przesuwane, a następnie wybierane jest 48 z 56 bitów
+	- prawa cześć danych rozszerzana jest do 48-bitów za pomocą [permutacji rozszerzonej](https://pl.wikipedia.org/wiki/Dane_tabelaryczne_algorytmu_DES#Permutacja_rozszerzona)
+	- Leci XOR prawej części z kluczem
+	- Całość dzielona jest na osiem 8-bitowych cześci i wpada do S-bloków (zostaje 32 z 48 bitów)
+	- Permutacja na tym co zostało
+	- Kolejny XOR z lewą cześcią tekstu jawnego (tą nie macaną jeszcze)
+	- To co uzyskamy staje się nową prawą połową
+	- Stara prawa połowa zostaje nową lewą połową
+- Po 16 cyklach/rundach (dlaczego 16?, bo tak) sklejamy lewą i prawą połowę.
+- Dokonywana jest permutacja końcowa
+
+### INFO
+- Permutacja rozszerzona - zamienia mniejszą ilość bitów na większą
+- Permutacja z kompresją (skrócenie) - pomija niektóre bity
+
+### S-bloki
+
+- Takie czarne skrzynki z wejściem, wyjściem i niewiadomą zawartością :>
+- Podstawia określony bit (lub bity) w miejsce innych
+- np: wejście: 011011 => (pierwszy i ostatni bit) 01 określa wiersz, pozostałe (1101) określają kolumne
+- ![sblock](img/sblock.png)
+
+### Triple DES / 3DES
+- Zamiast 16 rund ma 48 (16 * 3 = 48)
+- Wspiera 4 tryby pracy
+	- DES-EEE (3 różne klucze dla szyfrowania) (encrypt-encrypt-encrypt)
+	- DES-EDE (operacje: szyfrowanie-deszyfrowanie-szyfrowanie z 3 róznymi kluczami) (encrypt-decrypt-encrypt)
+	- DES-EEE2 (2 klucze. 1 i 3 operacja używa tego samego)
+	- DES-EDE2 (2 klucze. 1 i 3 operacja używa tego samego)
+
 ## 18. Algorytm AES: charakterystyka, opis rundy
+
+- [Filmik - 16 minut](https://www.youtube.com/watch?v=liKXtikP9F0)
+
+- Symetryczny szyfr blokowy
+- Przetwarza bloki tekstu o wielkości 128-bitów
+- Wspiera klucze o wielkości 128, 192 i 256 bitów
+- Różna liczba rund (10 dla 128bit, 12 dla 192bit i 14 dla 256bit)
+- Każda runda składa się z 4 kroków:
+	- SubByte (Confusion - Mieszanie - brak zaleźności między kluczem a tekstem jawnym)
+	- ShiftRow (Diffusion - Rozpraszanie - efekt lawiny ????)
+	- MixColumn (Rozpraszanie)
+	- AddRoundKey (Mieszanie)
+- Proces szyfrowania
+	- Rozszerzenie klucza (KeyExpansion)
+	- Runda inicjalizująca
+		- AddRoundKey
+	- Rundy (4 kroki)
+	- Runda finałowa (3 kroki - Nie ma MixColumn)
+
+- Runda
+	- ![aes](img/aes.png)
 
 ## 19. Kryptografia asymetryczna: charakterystyka, problem faktoryzacji iloczynu liczb, problem logarytmu dyskretnego
 
@@ -477,7 +696,7 @@ Kryptografia asymetryczna (inaczej kryptografia klucza publicznego) obejmuje dwa
 
 ### Algorytm Rivesta-Shamira-Adlemana (RSA)
 
-Algorytm, który z powodzeniem można używać do szyfrowania oraz podpisów cyfrowych. Bezpieczeństwo szyfrowania opiera się na trudności faktoryzacji dużych liczb złożonych. 
+Algorytm, który z powodzeniem można używać do szyfrowania oraz podpisów cyfrowych. Bezpieczeństwo szyfrowania opiera się na trudności faktoryzacji dużych liczb złożonych.
 #### Kroki algorytmu:
 
 ##### 1. Wybieramy dwie liczby pierwsze – p i q
@@ -490,8 +709,8 @@ Algorytm, który z powodzeniem można używać do szyfrowania oraz podpisów cyf
 
 
 
-- Klucz publiczny: __n__ i __e__ 
-- Klucz prywatny: __n__ i __d__ 
+- Klucz publiczny: __n__ i __e__
+- Klucz prywatny: __n__ i __d__
 - Szyfrowanie: C = M^e (mod n) M – wiadomość; M < n
 - Odszyfrowanie: M = C^d (mod n)
 
@@ -955,6 +1174,9 @@ XSS (Cross-site scripting) - sposób ataku na serwis WWW polegający na osadzeni
 
 	
 ## 37. Obsługa danych z niezaufanego źródła – aplikacje WEB
-
 ## 38. Obsługa Złożonych danych - aplikacje WEB
 
+// XML (serializacja)
+// JSON
+// Pliki od użytkowników - JPEG, EXE, ELF, scripts, tichy :>
+// 
