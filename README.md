@@ -853,13 +853,27 @@ ECC - kryptografia krzywych eliptycznych: używa systemu algebraicznego zdefinio
 
 ## 27. Bezpieczna poczta – standard S/MIME: charakterystyka, zasada działania, protokół
 
+- S/MIME (Secure/Multipurpose Internet mail Extension)
+- Rozszerzenie standardowego formatu poczty internetowej MIME o mechanizmy bezpieczeństwa.
 
+### MIME
+- Rozszerzenie formatu defiowanego przez RFC 5322, zaprojektowanym w celu rozwiązania problemów i ograniczeń protokołu SMTP
 
-
-//Lecture4_Cryptography-Part2_good -> od 32 do 33 (dosłownie nic...)
-
-
-
+### S/MIME
+- Zapewnia:
+	- Uwierzytelnienie
+	- Integralność wiadomości
+	- Niepodważalność wysyłającego wiadomości
+	- Prywatność
+	- Bezpieczeństwo danych (szyfrowanie)
+- Bazuje na kryptografii asymetrycznej (klucz publiczny i prywatny)
+- Klient posiada klucze, serwer ich nie ma i nie może rozszyć treści wiadomości
+- Wysyłający email podpisuje go certyfikatem publicznym osoby do której wysyła wiadomość, treść wiadomości jest szyfrowana kluczem publicznym
+- Odbierający email za pomocą swojego certyfitatu potwierdza autentyczność wiadomości i odszyfrowuje ją za pomocą klucza prywatnego
+- Wykorzystywane algorytmy: SHA1, RSA, Diffie-Hellman, AES, HMAC
+	- Do podpisów cyfrowych preferowany jest DSS (Digital Signature Standard)
+	- Do szyfrowania kluczy sesji preferowany jest algorytm Diffiego-Hellmana (zazwyczaj jego odmiana: ElGamal)
+	- Alternatywnie można wykorzystać algorytm RSA zarówno do podpisów jak i szyfrowania
 
 ## 28. System PGP: charakterystyka, zasada działania
 
