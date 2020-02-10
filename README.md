@@ -131,7 +131,7 @@
     - Router ACL's - listy dostępu
     - Nie sprawdza warstw 4-7 przez co nie może chronić przed atakami na konkretne aplikacje
     - Polityka Firewall-a
-        - Domyślnie blokuje, przepuszczas w drodze wyjątku
+        - Domyślnie blokuje, przepuszcza w drodze wyjątku
 
 - Stateful inspection firewall (Dynamic)
     - Layer 3-4
@@ -151,7 +151,7 @@
 
 ### Single tier
 
-- Sieci prywatne na firewallem
+- Sieci prywatne za firewallem
 - przydatne tylko dla generycznych ataków
 - minimalny poziom ochrony
 
@@ -210,7 +210,7 @@
         - Może nie obsługiwać złożonych protokołów (SOAP, XML)
 - Host-based (H-IDS)
     - Ograniczony do jednego hosta w sieci (np. serwera SQL, serwera aplikacji)
-    - Analiza event logów, krytycznych plików systemowych i innych lógów
+    - Analiza event logów, krytycznych plików systemowych i innych logów
     - Sprawdzanie sygnatur plików (MD5, SHA-1) w celu wykrycia nieuprawnionych zmian
 - Network Node IDS (NNIDS)
     - hybryda H-IDS i N-IDS
@@ -219,11 +219,11 @@
 ### Sposoby reakcji systemu IDS
 
 - wysłanie powiadomień
-- zebranie dodatkowych informacji - po wykryciu próbu ataku system zbiera dodatkowe informację porzez aktywację dodatkowych reguł
+- zebranie dodatkowych informacji - po wykryciu próbu ataku system zbiera dodatkowe informację poprzez aktywację dodatkowych reguł
 - zmiana zachowania środowiskowego - zmiana konfiguracji firewall-a, routera. System stara się wyłączyć aktywność zarejestrowaną jako szkodliwa. Może np. zerwać połączenie z agresorem, zignorować ruch na określonych portach albo całkiem wyłączyć określone interfejsy sieciowe.
 
 [Trochę więcej info co gdzie siedzi YT](https://www.youtube.com/watch?time_continue=2&v=O2Gz-v8WswQ&feature=emb_logo)
-- Można zapiąć H-IDS na krytycznych elementach sieci a na reszcie N-IDS
+- Można zapiąć H-IDS na krytycznych elementach sieci, a na reszcie N-IDS
 
 ### Honeypots
 
@@ -434,19 +434,19 @@ Handshake zachodzi zawsze, kiedy użytkownik wchodzi na stronę internetową prz
 - Ciphertext: NIOZSECPQ ETPGC GYMKQFE
 
 - W sumie to chodzi o to, że do do każdej litery z tekstu jawnego dodajemy litery z klucza:
-- np: C(2) + L(11) = N(13) - pozucje w alfabecie
+- np: C(2) + L(11) = N(13) - pozycje w alfabecie
 
 ## 13. Funkcje haszujące: cechy podstawowe, zastosowanie
 
 - Przyjmuje tekstu na wejściu i zwraca ciąg znaków o stałej długości
-- Maksynalny rozmiar danych wejściowych i wyjściowych zależy od designu algorytmu
+- Maksymalny rozmiar danych wejściowych i wyjściowych zależy od designu algorytmu
 	- Pre-image resistance - Dobra funkcja hashująca jest jednokierunkowa. Nie powinna dać się odwrócić
 	- Collision resistance - Odporność na kolizje - Twa dwóch różnych inputów funkcja nie powinna wygenerować takiego samego hasha
-- Są używane do zapewnienia Itegralności, Uwierzytelnienia oraz non-repudiation (niepodważalności)
+- Są używane do zapewnienia Integralności, Uwierzytelnienia oraz non-repudiation (niepodważalności)
 	- Message digest - wiadomość lub plik używany jako wejście dla funkcji hashującej
 	- Message authentication - Uwierzytelnienie wiadomości - jeśli klucz jest używany w wiadomości jako input dla funkcji hashującej
 	- Digital signature - jeśli prywatny klucz jest używany jako input, a output może być zweryfikowany przez klucz publiczny
-- Mogą być używane jako ekstraktory (randomness extractor) w generator liczb pseudo-losowych - przetwarza output z generatora liczb (takiego biednego), dzięki czemu zwiększa losowość całego generatora
+- Mogą być używane jako ekstraktory (randomness extractor) w generatorach liczb pseudo-losowych - przetwarza output z generatora liczb (takiego biednego), dzięki czemu zwiększa losowość całego generatora
 
 ## 14. Rodzaje funkcji haszujących: bez klucza (MD), z kluczem (MAC, HMAC) – charakterystyka, protokoły wykorzystujące funkcje haszujące
 
@@ -466,7 +466,7 @@ Handshake zachodzi zawsze, kiedy użytkownik wchodzi na stronę internetową prz
 - Wykorzystuje klucz tajny znajdujący się w rękach nadawcy i odbiorcy
 - Podstawą HMAC może byc dowolna funcja hashująca
 - Jak to działa:
-	- Na końcu blokui jawnego dołączamu tajny klucz i obliczamy hasha dla całości
+	- Na końcu bloku jawnego dołączamu tajny klucz i obliczamy hasha dla całości
 	- Do wynikowanego hasha znowu dodajemy klucz i liczymy hasha
 	- Wynik jest kodem HMAC dla całego bloku
 
