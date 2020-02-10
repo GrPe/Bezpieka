@@ -4,40 +4,40 @@
 
 ### Concept of Confidentiality, Integrity and Availability
 
-- Confidentiality (Poufność)
-    - Dane i usługi powinny być dostępne tylko dla uprawnionych osób
-    - Dane powinny być chronione w trakcie przechowywania, przetwarzania i transmisji
-    - __Możliwe ataki__: przechwycenia ruchu sieciowego, kradzież haseł (socjotechniki), skanowanie portów,  (podsłuchiwanie), [sniffing](https://pl.wikipedia.org/wiki/Sniffer)
-    - __Formy ochrony__: Dostępu do kont chronią nazwy użytkowników, hasła, wielostopniowe uwierzytelnianie, trasmisja danych jest szyfrowana, personel jest dobrze przeszkolony
-    - Uwierzytelnianie (Authentication) - potwierdzenie tożsamości
-    - Autoryzacja (Authorization) - potwierdzenie uprawnień
-    - Secrecy - Secrecy is the act of keeping something a scret or preventing the disclosure of information
-    - Privacy - refers to keeping information confidential that is personally identifiable or that might couse harm, embarrassment or disgrace to someone
+#### Confidentiality (Poufność)
+- Dane i usługi powinny być dostępne tylko dla uprawnionych osób
+- Dane powinny być chronione w trakcie przechowywania, przetwarzania i transmisji
+- __Możliwe ataki__: przechwycenia ruchu sieciowego, kradzież haseł (socjotechniki), skanowanie portów,  (podsłuchiwanie), [sniffing](https://pl.wikipedia.org/wiki/Sniffer)
+- __Formy ochrony__: Dostępu do kont chronią nazwy użytkowników, hasła, wielostopniowe uwierzytelnianie, trasmisja danych jest szyfrowana, personel jest dobrze przeszkolony
+- Uwierzytelnianie (Authentication) - potwierdzenie tożsamości
+- Autoryzacja (Authorization) - potwierdzenie uprawnień
+- Secrecy - Secrecy is the act of keeping something a scret or preventing the disclosure of information
+- Privacy - refers to keeping information confidential that is personally identifiable or that might couse harm, embarrassment or disgrace to someone
 
-- Integrity (Integralność)
-    - Dane i usługi powinny być nienaruszone przez podmioty, które nie mają do nich uprawnień
-    - Wysoki poziom pewności, że dane zostały niezmienowe przez nieuprawniony podmiot (w trakcie przechowywania, przetwarzania i transmisji)
-    - 3 perspektywy integralności
-        - Powstrzymanie nieuprawnionego użytkownika przez modyfikacją danych
-        - Powstrzymanie uprawnionego użytkownika przez nieuprawnioną modyfikacją danych
-        - Utrzymanie wewnętrznej i zewnętrzej spójności danych, tak aby były odzwierciedleniem prawdziwego świata
-    - __Możliwe ataki__: wirusy, backdoors, błędy użytkowników [PEBCAC](https://en.wiktionary.org/wiki/PEBCAC#English), przypadkowe usunięcie danych, wprowadzenie niepoprawnych danych, złośliwe modyfikacje
-    - __Formy ochrony__: regorystyczna kontrola dostępu, regorystyczne procedury uwierzytelnienia użytkowników, systemy wykrywania intruzów, szyfrowanie danych, szkolenie personelu
+#### Integrity (Integralność)
+- Dane i usługi powinny być nienaruszone przez podmioty, które nie mają do nich uprawnień
+- Wysoki poziom pewności, że dane zostały niezmienione przez nieuprawniony podmiot (w trakcie przechowywania, przetwarzania i transmisji)
+- 3 perspektywy integralności
+	- Powstrzymanie nieuprawnionego użytkownika przez modyfikacją danych
+	- Powstrzymanie uprawnionego użytkownika przez nieuprawnioną modyfikacją danych
+	- Utrzymanie wewnętrznej i zewnętrzej spójności danych, tak aby były odzwierciedleniem prawdziwego świata
+- __Możliwe ataki__: wirusy, backdoors, błędy użytkowników [PEBCAC](https://en.wiktionary.org/wiki/PEBCAC#English), przypadkowe usunięcie danych, wprowadzenie niepoprawnych danych, złośliwe modyfikacje
+- __Formy ochrony__: rygorystyczna kontrola dostępu, rygorystyczne procedury uwierzytelnienia użytkowników, systemy wykrywania intruzów, szyfrowanie danych, szkolenie personelu
 
-- Availavility (Dostępność)
-    - Każda uprawniona osoba powinna mieć dostęp do zasobów
-    - Odporność na ataki DOS
-    - __Możliwe ataki__: awarie urządzeń, oprogramowania, problemy ze środowiskiem (powódź, awaria zasilania), ataki DOS itp.
-    - __Formy ochrony__: monitorowanie wydajności i ruchu sieciowego, używanie firewall-i i routerów w celu zapobiegania atakom DOS, redundacja dla krytycznych części systemu (dodatkowe łącze internetowe, generator prądu), system backupów
-    - Nonrepudiation (niepodważalność) - zapewnienie, że osoba upoważniona nie otrzyma "odmowy dostepu". Pełną niepodważlność uzyskujemy poprzez wykorzystanie certyfikatów
+#### Availavility (Dostępność)
+- Każda uprawniona osoba powinna mieć dostęp do zasobów
+- Odporność na ataki DOS
+- __Możliwe ataki__: awarie urządzeń, oprogramowania, problemy ze środowiskiem (powódź, awaria zasilania), ataki DOS itp.
+- __Formy ochrony__: monitorowanie wydajności i ruchu sieciowego, używanie firewall-i i routerów w celu zapobiegania atakom DOS, redundacja dla krytycznych części systemu (dodatkowe łącze internetowe, generator prądu), system backupów
+- Nonrepudiation (niepodważalność) - brak możliwości wyparcia się swego uczestnictwa w całości lub w części wymiany danych przez jeden z podmiotów uczestniczących w tej wymianie. Pełną niepodważlność uzyskujemy poprzez wykorzystanie certyfikatów
 
 ### Access Control
 
 - Access is the flow of information between a subject(e.g., user, program, process, or device, etc.) and an object (e.g., file, database, program, process, or device, etc.)
 - Jest to zestaw mechanizmów, które razem zapewniają ochronę danych przez nieuprawnionym dostępem
-- Kontrola dostępu uprawnia do zażądzania
+- Kontrola dostępu uprawnia do zarządzania
     - Jacy użytkownicy maja mieć dostęp do systemu
-    - Jakie zasoby maja być dostępne`
+    - Jakie zasoby maja być dostępne
     - Jakie operację mogą być wykonane
     - Dostarcza indywidualną odpowiedzalność // mam wrażenie że chodzi tutaj o to, że każdy użytkownik jest niezależny i może mieć indywidualny zakres uprawnień
 - Implementacje
@@ -49,94 +49,41 @@
         - _Physical Security_ - zamki, drzwi, ochrona itp.
     - _Technical Controls_ - Kontrola dostępu, Identyfikacja i uwierzytelnienie, poufność, integralność, dostępnośc i niepodważalność
 
-## 2. Zagrożenia na protokoły sieciowe warstwy 2 i 3 modelu OSI 🏮
+## 2. Zagrożenia na protokoły sieciowe warstwy 2 i 3 modelu OSI
 
-### Data link layer protocols
+### ARP spoofing
+- Polega na rozsyłaniu odpowiednio spreparowanych pakietów ARP zawierających fałszywe adresy MAC
+- Przykład: jeśli komputer A chce prosi o adres MAC komputera B, a odpowie mu komputer C, to komputer A prześle wszystkie pakiety do komputera C zamiast do B. Atakujący (komputer C) może przesłać pakiety dalej do komputera B. (atak mam-in-the-middle)
 
-- MAC (LAN & WAN)
-- LLC (LAN)
-- Ethernet (CSMA/CD)
-- Token Ring (Token Passing)
-- IEEE 802.11 a/b/g (CSMA/CA)
-- WAN Data Link Layer
-    - X.25
-    - Frame Relay
-    - SMDS (Switched Multi-gigabit Data Services)
-    - ISDN (Integrated Services Digital Network)
-    - HDLC (High-level Data Link Control)
-    - ATM (Asynchronous Transfer Mode)
-- SLIP (Serial Line Internet Protocol)
-    - Kapsułkuje pakiet IP w jedną Serial line (linie szeregową ???)
-    - Działa z różnymi protokołami (Token Ring, WAN)
-    - Ale może działać tylko z jednym na raz
-    - Nie sprawdza błędów transmisji danych
-    - Nie zapewnia bezpieczeństwa
-- PPP (Point-to-Point Protocol)
-    - Mechanizm kapsułkujący do transportu wielo-protokołowych pakietów
-    - Zastąpił SLIP bo może pracować z wieloma protokołami na raz i daje możliwośc uwierzytelnienia
-    - Security:
-        - PAP (Password Authentication Protocol)
-            - Plain Text
-        - CHAP (Challenge Handshake Authentication Protocol)
-            - Chroni przez playback/replay atack używając 3-way handshake
-        - EAP (Extensible Authentication Protocol)
-            - Wspiera wiele mechanizmów uwierzytelnienia
-            - MD5-Challange
-            - One-Time Password
-            - Generic Token Card
-- WEP (Wired Equivalent Privacy)
-    - Używa klucza symetrycznego o długości 40 bitów (jest opcja 104-bit, ale to nie standard) z 24 bitowym IV (Initialization Vector)
-    - Używa tego samego statycznego klucza do wszytkich połączeń
-    - Podatne na:
-        - Haker może przechwycić wystarczającą ilość pakietów z takim samym IV i odkryć klucz symetryczny
-        - Jeden statyczny, symetryczny klucz i rozmiarze 40 bitów
-    - Lepsza wersja to WPA
-        - Nie używa tego samego klucza do szyfrowania wszystkich połączeń
-    - Jeszcze lepsa wersja WPA2
-        - Używa IEEE 802.1X (np. EAP) do uwierzytelnienia
-        - Używa 4-way handshake do zarządania kluczami
-        - Używa AES-based CCMP (Counter-mode Cipher-block-chaining Message authentication code Protocol)
-- EAP (Extensible Authertication Protocol)
-- IEEE 802.1X
-- ARP
-    - Mapuje adresy IP na adresy MAC
-    - Podatne na:
-        - Man in the Middle
-            - Przechwytywanie ruchu między dwoma urządzeniami w sieci
-        - MAC Flooding Attack
-            - Atak na switche
-            - Zalewa switcha falą błędnych odpowiedzi ARP
-            - Biedny switch przechodzi w tedy w tryb "hub", który umożliwia sniffowanie pakietów atakującemu
-    - Można zapobiegać poprzez
-        - Statyczne tablice ARP (nie skaluje się)
-        - Uruchomienie sticky MAC address. Zapisuje wszystkie aktualnie posiadane adresy MAC, żeby móc je załadować po reboocie.
+### MAC flooding
+- Atak typu DoS polegający na zalaniu switcha dużą ilością ramek Ethernetowych, każda z innego adresu źródłowego MAC
+- Wyczerpuje to ograniczoną pamięć switcha używaną do przechowywania tablicy MAC
+- Prowadzi to do sytuacji, gdzie switch nie wie gdzie wysyłać pakiety, więc wysyła je na wszystkie porty jakie ma.
+- Atakujący może dzięki temu łatwo zbierać pakiety
+- Zabezpieczenia:
+	- Wielu producentów pozwala na kontrolę dostępu do swicha na podstawie adresu MAC
+	- "Port Security" - ograniczenie liczby adresów MAC, które mogą być przypisane do jednego portu
 
-### IP Network Layer
+### CISCO Discovery Protocol (CDP) / Link Layer Discovery Protocol (LLDP) Reconnaissance
+- Protokoły pozwalają na uzyskanie informacji przez admina jakie urzadzenia są podpięte do portów (adresy IP, wersja oprogramowania)
+- Atakujący może uzyskać sporo informacji o sieci. (protokoły są domyślnie włączone na urządzeniach CISCO)
 
-- Logical Addressing: IP
-- Controls: ICMP, ARP, RARP
-- Routing
-    - static
-        - Najbezpieczniejszy
-        - Skalowanie to porażka
-    - dynamic
-        - Skalowalny, ale wymaga utworzenia polityk bezpieczeństwa
-        - Automatyczne się aktualizuje
-- Routing  Protocols:
-    - IGP's (Interior Gateway Protocols)
-        - RIP - Routing Information Protocol
-        - IGRP - Interior Gateway Routing Protocol
-        - EIGRP - Enhanced IGRP
-        - OSPF - Open Shortest Path First
-        - IS-IS - Intermediate System to Intermediate System
-    - EGP's (Interior Gateway Protocols)
-        - EGP - Exterior Gateway Protocol - nie jest już używany
-        - BGP - Border Gateway Protocol - standard routingu w Internecie
-- NAT - metoda na podłączenie wielu komputerów do Internetu używając jednego adresu IP
-    - Przyczyny użycia
-        - Niedobór adresów IP
-        - Bezpieczeństwo
-        - Łatwość z zarządzaniu i administacją sieci
+### Virtual LAN Hopping
+- Ogólna koncepcja tego ataku polega na tym, że atakujący uzyskuje dostęp do pakietów z innego VLAN-u.
+- __Switch spoofing__ - atakujący udaje, że jest switchem w trybie __trunk__
+- __Double tagging__ - https://en.wikipedia.org/wiki/VLAN_hopping (nie ogarniam jak to działa)
+
+### DHCP Spoofing
+- Atakujący podszywa się pod serwer DHCP
+
+### Spanning Tree Protocol (STP) Attack
+- Działanie protokołu polega na usuwaniu pętli w sieci. Zapobiega to zalaniu sieci krążącymi pakietami.
+- Atakujący może podstawić własne urządzenie STP (attak DoS albo man-in-the-middle)
+
+### IP Spoofing
+- Atakujący może podszyć się pod innego użytkownika wysyłając pakiety z fałszywym adresem IP (man-in-the-middle)
+
+### WEP/WPA/WPA2 (patrz 9. Bezpieczeństwo sieci bezprzewodowych)
 
 ## 3. Zagrożenia na protokoły sieciowe warstwy 4 i 7 modelu OSI 🏮
 
@@ -184,7 +131,7 @@
     - Router ACL's - listy dostępu
     - Nie sprawdza warstw 4-7 przez co nie może chronić przed atakami na konkretne aplikacje
     - Polityka Firewall-a
-        - Domyślnie blokuje, przepuszczas w drodze wyjątku
+        - Domyślnie blokuje, przepuszcza w drodze wyjątku
 
 - Stateful inspection firewall (Dynamic)
     - Layer 3-4
@@ -204,7 +151,7 @@
 
 ### Single tier
 
-- Sieci prywatne na firewallem
+- Sieci prywatne za firewallem
 - przydatne tylko dla generycznych ataków
 - minimalny poziom ochrony
 
@@ -263,7 +210,7 @@
         - Może nie obsługiwać złożonych protokołów (SOAP, XML)
 - Host-based (H-IDS)
     - Ograniczony do jednego hosta w sieci (np. serwera SQL, serwera aplikacji)
-    - Analiza event logów, krytycznych plików systemowych i innych lógów
+    - Analiza event logów, krytycznych plików systemowych i innych logów
     - Sprawdzanie sygnatur plików (MD5, SHA-1) w celu wykrycia nieuprawnionych zmian
 - Network Node IDS (NNIDS)
     - hybryda H-IDS i N-IDS
@@ -272,11 +219,11 @@
 ### Sposoby reakcji systemu IDS
 
 - wysłanie powiadomień
-- zebranie dodatkowych informacji - po wykryciu próbu ataku system zbiera dodatkowe informację porzez aktywację dodatkowych reguł
+- zebranie dodatkowych informacji - po wykryciu próbu ataku system zbiera dodatkowe informację poprzez aktywację dodatkowych reguł
 - zmiana zachowania środowiskowego - zmiana konfiguracji firewall-a, routera. System stara się wyłączyć aktywność zarejestrowaną jako szkodliwa. Może np. zerwać połączenie z agresorem, zignorować ruch na określonych portach albo całkiem wyłączyć określone interfejsy sieciowe.
 
 [Trochę więcej info co gdzie siedzi YT](https://www.youtube.com/watch?time_continue=2&v=O2Gz-v8WswQ&feature=emb_logo)
-- Można zapiąć H-IDS na krytycznych elementach sieci a na reszcie N-IDS
+- Można zapiąć H-IDS na krytycznych elementach sieci, a na reszcie N-IDS
 
 ### Honeypots
 
@@ -487,19 +434,19 @@ Handshake zachodzi zawsze, kiedy użytkownik wchodzi na stronę internetową prz
 - Ciphertext: NIOZSECPQ ETPGC GYMKQFE
 
 - W sumie to chodzi o to, że do do każdej litery z tekstu jawnego dodajemy litery z klucza:
-- np: C(2) + L(11) = N(13) - pozucje w alfabecie
+- np: C(2) + L(11) = N(13) - pozycje w alfabecie
 
 ## 13. Funkcje haszujące: cechy podstawowe, zastosowanie
 
 - Przyjmuje tekstu na wejściu i zwraca ciąg znaków o stałej długości
-- Maksynalny rozmiar danych wejściowych i wyjściowych zależy od designu algorytmu
+- Maksymalny rozmiar danych wejściowych i wyjściowych zależy od designu algorytmu
 	- Pre-image resistance - Dobra funkcja hashująca jest jednokierunkowa. Nie powinna dać się odwrócić
 	- Collision resistance - Odporność na kolizje - Twa dwóch różnych inputów funkcja nie powinna wygenerować takiego samego hasha
-- Są używane do zapewnienia Itegralności, Uwierzytelnienia oraz non-repudiation (niepodważalności)
+- Są używane do zapewnienia Integralności, Uwierzytelnienia oraz non-repudiation (niepodważalności)
 	- Message digest - wiadomość lub plik używany jako wejście dla funkcji hashującej
 	- Message authentication - Uwierzytelnienie wiadomości - jeśli klucz jest używany w wiadomości jako input dla funkcji hashującej
 	- Digital signature - jeśli prywatny klucz jest używany jako input, a output może być zweryfikowany przez klucz publiczny
-- Mogą być używane jako ekstraktory (randomness extractor) w generator liczb pseudo-losowych - przetwarza output z generatora liczb (takiego biednego), dzięki czemu zwiększa losowość całego generatora
+- Mogą być używane jako ekstraktory (randomness extractor) w generatorach liczb pseudo-losowych - przetwarza output z generatora liczb (takiego biednego), dzięki czemu zwiększa losowość całego generatora
 
 ## 14. Rodzaje funkcji haszujących: bez klucza (MD), z kluczem (MAC, HMAC) – charakterystyka, protokoły wykorzystujące funkcje haszujące
 
@@ -519,7 +466,7 @@ Handshake zachodzi zawsze, kiedy użytkownik wchodzi na stronę internetową prz
 - Wykorzystuje klucz tajny znajdujący się w rękach nadawcy i odbiorcy
 - Podstawą HMAC może byc dowolna funcja hashująca
 - Jak to działa:
-	- Na końcu blokui jawnego dołączamu tajny klucz i obliczamy hasha dla całości
+	- Na końcu bloku jawnego dołączamu tajny klucz i obliczamy hasha dla całości
 	- Do wynikowanego hasha znowu dodajemy klucz i liczymy hasha
 	- Wynik jest kodem HMAC dla całego bloku
 
