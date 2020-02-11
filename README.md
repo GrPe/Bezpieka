@@ -8,10 +8,10 @@
 - Dane i usługi powinny być dostępne tylko dla uprawnionych osób
 - Dane powinny być chronione w trakcie przechowywania, przetwarzania i transmisji
 - __Możliwe ataki__: przechwycenia ruchu sieciowego, kradzież haseł (socjotechniki), skanowanie portów,  (podsłuchiwanie), [sniffing](https://pl.wikipedia.org/wiki/Sniffer)
-- __Formy ochrony__: Dostępu do kont chronią nazwy użytkowników, hasła, wielostopniowe uwierzytelnianie, trasmisja danych jest szyfrowana, personel jest dobrze przeszkolony
+- __Formy ochrony__: Dostępu do kont chronią nazwy użytkowników, hasła, wielostopniowe uwierzytelnianie, transmisja danych jest szyfrowana, personel jest dobrze przeszkolony
 - Uwierzytelnianie (Authentication) - potwierdzenie tożsamości
 - Autoryzacja (Authorization) - potwierdzenie uprawnień
-- Secrecy - Secrecy is the act of keeping something a scret or preventing the disclosure of information
+- Secrecy - Secrecy is the act of keeping something a secret or preventing the disclosure of information
 - Privacy - refers to keeping information confidential that is personally identifiable or that might couse harm, embarrassment or disgrace to someone
 
 #### Integrity (Integralność)
@@ -24,7 +24,7 @@
 - __Możliwe ataki__: wirusy, backdoors, błędy użytkowników [PEBCAC](https://en.wiktionary.org/wiki/PEBCAC#English), przypadkowe usunięcie danych, wprowadzenie niepoprawnych danych, złośliwe modyfikacje
 - __Formy ochrony__: rygorystyczna kontrola dostępu, rygorystyczne procedury uwierzytelnienia użytkowników, systemy wykrywania intruzów, szyfrowanie danych, szkolenie personelu
 
-#### Availavility (Dostępność)
+#### Availability (Dostępność)
 - Każda uprawniona osoba powinna mieć dostęp do zasobów
 - Odporność na ataki DOS
 - __Możliwe ataki__: awarie urządzeń, oprogramowania, problemy ze środowiskiem (powódź, awaria zasilania), ataki DOS itp.
@@ -36,24 +36,24 @@
 - Access is the flow of information between a subject(e.g., user, program, process, or device, etc.) and an object (e.g., file, database, program, process, or device, etc.)
 - Jest to zestaw mechanizmów, które razem zapewniają ochronę danych przez nieuprawnionym dostępem
 - Kontrola dostępu uprawnia do zarządzania
-    - Jacy użytkownicy maja mieć dostęp do systemu
-    - Jakie zasoby maja być dostępne
+    - Jacy użytkownicy mają mieć dostęp do systemu
+    - Jakie zasoby mają być dostępne
     - Jakie operację mogą być wykonane
-    - Dostarcza indywidualną odpowiedzalność // mam wrażenie że chodzi tutaj o to, że każdy użytkownik jest niezależny i może mieć indywidualny zakres uprawnień
+    - Dostarcza indywidualną odpowiedzialność // mam wrażenie że chodzi tutaj o to, że każdy użytkownik jest niezależny i może mieć indywidualny zakres uprawnień
 - Implementacje
     - _Least privilege_ - ograniczenie uprawnień użytkowników do niezbędnego minimum
-    - _Separate od duties_ - proces jest tak zaprojektowany, że jego kroki muszą być wykonane przez róźne osoby (róźne uprawnienia)
+    - _Separate od duties_ - proces jest tak zaprojektowany, że jego kroki muszą być wykonane przez różne osoby (różne uprawnienia)
 - Kategorie kontroli bezpieczeństwa
     - _Management_ - polityki, standardy, procesy, procedury
     - _Operational (and Physical) Controls_ - przestrzeganie procedur, edukacja i świadomość
         - _Physical Security_ - zamki, drzwi, ochrona itp.
-    - _Technical Controls_ - Kontrola dostępu, Identyfikacja i uwierzytelnienie, poufność, integralność, dostępnośc i niepodważalność
+    - _Technical Controls_ - Kontrola dostępu, Identyfikacja i uwierzytelnienie, poufność, integralność, dostępność i niepodważalność
 
 ## 2. Zagrożenia na protokoły sieciowe warstwy 2 i 3 modelu OSI
 
 ### ARP spoofing
 - Polega na rozsyłaniu odpowiednio spreparowanych pakietów ARP zawierających fałszywe adresy MAC
-- Przykład: jeśli komputer A chce prosi o adres MAC komputera B, a odpowie mu komputer C, to komputer A prześle wszystkie pakiety do komputera C zamiast do B. Atakujący (komputer C) może przesłać pakiety dalej do komputera B. (atak mam-in-the-middle)
+- Przykład: jeśli komputer A prosi o adres MAC komputera B, a odpowie mu komputer C, to komputer A prześle wszystkie pakiety do komputera C zamiast do B. Atakujący (komputer C) może przesłać pakiety dalej do komputera B. (atak man-in-the-middle)
 
 ### MAC flooding
 - Atak typu DoS polegający na zalaniu switcha dużą ilością ramek Ethernetowych, każda z innego adresu źródłowego MAC
@@ -61,12 +61,12 @@
 - Prowadzi to do sytuacji, gdzie switch nie wie gdzie wysyłać pakiety, więc wysyła je na wszystkie porty jakie ma.
 - Atakujący może dzięki temu łatwo zbierać pakiety
 - Zabezpieczenia:
-	- Wielu producentów pozwala na kontrolę dostępu do swicha na podstawie adresu MAC
+	- Wielu producentów pozwala na kontrolę dostępu do switcha na podstawie adresu MAC
 	- "Port Security" - ograniczenie liczby adresów MAC, które mogą być przypisane do jednego portu
 
 ### CISCO Discovery Protocol (CDP) / Link Layer Discovery Protocol (LLDP) Reconnaissance
 - Protokoły pozwalają na uzyskanie informacji przez admina jakie urzadzenia są podpięte do portów (adresy IP, wersja oprogramowania)
-- Atakujący może uzyskać sporo informacji o sieci. (protokoły są domyślnie włączone na urządzeniach CISCO)
+- Atakujący może uzyskać sporo informacji o sieci (protokoły są domyślnie włączone na urządzeniach CISCO)
 
 ### Virtual LAN Hopping
 - Ogólna koncepcja tego ataku polega na tym, że atakujący uzyskuje dostęp do pakietów z innego VLAN-u.
@@ -78,7 +78,7 @@
 
 ### Spanning Tree Protocol (STP) Attack
 - Działanie protokołu polega na usuwaniu pętli w sieci. Zapobiega to zalaniu sieci krążącymi pakietami.
-- Atakujący może podstawić własne urządzenie STP (attak DoS albo man-in-the-middle)
+- Atakujący może podstawić własne urządzenie STP (atak DoS albo man-in-the-middle)
 
 ### IP Spoofing
 - Atakujący może podszyć się pod innego użytkownika wysyłając pakiety z fałszywym adresem IP (man-in-the-middle)
@@ -94,10 +94,10 @@
 - DNS (Domain Name System)
     - Tłumaczy nazwy domen na adresy IP
     - DNS server - dostarcza nazwy domen do zamiany na adresy IP
-    - DNS resolver - Próbuje przetłumaczyć domenę na IP. Jeśli nie jest w stanie przesyła prośbę do następnego serwera DNS
+    - DNS resolver - próbuje przetłumaczyć domenę na IP. Jeśli nie jest w stanie przesyła prośbę do następnego serwera DNS
     - __Możliwe ataki__
-        - HOSTS poisoning (static DNS) - atakujący jest wstanie umieścić fałszywe informację w pliku HOSTS (siedzi w nim adresów IP z ich nazwami domenowymi)
-        - Caching DNS server attacks - umieszczenie fałszywych informacji w cache-u DNS-a, za pośrednictwem innego DNS. Dzięki temu atakujący może zwrócić fałszywy adres IP dla strony.
+        - HOSTS poisoning (static DNS) - atakujący jest wstanie umieścić fałszywe informację w pliku HOSTS (siedzą w nim adresy IP z ich nazwami domenowymi)
+        - Caching DNS server attacks - umieszczenie fałszywych informacji w cache-u DNS-a, za pośrednictwem innego DNS. Dzięki temu atakujący może zwrócić fałszywy adres IP dla strony
         - DNS lookup address changing - zmiana adresu IP serwera DNS użytkownika na wybrany przez atakującego
         - DNS query spoofing - Atakujący przechwytuje zapytanie do serwera DNS i podstawia adres własnego serwera
         - ![Spoofing](img/dnsspoof.png)
@@ -120,7 +120,7 @@
 - Dynamiczne
 	- Switch odpytuje specjalny serwer, który ustala do jakiej sieci VLAN przypisać dany port
 
-- Istnieje możliwość przesyłania ramek między różnymi sieciami VLAN na poziome swicha. W tym celu można stworzyć oddzielne łącze zwykle określane jako __VLAN trunk__
+- Istnieje możliwość przesyłania ramek między różnymi sieciami VLAN na poziome switcha. W tym celu można stworzyć oddzielne łącze zwykle określane jako __VLAN trunk__
 
 ### Głównym celem tworzenia sieci VLAN jest separacja ruchu sieciowego
 
@@ -129,7 +129,7 @@
 - Static Packet-filtering firewall
     - Działa na warstwie 3 (Network Layer)
     - Router ACL's - listy dostępu
-    - Nie sprawdza warstw 4-7 przez co nie może chronić przed atakami na konkretne aplikacje
+    - Nie sprawdza warstw 4-7, przez co nie może chronić przed atakami na konkretne aplikacje
     - Polityka Firewall-a
         - Domyślnie blokuje, przepuszcza w drodze wyjątku
 
@@ -144,16 +144,16 @@
     - Analizuje polecenia aplikacji w środku pakietu
     - Nie zezwala na żadne bezpośrednie połączenie
     - Kopiuje pakiety z jednej sieci do drugiej (zmienia source i destination)
-    - Niegatywnie pływa na wydajność sieci
-    - Wspiera uwierzytelnienie na poziomie użytkownika
+    - Negatywnie wpływa na wydajność sieci
+    - Wspiera uwierzytelnianie na poziomie użytkownika
 
 ## 6. Architektura zapór ogniowych: I, II, III Tier
 
 ### Single tier
 
 - Sieci prywatne za firewallem
-- przydatne tylko dla generycznych ataków
-- minimalny poziom ochrony
+- Przydatne tylko dla generycznych ataków
+- Minimalny poziom ochrony
 
 ### Two tier I
 
@@ -175,11 +175,11 @@
 ### IPS - Intrusion Preventing System
 
 - Pełna kontrola pakietów
-- umożliwia blokowanie ataków w czasie rzeczywistym
+- Umożliwia blokowanie ataków w czasie rzeczywistym
 - Aktywne przechwytywanie i przekazywanie pakietów
 - Kontrola dostępu i egzekwowanie polityki
 - Zazwyczaj jest to urządzenie sieciowe
-- Powstaje po połączenoi IDS-a z firewallem
+- Powstaje po połączeniu IDS-a z firewallem
 
 ### IDS - Intrusion Detection Systems
 
@@ -188,7 +188,7 @@
     - Pasywny monitoring i audyt przysyłanych pakietów
     - Analizują ruch w całej sieci
     - Potrafi wykrywać ataki z zewnątrz
-    - Bazują na dopasowywaniu wzorców/sygnatur
+    - Bazująca na dopasowywaniu wzorców/sygnatur
         - Pattern/Signature Matching Method
             - Skanowanie pakietów w poszukiwaniu konkretnych sekwencji bitów
             - Identyfikacja znanych ataków
@@ -200,12 +200,12 @@
             - Wymaga regularnych aktualizacji sygnatur
         - Dekodowanie protokołów warstw wyższych
             - np. HTTP, FTP
-            - pozwala na wstępną detekcję ataków pochodzących z tych warstw
+            - Pozwala na wstępną detekcję ataków pochodzących z tych warstw
     - Bazująca na anomaliach (Statistical/Anomaly-based)
-        - Zdefiniowanie jak wygląda standardowy ruch sieciowy (wymaga bardzo dobrego zrozumienia jak wygląda standartowy ruch w sieci)
+        - Zdefiniowanie jak wygląda standardowy ruch sieciowy (wymaga bardzo dobrego zrozumienia jak wygląda standardowy ruch w sieci)
         - Możliwość wykrycia nieznanych wcześniej ataków i DoS
     - Protocol anomaly-based
-        - szuka odchyleń o norm RFC
+        - Szuka odchyleń o norm RFC
         - Możliwość wykrycia nieznanych wcześniej ataków
         - Może nie obsługiwać złożonych protokołów (SOAP, XML)
 - Host-based (H-IDS)
@@ -265,7 +265,7 @@ Na warstwie Transportowej:
 
 Na warstwie Aplikacji:
 
-- IKE (Internet Key Exchange) - Jego celem jest uwierzytelnienie obu stron komunikacji wobec siebie (za pomocą hasła, podpisu RSA, certyfikatu X.509). Następnie nawiązuje bezpieczny kanał nazywany ISAKMP SA (Security Assocation). Następnie uzgadnia klucze kryptograficzne oraz parametry IPsec. Ewentualnie może je renegocjować do jakiś czas.
+- IKE (Internet Key Exchange) - Jego celem jest uwierzytelnienie obu stron komunikacji wobec siebie (za pomocą hasła, podpisu RSA, certyfikatu X.509). Następnie nawiązuje bezpieczny kanał nazywany ISAKMP SA (Security Assocation). Następnie uzgadnia klucze kryptograficzne oraz parametry IPsec. Ewentualnie może je renegocjować co jakiś czas.
 
 Tryby pracy:
 
@@ -300,20 +300,20 @@ SSH zapobiega:
 
 - WEP (Wired Equivalent Privacy)
 - Używa klucza symetrycznego o długości 40 bitów (jest opcja 104-bit, ale to nie standard) z 24 bitowym IV (Initialization Vector)
-- Używa tego samego statycznego klucza do wszytkich połączeń
+- Używa tego samego statycznego klucza do wszystkich połączeń
 - Pod spodem używa strumieniowego szyfru RC4 (64 lub 128 bit)
-	- Wielkość klucza 40 lub 104bity bierze się stąd, że trzeba odliczyć 24 bity na IV 
+	- Wielkość klucza 40- lub 104-bitów bierze się stąd, że trzeba odliczyć 24 bity na IV
 - Podatne na:
-	- Haker może przechwycić wystarczającą ilość pakietów z takim samym IV i odkryć klucz symetryczny (w dużych sieciach/korpo wystarczy 5000 pakietów - info by securak.pl)
-	- W 2007 zaprezentowano atak, który na podstawie 20k pakietów jest wstanie odzystać klucz 40 bitowy
-	- W celu przyśpieszenia zbierania pakietów atakujący może wstrzykiwać własne (np ARP które mają stału długość 68bit i lecą broadcastem po sieci, więc łatwo je wykryć i jest ich dużo)
+	- Haker może przechwycić wystarczającą ilość pakietów z takim samym IV i odkryć klucz symetryczny (w dużych sieciach/korpo wystarczy 5000 pakietów - info by sekurak.pl)
+	- W 2007 zaprezentowano atak, który na podstawie 20k pakietów jest wstanie odzyskać klucz 40 bitowy
+	- W celu przyśpieszenia zbierania pakietów atakujący może wstrzykiwać własne (np. ARP które mają stałą długość 68bit i lecą broadcastem po sieci, więc łatwo je wykryć i jest ich dużo)
 - WPA
 	- Następca WEP
 	- Nie używa tego samego klucza do szyfrowania wszystkich połączeń. Zamiast tego negocjuje unikalny klucz dla każdego klienta
 	- Wykorzystuje szyfrowanie TKIP/RC4 (korzysta z 128-bitowego klucza)
 	- Może pracować w dwóch trybach
 		- Personal - WPA-PSK (Pre-Shared Key)
-		- Enterprise - EAP, 802.1X, Radius (bardziej złożone rozwiazanie, zazwyczaj każdy użytkownik ma indywidualne dane logowania)
+		- Enterprise - EAP, 802.1X, Radius (bardziej złożone rozwiązanie, zazwyczaj każdy użytkownik ma indywidualne dane logowania)
 	- Podatne na:
 		- ataki siłowe off-line - w przypadku użycia WPA-PSK
 		- Ataki siłowe on-line na protokół PSK
@@ -329,11 +329,11 @@ SSH zapobiega:
 	- Pozwala na automatyczne uzyskania hasła
 	- Wersja z konfiguracją w paśmie wykorzystuje standard 802.11, EAP, i algorytm Diffiego-Hellmana. Użytkownik musi podać klucz dostępowy do sieci (hasło, token NFC, USB)
 		- Tutaj są dwie opcję uwierzytelnienia użytkownika
-			- PIN (8 cyfr) z czego ostatnia jest to suma kontrolna, a sprawdzanie pinu działa tak, że najpierw weryfikowana jest poprawność pierwszych 4 cyfr. I jak sa poprawne to kolejnych 4. Redukuje to liczbę kombinacji do 11k. (do złamania średnio w 4h)
-			- PBC (Push-Button-Connect) - wciśnięcie magicznego guzina urządzeniu (trzeba pilnować fizycznego dostępu do routera)
-	- Wersja z konfiguracja poza pasmem korzysta w UPnP w wykorzystaniem pamięci USB
+			- PIN (8 cyfr) z czego ostatnia jest to suma kontrolna, a sprawdzanie pinu działa tak, że najpierw weryfikowana jest poprawność pierwszych 4 cyfr. I jak są poprawne to kolejnych 4. Redukuje to liczbę kombinacji do 11k. (do złamania średnio w 4h)
+			- PBC (Push-Button-Connect) - wciśnięcie magicznego guzika urządzeniu (trzeba pilnować fizycznego dostępu do routera)
+	- Wersja z konfiguracja poza pasmem korzysta z UPnP z wykorzystaniem pamięci USB
 		- Problem z pilnowaniem pendriva
-		- Są na to ataki i ogólne zalecenia żeby to na routerze wyłączyć
+		- Są na to ataki i ogólne zalecenia, żeby to na routerze wyłączyć
 
 ## 10. Protokół SSL/TLS – charakterystyka, handshake
 
@@ -371,7 +371,7 @@ Handshake zachodzi zawsze, kiedy użytkownik wchodzi na stronę internetową prz
 - osoba nieautoryzowana nie ma do nich dostępu
 - Zapewnione przez szyfrowanie
 
-#### Integrity
+#### Integrity 
 
 - integralność
 - pewność, że wiadomość/dane nie zostały zmodyfikowane
@@ -381,9 +381,9 @@ Handshake zachodzi zawsze, kiedy użytkownik wchodzi na stronę internetową prz
 
 ### Kryptografia
 
-- Kryptografia - nauka o przeształcaniu danych, w nieodczytalny, bez znajomości odpowiedniego klucza, szyfr
+- Kryptografia - nauka o przeształcaniu danych w nieodczytalny szyfr (bez znajomości odpowiedniego klucza)
 - Kryptologia - nauka o kryptografii i kryptoanalizie
-- Cryptosystem - hardware albo soft implementujący kryptografię
+- Kryptosystem - hardware albo soft implementujący kryptografię
 - Algorytm - prezycyjna zasada (albo ich zestaw), mówiący jak rozwiązać dany problem / zadanie
 - Szyfr - operacja kryptograficzna operująca na znakach lub bitach
 - Plaintext - tekst jawny
