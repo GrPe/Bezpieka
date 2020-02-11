@@ -441,7 +441,7 @@ Handshake zachodzi zawsze, kiedy użytkownik wchodzi na stronę internetową prz
 - Przyjmuje tekstu na wejściu i zwraca ciąg znaków o stałej długości
 - Maksymalny rozmiar danych wejściowych i wyjściowych zależy od designu algorytmu
 	- Pre-image resistance - Dobra funkcja hashująca jest jednokierunkowa. Nie powinna dać się odwrócić
-	- Collision resistance - Odporność na kolizje - Twa dwóch różnych inputów funkcja nie powinna wygenerować takiego samego hasha
+	- Collision resistance - Odporność na kolizje - Dla dwóch różnych inputów funkcja nie powinna wygenerować takiego samego hasha
 - Są używane do zapewnienia Integralności, Uwierzytelnienia oraz non-repudiation (niepodważalności)
 	- Message digest - wiadomość lub plik używany jako wejście dla funkcji hashującej
 	- Message authentication - Uwierzytelnienie wiadomości - jeśli klucz jest używany w wiadomości jako input dla funkcji hashującej
@@ -460,11 +460,11 @@ Handshake zachodzi zawsze, kiedy użytkownik wchodzi na stronę internetową prz
 	- Wykorzystuje kryptografię hybrydową - korzysta z funkcji hashujących bez klucza oraz kryptografii asymetrycznej
 
 - Przykłady dla 'digest': MD5, RIPE-MD, HAVAL, FIPS, 186-2, SHA1, SHA224, SHA256, SHA512
-- Przykłady dla podpisów cyfrowych: EIGamal, FIPS, 180-2, DSA, EC-DSA
+- Przykłady dla podpisów cyfrowych: ELGamal, FIPS, 180-2, DSA, EC-DSA
 
 - HMAC jest nowoczesną wersją MAC. Jego zadaniem jest weryfikacja integralności oraz autentyczności wiadomości
 - Wykorzystuje klucz tajny znajdujący się w rękach nadawcy i odbiorcy
-- Podstawą HMAC może byc dowolna funcja hashująca
+- Podstawą HMAC może byc dowolna funkcja hashująca
 - Jak to działa:
 	- Na końcu bloku jawnego dołączamu tajny klucz i obliczamy hasha dla całości
 	- Do wynikowanego hasha znowu dodajemy klucz i liczymy hasha
@@ -502,7 +502,7 @@ Handshake zachodzi zawsze, kiedy użytkownik wchodzi na stronę internetową prz
 	- Statystycznie nieprzewidywalny
 	- Strumień nie powinien być powiązany liniowo z kluczem
 	- Przykłady: RC4, SEAL, VEST
-	- Jedną z odmian jest OTP (One-time pad) - klucz jest randomowy i używany tylko raz
+	- Jedną z odmian jest OTP (One-time pad) - klucz jest "randomowy" i używany tylko raz
 	- Zazwyczaj wykorzystywana jest operacja XOR (1 i 0 => 1 // 0 i 0 => 0 // 1 i 1 => 0)
 
 - Steganografia
@@ -605,8 +605,8 @@ Handshake zachodzi zawsze, kiedy użytkownik wchodzi na stronę internetową prz
 - Wspiera klucze o wielkości 128, 192 i 256 bitów
 - Różna liczba rund (10 dla 128bit, 12 dla 192bit i 14 dla 256bit)
 - Każda runda składa się z 4 kroków:
-	- SubByte (Confusion - Mieszanie - brak zaleźności między kluczem a tekstem jawnym)
-	- ShiftRow (Diffusion - Rozpraszanie - efekt lawiny ????)
+	- SubByte (Confusion - Mieszanie - brak zależności między kluczem a tekstem jawnym)
+	- ShiftRow (Diffusion - Rozpraszanie - efekt lawiny, chodzi o to, że jeżeli ruszymy jeden bit tekstu, powinno to wywołać zmiany w połowie tekstu zaszyfrowanego, działa to w dwie strony - jeżeli ruszymy zaszyfrowany, to plain powinien sie zmienić. Jest to po to żeby ukryć zależności, między szyfrem a tesktem)
 	- MixColumn (Rozpraszanie)
 	- AddRoundKey (Mieszanie)
 - Proces szyfrowania
