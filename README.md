@@ -589,7 +589,7 @@ Handshake zachodzi zawsze, kiedy użytkownik wchodzi na stronę internetową prz
 - ![sblock](img/sblock.png)
 
 ### Triple DES / 3DES
-- Zamiast 16 rund ma 48 (16 * 3 = 48)
+- Polega na trzykrotnym przetworzeniu wiadomości algorytmem DES
 - Wspiera 4 tryby pracy
 	- DES-EEE (3 różne klucze dla szyfrowania) (encrypt-encrypt-encrypt)
 	- DES-EDE (operacje: szyfrowanie-deszyfrowanie-szyfrowanie z 3 róznymi kluczami) (encrypt-decrypt-encrypt)
